@@ -1,18 +1,17 @@
 <template>
   <div>
-    <h1>About Us</h1>
-    <p>Welcome to our Music eCommerce platform.</p>
 
+    <Login></Login>
 
   </div>
 </template>
 
+<script setup lang="ts">
+import Login from '@/components/Auth/Login.vue';
+
+
+</script>
+
 <style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
-}
+
 </style>

@@ -1,13 +1,25 @@
 <template>
-    <v-card class="mx-auto" max-width="300">
-
-        <v-list lines="two">
-            <v-list-item v-for="product in products" 
-                            :key="product.id" 
-                            :title="product.title"
-                            ></v-list-item>
-        </v-list>
-    </v-card>
+    <v-table>
+    <thead>
+      <tr>
+        <th class="text-left">
+          Id
+        </th>
+        <th class="text-left">
+          Title
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        v-for="item in products"
+        :key="item.title"
+      >
+        <td>{{ item.id }}</td>
+        <td>{{ item.title }}</td>
+      </tr>
+    </tbody>
+  </v-table>
 </template>
 
 
@@ -25,12 +37,23 @@ interface Product {
 const products = ref<Product[]>([]);
 
 
+const getData = async()=> {
+
+    try{
+       const response = await axios.get("https://jsonplaceholder.typicode.com/posts")
+       if(response.status==200){
+          products.value = response.data
+       }else{
+          console.log("Not found.")
+       }
+    } catch(error)
+    {
+      console.log(error)
+    }
+}
+
 onMounted(() => {
-    axios.get("https://dummyjson.com/products/")
-        .then(response => products.value = response.data)
-        .catch(error => {
-            console.error("Error fetching data:", error);
-        });
+    getData()
 })
 
 </script>

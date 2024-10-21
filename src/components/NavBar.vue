@@ -2,7 +2,6 @@
 
 import { RouterLink, RouterView } from 'vue-router'
 
-
 </script>
 
 <template>
@@ -10,6 +9,8 @@ import { RouterLink, RouterView } from 'vue-router'
         <nav>
             <RouterLink to="/">Home</RouterLink>
             <RouterLink to="/about">About</RouterLink>
+            <RouterLink to="/base">Base Slot</RouterLink>
+            <RouterLink to="/userData">User Data</RouterLink>
         </nav>   
     </div>
 
@@ -17,6 +18,7 @@ import { RouterLink, RouterView } from 'vue-router'
 </template>
 
 <style scoped>
+
 
 nav {
     background-color: #1E90FF; 

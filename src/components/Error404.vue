@@ -1,12 +1,6 @@
-<script setup lang="ts">
-
-import ButtonComponent from '@/components/ButtonComponent.vue';
-
-</script>
-
 <template>
     <div class="container-error">
-        <div class="error-status">            
+        <div class="error-status">
             <h1>404</h1>
             <h2>Page not found!</h2>
         </div>
@@ -14,10 +8,25 @@ import ButtonComponent from '@/components/ButtonComponent.vue';
             <p>We're sorry, the page you requested could not be found.
                 Please go back to the homepage!
             </p>
-            <ButtonComponent></ButtonComponent>
+            <ButtonComponent @click="home"></ButtonComponent>
         </div>
     </div>
 </template>
+
+
+<script setup lang="ts">
+
+import ButtonComponent from '@/components/ButtonComponent.vue';
+import { useRouter, RouterLink} from 'vue-router';
+
+const router = useRouter();
+
+const home = () => {
+    router.push('/')
+}
+
+</script>
+
 
 <style scoped>
 .container-error {
@@ -25,7 +34,7 @@ import ButtonComponent from '@/components/ButtonComponent.vue';
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: center; 
+    text-align: center;
 }
 
 h1 {
@@ -40,9 +49,8 @@ h2 {
     margin-top: 1.5rem;
     display: flex;
     flex-direction: column;
-    align-items: center; 
-    width: 400px; 
-    max-width: 600px; 
+    align-items: center;
+    width: 400px;
+    max-width: 600px;
 }
-
 </style>

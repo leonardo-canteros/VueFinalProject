@@ -5,7 +5,6 @@
 
       </section>
       <section>
-        <ProductList></ProductList>
 
 
       </section>
@@ -16,6 +15,6 @@
 <script setup lang="ts">
 
 import ProductCard from '@/components/products/ProductCard.vue';
-import ProductList from '@/components/products/ProductList.vue';
+//import ProductList from '@/components/products/ProductList.vue';
 
 </script>

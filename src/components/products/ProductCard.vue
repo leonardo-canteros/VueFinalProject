@@ -1,49 +1,51 @@
 <template>
-    <v-card class="mx-auto" max-width="400">
-        <v-img class="align-end text-white ma-2" height="300" src="https://cdn.vuetifyjs.com/images/cards/sky.jpg" cover>
-        </v-img>
-        <v-card-title>Product title</v-card-title>
-        <v-card-subtitle class="pt-4 card-price">
-            Price
-        </v-card-subtitle>
-        <v-card-text>
-            <div class="card-title">Description</div>
-
-            <div class="text-justify card-text">Whitsunday Island,
-                Whitsunday Islands.
-                Lorem ipsum dolor sit amet consectetur adipisicing 
-                elit. Enim similique molestiae tenetur assumenda, eum
-                quae facilis sit ea perferendis. Libero quisquam 
-                corrupti, pariatur id ipsam reiciendis eos sapiente eius
-                alias.</div>
-        </v-card-text>
-        <v-card-actions>
-            <v-btn color="blue" 
-                   text="Share" 
-                   block
-                   >BUY</v-btn>
-        </v-card-actions>
-    </v-card>
+    <BaseSlot>
+        <template v-slot:productsData="myProps">
+            <div class="product-card">
+              <img :src="myProps.myProps.image"/>
+              <div class="product-info">
+                <h2 class="product-name">{{ myProps.myProps.name }}</h2>
+                <p class="product-species">{{ myProps.myProps.species }}</p>
+              </div>
+            </div>
+        </template>
+    </BaseSlot>
 </template>
 
 <script setup lang="ts">
 
-
+import BaseSlot from '@/components/products/BaseSlot.vue';
 
 </script>
 
+
 <style scoped>
-
-.card-price {
-    font-size: 30px;
+.product-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background-color: #fff;
 }
 
-.card-title {
-    font-size: 1rem;
-}
-.card-text {
-    margin-top: 1rem;
-    font-size: 1rem;
+.product-info {
+  padding: 1rem;
+  text-align: center;
 }
 
+.product-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #2F4F4F; 
+}
+
+.product-species {
+  font-size: 1rem;
+  color: #32CD32; 
+}
 </style>

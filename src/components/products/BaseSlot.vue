@@ -1,9 +1,9 @@
 <template>
-  <v-list lines="two">
-    <v-list-item v-for="user in users" :key="user.id">
+  <div>
+    <div v-for="user in users" :key="user.id">
             <slot name="productsData" :myProps="user"></slot>
-    </v-list-item>
-  </v-list>
+    </div>
+  </div>
 </template>
 
 
@@ -29,8 +29,6 @@ onMounted(async () => {
 
 
 <style scoped>
-.user-image {
-  width: 100%;
-  height: auto;
-}
+
+
 </style>

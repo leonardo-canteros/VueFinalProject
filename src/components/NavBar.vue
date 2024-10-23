@@ -5,35 +5,37 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-    <div>
-        <nav>
-            <RouterLink to="/">Home</RouterLink>
-            <RouterLink to="/about">About</RouterLink>
-            <RouterLink to="/base">Base Slot</RouterLink>
-            <RouterLink to="/userData">User Data</RouterLink>
-        </nav>   
-    </div>
+  <v-toolbar image="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg" dark prominent>
+    <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-    <RouterView />
+    <v-toolbar-title>App Store Music</v-toolbar-title>
+
+    <v-spacer></v-spacer>
+
+    <v-btn>
+      <RouterLink to="/" class="text-white">Home</RouterLink>
+    </v-btn>
+    <v-btn>
+      <RouterLink to="/about" class="text-white">About</RouterLink>
+    </v-btn>
+    <v-btn>
+      <RouterLink to="/base" class="text-white">Base Slot</RouterLink>
+    </v-btn>
+    <v-btn>
+      <RouterLink to="/userData" class="text-white">User Data</RouterLink>
+    </v-btn>
+    <v-btn icon>
+      <v-icon>mdi-export</v-icon>
+    </v-btn>
+  </v-toolbar>
+
+  <RouterView />
 </template>
 
+
 <style scoped>
-
-
-nav {
-    background-color: #1E90FF; 
-    color: #FFFFFF; 
-    padding: 15px; 
-    font-size: 18px;
-}
-
 nav a {
-    text-decoration: none;
-    margin-right: 15px;
+  text-decoration: none;
+  margin-right: 15px;
 }
-
-nav a:hover {
-    color: #FFFFFF; 
-}
-
 </style>

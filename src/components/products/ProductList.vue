@@ -37,11 +37,16 @@
       </v-card>
     </template>
   </BaseSlot>
+  <div>
+    <SearchForm></SearchForm>
+  </div>
+
 </template>
 
 <script setup lang="ts">
 
 import BaseSlot from "@/components/products/BaseSlot.vue";
+import SearchForm from "@/components/products/SearchForm.vue"
 
 </script>
 

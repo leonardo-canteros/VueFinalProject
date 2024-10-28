@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <div>
+    <div class="pageview">
       <h1>About Us</h1>
       <p>At [Your Store Name], we believe that music is a universal language, and everyone should have access to the
         instruments that bring their creativity to life. Our mission is to provide musicians of all levels, from beginners

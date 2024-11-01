@@ -37,9 +37,7 @@
       </v-card>
     </template>
   </BaseSlot>
-  <div>
-    <SearchForm></SearchForm>
-  </div>
+
 
 </template>
 

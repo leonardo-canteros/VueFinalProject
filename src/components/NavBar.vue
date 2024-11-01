@@ -2,24 +2,40 @@
 
 import { RouterLink, RouterView } from 'vue-router'
 
-
 </script>
 
 <template>
-    <div>
-        <nav>
-            <RouterLink to="/">Home</RouterLink>
-            <RouterLink to="/about">About</RouterLink>
-            <RouterLink to="/products">Products</RouterLink>
-            <RouterLink to="/base">Base</RouterLink>
-            <RouterLink to="/productCard">Product Card</RouterLink>
-            <RouterLink to="/productList">Product List</RouterLink>
+  <v-toolbar image="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg" dark prominent>
+    <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-        </nav>   
-    </div>
+    <v-toolbar-title>App Store Music</v-toolbar-title>
 
-    <RouterView />
+    <v-spacer></v-spacer>
+
+    <v-btn>
+      <RouterLink to="/" class="text-white">Home</RouterLink>
+    </v-btn>
+    <v-btn>
+      <RouterLink to="/about" class="text-white">About</RouterLink>
+    </v-btn>
+    <v-btn>
+      <RouterLink to="/products" class="text-white">Products</RouterLink>
+    </v-btn>
+    <v-btn>
+      <RouterLink to="/userData" class="text-white">User Data</RouterLink>
+    </v-btn>
+    <v-btn icon>
+      <v-icon>mdi-export</v-icon>
+    </v-btn>
+  </v-toolbar>
+
+  <RouterView />
 </template>
 
+
 <style scoped>
+nav a {
+  text-decoration: none;
+  margin-right: 15px;
+}
 </style>

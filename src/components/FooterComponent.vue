@@ -3,6 +3,7 @@
       <v-row justify="center" no-gutters>
         <v-btn
 
+
           class="mx-2"
           color="white"
           rounded="xl"
@@ -15,6 +16,7 @@
       </v-row>
     </v-footer>
   </template>
+  
 
 
 <script setup lang="ts">

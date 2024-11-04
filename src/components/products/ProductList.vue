@@ -1,13 +1,13 @@
 <template>
+  <!-- Search bar -->
+    <SearchForm></SearchForm>
+
+  <!-- Product list -->
+  
   <BaseSlot class="d-flex flex-wrap justify-center">
     <template v-slot:productsData="myProps">
       <v-card class="product-card ma-2 pa-2">
-        <v-img
-          class="align-end text-white"
-          height="300px"
-          :src="myProps.myProps.image"
-          cover
-        >
+        <v-img class="align-end text-white" height="300px" :src="myProps.myProps.image" cover>
         </v-img>
 
         <v-card-title class="product-name">
@@ -24,13 +24,7 @@
         </v-card-text>
 
         <v-card-actions class="justify-center">
-          <v-btn
-            class="text-none mb-4"
-            color="indigo-darken-3"
-            size="large"
-            variant="flat"
-            block
-          >
+          <v-btn class="text-none mb-4" color="indigo-darken-3" size="large" variant="flat" block>
             BUY
           </v-btn>
         </v-card-actions>
@@ -38,15 +32,15 @@
     </template>
   </BaseSlot>
 
-
 </template>
 
 <script setup lang="ts">
 
 import BaseSlot from "@/components/products/BaseSlot.vue";
 import SearchForm from "@/components/products/SearchForm.vue"
-
 </script>
+
+
 
 <style scoped>
 .product-card {

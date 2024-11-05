@@ -1,46 +1,56 @@
 <template>
-  <!-- Search bar -->
-    <SearchForm></SearchForm>
 
-  <!-- Product list -->
-  
-  <BaseSlot class="d-flex flex-wrap justify-center">
-    <template v-slot:productsData="myProps">
+  <div>
+    <h1>{{ title }}</h1>
+  </div>
+  <div class="d-flex flex-wrap justify-center">
+    <div v-for="product in listProduct" :key="product.id">
       <v-card class="product-card ma-2 pa-2">
-        <v-img class="align-end text-white" height="300px" :src="myProps.myProps.image" cover>
+        <v-img
+          class="align-end text-white"
+          height="300px"
+          :src="product.image"
+          cover
+        >
         </v-img>
 
         <v-card-title class="product-name">
-          {{ myProps.myProps.name }}
+          {{ product.name }}
         </v-card-title>
         <v-card-subtitle class="pt-4 product-species">
-          {{ myProps.myProps.species }}
+          {{ product.species }}
         </v-card-subtitle>
         <v-card-text>
           <div class="product-info">Description</div>
           <div class="product-info">
-            {{ myProps.myProps.status }}
+            {{ product.status }}
           </div>
         </v-card-text>
 
         <v-card-actions class="justify-center">
-          <v-btn class="text-none mb-4" color="indigo-darken-3" size="large" variant="flat" block>
-            BUY
-          </v-btn>
+          <ButtonComponent>BUY</ButtonComponent>
         </v-card-actions>
       </v-card>
-    </template>
-  </BaseSlot>
-
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
 
-import BaseSlot from "@/components/products/BaseSlot.vue";
-import SearchForm from "@/components/products/SearchForm.vue"
+import ButtonComponent from "@/components/ButtonComponent.vue";
+
+const props = defineProps({
+  title: {
+    type: String,
+    default: "Product Catalog",
+  },
+  listProduct: {
+    type: Array,
+    default: [],
+  },
+});
+
 </script>
-
-
 
 <style scoped>
 .product-card {
@@ -50,17 +60,14 @@ import SearchForm from "@/components/products/SearchForm.vue"
   width: 300px;
   max-width: 300px;
 }
-
 .product-info {
   padding: 1rem;
 }
-
 .product-name {
   font-size: 1.2rem;
   font-weight: bold;
   color: #2f4f4f;
 }
-
 .product-species {
   font-size: 1rem;
   color: #32cd32;

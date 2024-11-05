@@ -1,18 +1,17 @@
 <template>
   <v-sheet class="mx-auto" width="900">
-    <v-form @submit.prevent>
+    <v-form @submit.prevent="emitSearch">
 
       <v-text-field 
         type="text" 
         placeholder="Search"
         v-model="searchQuery"
-        @input="$emit('filterProduct', searchQuery)"
 
         ></v-text-field>
 
       <v-btn class="mt-2" 
             type="submit"
-            @click="$emit('searchProducts')" 
+            
             block
         >Search</v-btn
       >
@@ -33,5 +32,13 @@ const props = defineProps({
 });
 
 const searchQuery = ref('');
+
+//emits
+const emit = defineEmits(['filterProduct']);
+
+
+const emitSearch = () => {
+  emit('filterProduct', searchQuery.value)
+}
 
 </script>

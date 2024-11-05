@@ -11,6 +11,7 @@ import { getUserAll } from "@/helpers/users.model";
 
 const listProducts = ref([]);
 
+
 onMounted(async () => {
   const result = await getUserAll();
   if (result.status === 200) {
@@ -42,7 +43,7 @@ const filterListProduct = async (searchQuery) => {
 
 <template>
   <v-container>
-    
+
     <SearchProducts
       :listProduct="listProducts"
       @filterProduct="filterListProduct"
@@ -53,9 +54,7 @@ const filterListProduct = async (searchQuery) => {
       :listProduct="listProducts"
     ></ListProducts>
 
-    <div>
-      <ButtonComponent @click="clearList()">Clear</ButtonComponent>
-    </div>
+    <ButtonComponent @click="clearList()">Clear</ButtonComponent>
 
   </v-container>
 </template>

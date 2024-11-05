@@ -1,8 +1,4 @@
 <template>
-
-  <div>
-    <h1>{{ title }}</h1>
-  </div>
   <div class="d-flex flex-wrap justify-center">
     <div v-for="product in listProduct" :key="product.id">
       <v-card class="product-card ma-2 pa-2">
@@ -40,10 +36,6 @@
 import ButtonComponent from "@/components/ButtonComponent.vue";
 
 const props = defineProps({
-  title: {
-    type: String,
-    default: "Product Catalog",
-  },
   listProduct: {
     type: Array,
     default: [],

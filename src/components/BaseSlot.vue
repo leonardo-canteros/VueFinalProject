@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <v-list lines="two">
         <v-list-item v-for="user in users" 
                       :key="user.id" 
@@ -36,5 +36,5 @@ onMounted(async () => {
     width: 100%;
     height: auto;
 }
-</style>
+</style> -->
 

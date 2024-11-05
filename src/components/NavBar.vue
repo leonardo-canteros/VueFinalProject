@@ -18,12 +18,7 @@ import { RouterLink, RouterView } from 'vue-router'
     <v-btn>
       <RouterLink to="/about" class="text-white">About</RouterLink>
     </v-btn>
-    <v-btn>
-      <RouterLink to="/base" class="text-white">Base Slot</RouterLink>
-    </v-btn>
-    <v-btn>
-      <RouterLink to="/userData" class="text-white">User Data</RouterLink>
-    </v-btn>
+    
     <v-btn icon>
       <v-icon>mdi-export</v-icon>
     </v-btn>

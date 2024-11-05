@@ -6,12 +6,15 @@
       <v-spacer></v-spacer>
 
       <v-btn
-        v-for="icon in icons"
+        v-for="(icon, index) in icons"
         :key="icon"
         :icon="icon"
         class="mx-4"
         size="small"
         variant="plain"
+
+        :href="urls[index]"
+        target="_blank"
       ></v-btn>
     </div>
     <div class="px-4 py-2 bg-black text-center w-100">
@@ -30,7 +33,15 @@ const icons = ref([
   'mdi-twitter',
   'mdi-linkedin',
   'mdi-github',
-])
+]);
+
+
+const urls = ref([
+  'https://www.facebook.com/',
+  'https://twitter.com/',
+  'https://www.linkedin.com/',
+  'https://github.com/',       
+]);
 
 const currentYear = computed(() => new Date().getFullYear())
 

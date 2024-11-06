@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-btn class="custom-btn">
-            Button
+            <slot></slot>
         </v-btn>
     </div>
 </template>

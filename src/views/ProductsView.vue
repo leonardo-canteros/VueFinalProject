@@ -1,4 +1,26 @@
+
+
+<template>
+  <v-container class="pageview">
+
+
+    <SearchProducts
+      :listProduct="listProducts"
+      @filterProduct="filterListProduct"
+    />
+
+    <ListProducts
+      title="List of Products"
+      :listProduct="listProducts"
+    ></ListProducts>
+
+    <ButtonComponent @click="clearList()">Clear</ButtonComponent>
+
+  </v-container>
+</template>
+
 <script setup lang="ts">
+
 import ListProducts from "@/components/products/ListProducts.vue";
 import SearchProducts from "@/components/products/SearchProducts.vue";
 import ButtonComponent from "@/components/ButtonComponent.vue";
@@ -40,21 +62,3 @@ const filterListProduct = async (searchQuery) => {
 };
 
 </script>
-
-<template>
-  <v-container>
-
-    <SearchProducts
-      :listProduct="listProducts"
-      @filterProduct="filterListProduct"
-    />
-
-    <ListProducts
-      title="List of Products"
-      :listProduct="listProducts"
-    ></ListProducts>
-
-    <ButtonComponent @click="clearList()">Clear</ButtonComponent>
-
-  </v-container>
-</template>

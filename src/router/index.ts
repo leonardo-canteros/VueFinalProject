@@ -21,6 +21,12 @@ const router = createRouter({
       path: '/products',
       name: 'products',
       component: () => import('../views/ProductsView.vue')
+    },
+    {
+      // /:orderId -> matches only numbers
+      path: '/product/:id(\\d+)',
+      name: 'productId',
+      component: () => import('../views/ProductDetailsView.vue')
     }
   ]
 })

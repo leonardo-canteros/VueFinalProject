@@ -1,20 +1,20 @@
 <template>
   <div class="pageview">
     <div v-if="productRetrive">
-        
       <v-container>
         <v-row>
           <v-col cols="12" md="6">
             <v-carousel>
-   
-                <v-carousel-item :key="0" :src="productRetrive.image"></v-carousel-item>
-
+              <v-carousel-item
+                :key="0"
+                :src="productRetrive.image"
+              ></v-carousel-item>
             </v-carousel>
           </v-col>
 
           <v-col cols="12" md="6">
-            <v-card >{{ $route.params.id }}
-
+            <v-card
+              >{{ $route.params.id }}
 
               <v-card-title>{{ productRetrive.name }}</v-card-title>
               <v-card-subtitle class="text-h6">{{
@@ -76,18 +76,21 @@ const getUserId = async (id) => {
 };
 
 const productRetrive = ref();
+
+//routes
 const route = useRoute();
 
+const error = ref();
+
 onMounted(async () => {
-  const id = route.params.id;
-  productRetrive.value = await getUserId(id);
+  try {
+    const id = route.params.id;
+    productRetrive.value = await getUserId(id);
+  } catch (err) {
+    error.value = "Failed to load product details";
+  }
 });
-
-const quantity = ref(1);
-
 </script>
-
-
 
 <style scoped>
 .add-to-cart-btn {

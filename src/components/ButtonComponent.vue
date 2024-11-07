@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn
+    <v-btn @click="$emit('click')"
       class="v-btn--slim v-theme--light bg-indigo-darken-3 v-btn--density-default v-btn--size-large v-btn--variant-flat text-none mb-4 v-btn--block"
     >
       <slot></slot>

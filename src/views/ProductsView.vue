@@ -1,8 +1,5 @@
-
-
 <template>
   <v-container class="pageview">
-
 
     <SearchProducts
       :listProduct="listProducts"
@@ -27,7 +24,7 @@ import ButtonComponent from "@/components/ButtonComponent.vue";
 
 
 import { onMounted, ref } from "vue";
-import { getUserAll } from "@/helpers/users.model";
+import { getUserAll } from "@/helpers/products.model";
 
 
 
@@ -37,7 +34,7 @@ const listProducts = ref([]);
 onMounted(async () => {
   const result = await getUserAll();
   if (result.status === 200) {
-    listProducts.value = result.data.results;
+    listProducts.value = result.data.response;
   }
 });
 
@@ -51,7 +48,7 @@ const filterListProduct = async (searchQuery) => {
   if (searchQuery.trim() === "") {
     const result = await getUserAll();
     if (result.status === 200) {
-      listProducts.value = result.data.results;
+      listProducts.value = result.data.response;
     }
     return;
   }

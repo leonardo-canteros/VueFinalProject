@@ -3,8 +3,12 @@
     <div v-for="product in listProduct" :key="product.id">
       <RouterLink :to="{ name: 'productId', params: { id: product.id } }">
         <v-card class="product-card ma-2 pa-2">
-
-          <v-img class="align-end text-white" height="300px" :src="product.image" cover>
+          <v-img
+            class="align-end text-white"
+            height="300px"
+            :src="product.image"
+            cover
+          >
           </v-img>
 
           <v-card-title class="product-name">
@@ -15,9 +19,7 @@
             {{ product.price }}
           </v-card-subtitle>
           <v-card-text>
-            <div class="info-title">Description</div>
             <div class="product-info">
-              {{ product.description }}
               <p class="quantity">Quantity: {{ product.quantity }}</p>
             </div>
           </v-card-text>
@@ -53,12 +55,12 @@ const props = defineProps({
   text-align: center;
   width: 300px;
   max-width: 300px;
+  height: 600px;
 }
 
 .info-title {
   font-size: 1rem;
   font-weight: bolder;
-
 }
 
 .product-info {
@@ -66,7 +68,7 @@ const props = defineProps({
 }
 
 .product-name {
-  font-size: 1.30rem;
+  font-size: 1.3rem;
   color: #000000;
 }
 
@@ -76,7 +78,7 @@ const props = defineProps({
 }
 
 .quantity {
-  color: #3949AB;
+  color: #3949ab;
   padding-top: 1rem;
 }
 </style>

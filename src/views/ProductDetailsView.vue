@@ -51,12 +51,13 @@
   </div>
 </template>
 
+
+
 <script setup lang="ts">
 
 import { useRoute } from "vue-router";
 import { ref, onMounted } from "vue";
 import axios from "axios";
-
 
 
 const apiUrl = "https://upper-serena-fastapi-ecommerce-6026090d.koyeb.app/api/";
@@ -102,4 +103,6 @@ onMounted(async () => {
   color: white;
   border-color: #000000;
 }
+
+
 </style>

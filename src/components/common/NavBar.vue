@@ -47,13 +47,14 @@
 </template>
 
 <script setup lang="ts">
-import { RouterLink, RouterView } from "vue-router";
 import { ref } from "vue";
+import { RouterLink, RouterView } from "vue-router";
 
 const menu = ref([
   { title: "Home", link: "/", icon: "mdi-home" },
   { title: "About", link: "/about", icon: "mdi-information" },
   { title: "Products", link: "/products", icon: "mdi-cart" },
+  { title: "Login", link: "/login", icon: "mdi-account-key-outline" },
 ]);
 </script>
 

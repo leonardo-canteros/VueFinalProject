@@ -17,7 +17,7 @@
       <v-text-field
         density="compact"
         placeholder="Username"
-        prepend-inner-icon="mdi-email-outline"
+        prepend-inner-icon="mdi-account-outline"
         variant="outlined"
         v-model="username"
       ></v-text-field>
@@ -85,10 +85,10 @@
 
 <script setup lang="ts">
   
-  import axios from 'axios';
+import axios from 'axios';
 import { ref } from 'vue';
   
-  const serverAPI = 'https://upper-serena-fastapi-ecommerce-6026090d.koyeb.app/'
+const serverAPI = 'https://upper-serena-fastapi-ecommerce-6026090d.koyeb.app/'
 
   const visible = ref(false)
 

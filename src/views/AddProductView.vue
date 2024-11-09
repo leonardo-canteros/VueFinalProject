@@ -1,13 +1,11 @@
 <template>
   <v-container>
-
     <div>
       <h1>New product</h1>
     </div>
 
     <v-sheet class="mx-auto ma-4" width="350px">
-
-      <v-form fast-fail @submit.prevent="procesarForm">
+      <v-form fast-fail @submit.prevent="saveData">
         <v-text-field
           label="Name"
           v-model="formData.name"
@@ -55,19 +53,26 @@
 
         <v-btn class="mt-2" type="submit" block>Enter product</v-btn>
 
-        {{ formData }}
+        {{ listProducts }}
       </v-form>
     </v-sheet>
   </v-container>
-
 </template>
 
 <script setup lang="ts">
+
 import { ref, reactive } from "vue";
 import { useRouter } from "vue-router";
+import { useProductsListStore } from "@/stores/ProductsStore";
+import { storeToRefs } from "pinia";
+
+const router = useRouter();
+
+const store = useProductsListStore();
+const { listProducts } = storeToRefs(store);
 
 
-
+// reactive with objects
 const formData = reactive({
   name: "",
   price: 0,
@@ -78,7 +83,6 @@ const formData = reactive({
   seller_id: "",
 });
 
-
 const categories = ref([
   "Percussion",
   "String",
@@ -87,39 +91,8 @@ const categories = ref([
   "Keyboard",
 ]);
 
-
-//const submitProduct = () => {
-//  console.log(formData);
-//};
-
-const router = useRouter();
-
-const loading = ref(false);
-
-const apiUrl = "https://upper-serena-fastapi-ecommerce-6026090d.koyeb.app/api";
-
-const procesarForm = async() => {
-    loading.value = true;
-    await fetch(`${apiUrl}/products/`,{
-      method: 'POST',
-      body: JSON.stringify({
-        name: formData.name, 
-        price: formData.price, 
-        quantity: formData.quantity,
-        description: formData.description,
-        image: formData.image,
-        category: formData.category,
-        seller_id: formData.seller_id
-        }),
-
-      headers: {
-        'Content-Type': 'application/json'
-      }  
-    })
-    loading.value = false;
-    router.back();
-} 
-
-
+const saveData = () => {
+  store.addProduct({ ...formData });
+};
 
 </script>

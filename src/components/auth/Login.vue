@@ -15,11 +15,12 @@
       <div class="text-subtitle-1 text-medium-emphasis">Username</div>
 
       <v-text-field
+        prepend-inner-icon="mdi-account-outline"
         density="compact"
         placeholder="Username"
-        prepend-inner-icon="mdi-account-outline"
         variant="outlined"
         v-model="username"
+        :rules="[]"
       ></v-text-field>
 
       <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">

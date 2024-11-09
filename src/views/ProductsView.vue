@@ -21,7 +21,7 @@
 
 import ListProducts from "@/components/products/ListProducts.vue";
 import SearchProducts from "@/components/products/SearchProducts.vue";
-import ButtonComponent from "@/components/ButtonComponent.vue";
+import ButtonComponent from "@/components/common/ButtonComponent.vue";
 
 
 import { onMounted, ref } from "vue";

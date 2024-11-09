@@ -8,7 +8,7 @@
             <p>We're sorry, the page you requested could not be found.
                 Please go back to the homepage!
             </p>
-            <ButtonComponent @click="home"></ButtonComponent>
+            <ButtonComponent @click="home">Go home!</ButtonComponent>
         </div>
     </div>
 </template>
@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 
-import ButtonComponent from '@/components/ButtonComponent.vue';
+import ButtonComponent from '@/components/common/ButtonComponent.vue';
 import { useRouter, RouterLink} from 'vue-router';
 
 const router = useRouter();

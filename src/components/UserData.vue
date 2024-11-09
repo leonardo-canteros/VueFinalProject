@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <div>
        <BaseSlot>
             <template v-slot:userData="myProps">
@@ -13,4 +13,4 @@
 
 import BaseSlot from '@/components/BaseSlot.vue';
 
-</script>
+</script> -->

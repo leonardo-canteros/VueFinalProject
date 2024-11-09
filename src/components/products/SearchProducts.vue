@@ -13,6 +13,7 @@
 
         <v-col cols="12" md="4" lg="3">
           <v-btn class="mt-2" 
+                 style="background-color:#f46568; color: #ffffff;"
                  type="submit"
                  block
           >Search</v-btn>

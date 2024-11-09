@@ -37,6 +37,7 @@
 //Router
 import { RouterLink } from "vue-router";
 
+
 //components
 import ButtonComponent from "@/components/common/ButtonComponent.vue";
 
@@ -46,6 +47,9 @@ const props = defineProps({
     default: [],
   },
 });
+
+
+
 </script>
 
 <style scoped>

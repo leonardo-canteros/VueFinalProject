@@ -1,7 +1,7 @@
 <template>
 
   <v-footer class="d-flex flex-column mt-2">
-    <div class="bg-blue d-flex w-100 align-center px-4">
+    <div class="d-flex w-100 align-center px-4" style="background-color: #CFD8DC;">
         Get connected with Us on social networks!
       <v-spacer></v-spacer>
 
@@ -18,7 +18,7 @@
       ></v-btn>
     </div>
     <div class="px-4 py-2 bg-black text-center w-100">
-      ©  {{ currentYear }} App Store Music. All rights reserved.
+      ©  {{ currentYear }} More Than Sound. All rights reserved.
     </div>
   </v-footer>
 

@@ -14,10 +14,22 @@
           >
             <v-btn flat>{{ item.title }}</v-btn>
           </RouterLink>
+          <RouterLink to="/login" class="text-white">
+            <v-btn v-if="!authStore.isLoggedIn" flat>
+              Login
+              <v-icon left>mdi-account-key-outline</v-icon>
+            </v-btn>
+          </RouterLink>
+          <RouterLink to="/" class="text-white">
+            <v-btn v-if="authStore.isLoggedIn" flat @click="authStore.logout">
+              Logout
+              <v-icon left>mdi-account-off-outline</v-icon>
+            </v-btn>
+          </RouterLink>
         </v-toolbar-items>
 
         <v-menu class="hidden-md-and-up">
-<!--           <template v-slot:activator="{ on }">
+          <!--           <template v-slot:activator="{ on }">
             <v-toolbar-side-icon v-on="on"></v-toolbar-side-icon>
           </template> -->
           <v-list>
@@ -47,14 +59,17 @@
 </template>
 
 <script setup lang="ts">
+import { useAuthStore } from "@/stores/auth";
 import { ref } from "vue";
 import { RouterLink, RouterView } from "vue-router";
+import router from "@/router";
+
+const authStore = useAuthStore();
 
 const menu = ref([
   { title: "Home", link: "/", icon: "mdi-home" },
   { title: "About", link: "/about", icon: "mdi-information" },
   { title: "Products", link: "/products", icon: "mdi-cart" },
-  { title: "Login", link: "/login", icon: "mdi-account-key-outline" },
 ]);
 </script>
 

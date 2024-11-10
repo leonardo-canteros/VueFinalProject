@@ -1,7 +1,7 @@
 const rules = {
-  required: (value: any) => !!value || "Este campo es requerido",
+  required: (value: any) => !!value || "This field is required",
   minLength: (min: number) => (value: string) =>
-    value.length >= min || `Debe tener al menos ${min} caracteres`,
+    value.length >= min || `This field must be at least ${min} characters`,
 };
 
 export default rules;

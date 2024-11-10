@@ -48,16 +48,6 @@
           :rules="[rules.required]"
         ></v-text-field>
 
-        <!-- <v-card
-        class="mb-12"
-          color="surface-variant"
-          variant="tonal"
-        >
-          <v-card-text class="text-medium-emphasis text-caption">
-            Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password.
-          </v-card-text>
-        </v-card> -->
-
         <v-btn
           class="mb-8"
           color="blue"
@@ -110,6 +100,4 @@ const submit = async () => {
     console.log(error);
   }
 };
-
-// const required = (v: any) => !!v || 'This field is required'
 </script>

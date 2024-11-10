@@ -86,22 +86,16 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-
 import { useAuthStore } from "@/stores/auth";
+import rules from "@/helpers/validation";
 import router from "@/router";
-const authStore = useAuthStore();
 
-const rules = {
-  required: (value: string) => !!value || "Este campo es requerido",
-  minLength: (min: number) => (value: string) =>
-    value.length >= min || `Debe tener al menos ${min} caracteres`,
-};
+const authStore = useAuthStore();
 
 const visible = ref(false);
 
 const username = ref(null);
 const password = ref(null);
-const token = ref("");
 
 const submit = async () => {
   if (!username.value || !password.value) {

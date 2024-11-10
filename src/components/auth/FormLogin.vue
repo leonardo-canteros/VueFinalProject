@@ -75,10 +75,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { useAuthStore } from "@/stores/auth";
 import rules from "@/helpers/validation";
 import router from "@/router";
+import { useAuthStore } from "@/stores/auth";
+import { ref } from "vue";
 
 const authStore = useAuthStore();
 
@@ -92,7 +92,7 @@ const submit = async () => {
     return;
   }
   try {
-    await authStore.getToken(username.value, password.value);
+    await authStore.fetchToken(username.value, password.value);
     if (authStore.isLoggedIn) {
       router.push("/");
     }

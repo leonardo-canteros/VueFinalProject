@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <v-app>
-      <v-toolbar color="primary" dark flat>
-        <v-toolbar-title>Music Menu</v-toolbar-title>
+      <v-toolbar color="#4e59d8" flat>
+        <v-toolbar-title><span>More Than Sound</span></v-toolbar-title>
         <v-spacer></v-spacer>
 
         <v-toolbar-items class="hidden-sm-and-down">
@@ -73,4 +73,7 @@ const menu = ref([
 ]);
 </script>
 
-<style scoped></style>
+<style scoped>
+
+
+</style>

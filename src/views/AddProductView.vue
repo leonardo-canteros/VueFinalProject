@@ -50,8 +50,14 @@
           v-model="formData.seller_id"
           required
         ></v-text-field>
-
-        <v-btn class="mt-2" type="submit" block>Enter product</v-btn>
+          <v-btn
+          class="mx-auto mt-2 py-6"
+          min-width="230"
+          style="background-color: #f46568; color: #ffffff"
+          type="submit"
+          block
+          >Enter product</v-btn
+        >
 
         {{ listProducts }}
       </v-form>
@@ -96,3 +102,8 @@ const saveData = () => {
 };
 
 </script>
+
+<style scoped>
+
+
+</style>

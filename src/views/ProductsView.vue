@@ -1,10 +1,19 @@
 <template>
   <v-container class="pageview">
     <div class="pa-4 my-6 border rounded">
-      <h1>Add product</h1>
-      <button class="bg-indigo rounded pa-2 my-6" @click="goToForm">
-        Add product
-      </button>
+      <v-sheet class="mx-auto">
+        <h1 class="my-2">Add product</h1>
+
+        <v-btn
+          class="mt-2 py-6"
+          min-width="230"
+          @click="goToForm"
+          style="background-color: #f46568; color: #ffffff"
+          type="submit"
+          block
+          >Add product</v-btn
+        >
+      </v-sheet>
     </div>
 
     <SearchProducts
@@ -17,11 +26,10 @@
       :listProduct="listProducts"
     ></ListProducts>
 
-    <ButtonComponent @click="clearList()">Clear</ButtonComponent>
+    <!--     <ButtonComponent @click="clearList()">Clear</ButtonComponent>
+ -->
   </v-container>
 </template>
-
-
 
 <script setup lang="ts">
 import ListProducts from "@/components/products/ListProducts.vue";
@@ -33,8 +41,6 @@ import { getUserAll } from "@/helpers/products.model";
 import { useRouter } from "vue-router";
 import { useProductsListStore } from "@/stores/ProductsStore";
 import { storeToRefs } from "pinia";
-
-
 
 const store = useProductsListStore();
 
@@ -64,5 +70,4 @@ const router = useRouter();
 const goToForm = () => {
   router.push("/AddProduct");
 };
-
 </script>

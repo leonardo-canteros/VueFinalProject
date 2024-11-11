@@ -14,3 +14,8 @@ a,
   transition: 0.4s;
   padding: 3px;
 }
+
+
+h1 {
+  font-size: 2rem;
+}

@@ -14,9 +14,17 @@ export const useProductsListStore = defineStore("productsStore", {
     },
 
     addProduct(product){
-      this.listProducts.push({product});
+      this.listProducts.push(product);
 
     },
+
+    //updated Product
+
+/*     deleteProduct(productId){
+      this.listProducts = this.listProducts.filter((object) => {
+        return object.id !== productId;
+      });
+    }, */
 
     async filterListProduct(searchQuery) {
       if (searchQuery.trim() === "") {

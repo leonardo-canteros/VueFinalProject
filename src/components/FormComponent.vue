@@ -1,5 +1,4 @@
 <template>
-
   <v-sheet class="mx-auto" width="300">
     <v-form fast-fail @submit.prevent="submitProduct">
       <v-text-field label="Name" v-model="product.name" required></v-text-field>
@@ -44,9 +43,9 @@
       ></v-text-field>
 
       <v-btn class="mt-2" type="submit" block>Enter product</v-btn>
+
     </v-form>
   </v-sheet>
-
 </template>
 
 <script setup lang="ts">
@@ -71,9 +70,7 @@ const categories = ref([
   "Keyboard",
 ]);
 
-
 const submitProduct = () => {
   console.log(product);
 };
-
 </script>

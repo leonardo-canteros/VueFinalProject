@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div>
     <div v-for="user in users" :key="user.id">
             <slot name="productsData" :myProps="user"></slot>
@@ -30,4 +30,4 @@ onMounted(async () => {
 
 <style scoped>
 
-</style>
+</style> -->

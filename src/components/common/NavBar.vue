@@ -14,6 +14,12 @@
           >
             <v-btn flat>{{ item.title }}</v-btn>
           </RouterLink>
+          <RouterLink to="/users" class="text-white">
+            <v-btn v-if="authStore.role === 'admin'" flat>
+              Users
+              <v-icon left>mdi-account-supervisor-outline</v-icon>
+            </v-btn>
+          </RouterLink>
           <RouterLink to="/login" class="text-white">
             <v-btn v-if="!authStore.isLoggedIn" flat>
               Login
@@ -62,7 +68,6 @@
 import { useAuthStore } from "@/stores/auth";
 import { ref } from "vue";
 import { RouterLink, RouterView } from "vue-router";
-import router from "@/router";
 
 const authStore = useAuthStore();
 
@@ -73,7 +78,4 @@ const menu = ref([
 ]);
 </script>
 
-<style scoped>
-
-
-</style>
+<style scoped></style>

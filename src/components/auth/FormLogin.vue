@@ -1,12 +1,6 @@
 <template>
   <v-container fluid>
-    <v-form @submit.prevent="submit">
-      <v-img
-        class="mx-auto my-6"
-        max-width="228"
-        src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"
-      ></v-img>
-
+    <v-form @submit.prevent="submit" class="my-8">
       <v-card
         class="mx-auto pa-12 pb-8"
         elevation="8"
@@ -28,7 +22,7 @@
         >
           Password
           <a
-            class="text-caption text-decoration-none text-blue"
+            class="text-caption text-decoration-none"
             href="#"
             rel="noopener noreferrer"
             target="_blank"
@@ -47,21 +41,18 @@
           @click:append-inner="visible = !visible"
           :rules="[rules.required]"
         ></v-text-field>
-
         <v-btn
+          style="background-color: #f46568; color: #ffffff"
           class="mb-8"
-          color="blue"
           size="large"
-          variant="tonal"
           block
           type="submit"
         >
           Log In
         </v-btn>
-
         <v-card-text class="text-center">
           <a
-            class="text-blue text-decoration-none"
+            class="text-decoration-none"
             href="#"
             rel="noopener noreferrer"
             target="_blank"

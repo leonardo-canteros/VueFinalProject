@@ -16,14 +16,14 @@
       </v-sheet>
     </div>
 
-    <SearchProducts
-      :listProduct="listProducts"
-      @filterProduct="filterProducts"
-    />
+    <SearchProducts 
+          :listProduct="listProducts" 
+          @filterProduct="filterProducts"/>
 
     <ListProducts
       title="List of Products"
       :listProduct="listProducts"
+        
     ></ListProducts>
 
     <!--     <ButtonComponent @click="clearList()">Clear</ButtonComponent>
@@ -32,35 +32,37 @@
 </template>
 
 <script setup lang="ts">
+
+//components
 import ListProducts from "@/components/products/ListProducts.vue";
 import SearchProducts from "@/components/products/SearchProducts.vue";
-import ButtonComponent from "@/components/common/ButtonComponent.vue";
 
-import { onMounted, ref } from "vue";
-import { getUserAll } from "@/helpers/products.model";
+//vue
+import { onMounted } from "vue";
 import { useRouter } from "vue-router";
+
+
+// store
 import { useProductsListStore } from "@/stores/ProductsStore";
 import { storeToRefs } from "pinia";
 
 const store = useProductsListStore();
-
 const { listProducts } = storeToRefs(store);
 
-onMounted(async () => {
-  const result = await getUserAll();
-  if (result.status === 200) {
-    store.setProducts(result.data.response);
-  }
+
+onMounted(() => {
+  store.fetchAllProducts();
 });
+
 
 //clear
 const clearList = () => {
   store.clearProducts();
 };
 
-//filter
-const filterProducts = async (searchQuery) => {
-  await store.filterListProduct(searchQuery);
+ //filter
+const filterProducts = (searchQuery) => {
+   store.filterListProduct(searchQuery);
 };
 
 //add product

@@ -87,6 +87,7 @@ onMounted(async () => {
     error.value = "Failed to load product details";
   }
 });
+
 </script>
 
 <style scoped>

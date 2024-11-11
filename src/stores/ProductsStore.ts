@@ -1,41 +1,39 @@
 import { defineStore } from "pinia";
 
+import { getProductsAll } from "@/helpers/products.model";
 
 export const useProductsListStore = defineStore("productsStore", {
-
   state: () => ({
     listProducts: [],
     id: 0,
+    loading: false,
   }),
 
   actions: {
-    setProducts(products) {
-      this.listProducts = products;
+
+    async fetchAllProducts() {
+      this.loading = true;
+      try {
+        const result = await getProductsAll();
+        this.listProducts = result.data.response;
+
+      } catch (error) {
+        this.error = "Error fetching products";
+      } finally {
+        this.loading = false;
+      }
     },
 
-    addProduct(product){
+    addProduct(product) {
       this.listProducts.push(product);
-
     },
 
-    //updated Product
-
-/*     deleteProduct(productId){
-      this.listProducts = this.listProducts.filter((object) => {
-        return object.id !== productId;
-      });
-    }, */
-
-    async filterListProduct(searchQuery) {
+    filterListProduct(searchQuery) {
       if (searchQuery.trim() === "") {
-        const result = await getUserAll();
-        if (result.status === 200) {
-          this.setProducts(result.data.response);
-        }
+        this.listProducts;
         return;
       }
-
-      this.listProducts = this.listProducts.filter((product) => {
+        this.listProducts = this.listProducts.filter((product) => {
         return product.name.toLowerCase().includes(searchQuery.toLowerCase());
       });
     },

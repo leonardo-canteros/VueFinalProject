@@ -1,22 +1,16 @@
 <script setup lang="ts">
-
-import NavBar from '@/components/common/NavBar.vue';
-import FooterComponent from '@/components/common/FooterComponent.vue';
-
+import FooterComponent from "@/components/common/FooterComponent.vue";
+import NavBar from "@/components/common/NavBar.vue";
 </script>
 
 <template>
   <header>
     <NavBar></NavBar>
   </header>
-  <main>
-
-  </main>
+  <main></main>
   <footer>
     <FooterComponent></FooterComponent>
   </footer>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

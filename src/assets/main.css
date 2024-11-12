@@ -1,6 +1,5 @@
 @import './base.css';
 
-
 #app {
   flex: 1;
   display: flex;
@@ -14,4 +13,9 @@ a,
   color: #323BC3;
   transition: 0.4s;
   padding: 3px;
+}
+
+
+h1 {
+  font-size: 2rem;
 }

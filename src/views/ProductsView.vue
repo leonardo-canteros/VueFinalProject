@@ -1,5 +1,5 @@
 <template>
-  <v-container class="pageview">
+  <v-container>
     <div class="pa-4 my-6 border rounded">
       <v-sheet class="mx-auto">
         <h1 class="my-2">Add product</h1>

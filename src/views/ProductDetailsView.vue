@@ -1,5 +1,5 @@
 <template>
-  <div class="pageview">
+  <div>
     <div v-if="productRetrieve">
       <v-container>
         <v-row>

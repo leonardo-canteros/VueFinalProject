@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container>
     <v-form @submit.prevent="submit" class="my-8">
       <v-card
         class="mx-auto pa-12 pb-8"

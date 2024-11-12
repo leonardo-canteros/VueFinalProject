@@ -1,5 +1,8 @@
 <template>
-  <v-container fluid class="py-10" style="max-width: 1200px">
+  <v-container 
+     class="py-10" 
+     style="max-width:1200px">
+     
     <v-row
       class="d-flex"
       style="align-items: center; justify-content: space-between"

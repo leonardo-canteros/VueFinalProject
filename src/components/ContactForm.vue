@@ -1,49 +1,51 @@
 <template>
   <v-container class="contact-container" fluid>
-    <v-row justify="center">
-      <v-col cols="12" md="8">
-        <h2 class="text-center mb-4">Contact Us</h2>
+    <div class ="div-container">
+      <v-row justify="center">
+        <v-col cols="12" md="8">
+          <h2 class="text-center mb-4">Contact Us</h2>
 
-        <form @submit.prevent="handleSubmit(submitForm)">
-          <v-text-field
-            label="Name"
-            v-model="name"
-            :error-messages="errors.name"
-            outlined
-            color="primary"
-          ></v-text-field>
+          <form @submit.prevent="handleSubmit(submitForm)">
+            <v-text-field
+              label="Name"
+              v-model="name"
+              :error-messages="errors.name"
+              outlined
+              color="primary"
+            ></v-text-field>
 
-          <v-text-field
-            label="Email"
-            v-model="email"
-            :error-messages="errors.email"
-            outlined
-            color="primary"
-            type="email"
-          ></v-text-field>
+            <v-text-field
+              label="Email"
+              v-model="email"
+              :error-messages="errors.email"
+              outlined
+              color="primary"
+              type="email"
+            ></v-text-field>
 
-          <v-text-field
-            label="Subject"
-            v-model="subject"
-            :error-messages="errors.subject"
-            outlined
-            color="primary"
-          ></v-text-field>
+            <v-text-field
+              label="Subject"
+              v-model="subject"
+              :error-messages="errors.subject"
+              outlined
+              color="primary"
+            ></v-text-field>
 
-          <v-textarea
-            label="Message"
-            v-model="message"
-            :error-messages="errors.message"
-            rows="5"
-            outlined
-            color="primary"
-          ></v-textarea>
+            <v-textarea
+              label="Message"
+              v-model="message"
+              :error-messages="errors.message"
+              rows="5"
+              outlined
+              color="primary"
+            ></v-textarea>
 
 
-          <v-btn color="primary" class="mt-4" type="submit">Send</v-btn>
-        </form>
-      </v-col>
-    </v-row>
+            <v-btn color="primary" class="mt-4" type="submit">Send</v-btn>
+          </form>
+        </v-col>
+      </v-row>
+    </div>
   </v-container>
 </template>
 
@@ -82,10 +84,13 @@ const { value: message } = useField('message');
 </script>
 
 <style scoped>
+.div-container{
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+border-radius: 8px;
+}
 .contact-container {
   background-color: rgb(255, 255, 255); 
   padding: 30px;
-  border-radius: 8px;
   color: rgb(0, 0, 0);
 }
 h2 {

@@ -1,20 +1,20 @@
 <template>
   <div class="pageview">
-    <div v-if="productRetrive">
+    <div v-if="productRetrieve">
       <v-container>
         <v-row>
           <v-col cols="12" md="6">
             <v-carousel>
-              <v-carousel-item :key="0" :src="productRetrive.image"></v-carousel-item>
+              <v-carousel-item :key="0" :src="productRetrieve.image"></v-carousel-item>
             </v-carousel>
           </v-col>
 
           <v-col cols="12" md="6">
             <v-card>{{ $route.params.id }}
 
-              <v-card-title>{{ productRetrive.name }}</v-card-title>
+              <v-card-title>{{ productRetrieve.name }}</v-card-title>
               <v-card-subtitle class="text-h6">{{
-                productRetrive.price
+                productRetrieve.price
               }}</v-card-subtitle>
               <v-card-actions>
                 <v-btn icon>
@@ -32,10 +32,10 @@
             <v-card class="mt-4">
               <v-card-title>More information:</v-card-title>
               <v-card-text>
-                <p>{{ productRetrive.description }}</p>
+                <p>{{ productRetrieve.description }}</p>
                 <v-list>
                   <v-list-item-group>
-                    <v-list-item v-for="(feature, index) in productRetrive.features" :key="index">
+                    <v-list-item v-for="(feature, index) in productRetrieve.features" :key="index">
                       <v-list-item-content>{{ feature }}</v-list-item-content>
                     </v-list-item>
                   </v-list-item-group>
@@ -57,38 +57,53 @@
 
 import { useRoute } from "vue-router";
 import { ref, onMounted } from "vue";
-import axios from "axios";
 
+// store
+import { useProductsListStore } from "@/stores/ProductsStore";
+import { storeToRefs } from "pinia";
 
-const apiUrl = "https://upper-serena-fastapi-ecommerce-6026090d.koyeb.app/api/";
-
-const getProducts = async function () {
-  const results = await axios.get(`${apiUrl}products/`);
-  return results.data.response;
-};
-
-const getProductId = async (id) => {
-  const products = await getProducts();
-  return products.find((product) => product.id == id);
-};
-
-const productRetrive = ref();
-
-//routes
 const route = useRoute();
 
+const productRetrieve = ref();
 const error = ref();
 
+const store = useProductsListStore();
+const { listProducts } = storeToRefs(store);
+
+
+const getProductId = async (id) => {
+
+  try {
+    if (!listProducts.value || listProducts.value.length === 0) {
+
+      await store.fetchAllProducts();
+    }
+
+    return listProducts.value.find((product) => product.id === id);
+
+  } catch (err) {
+    error.value = "Failed to fetch products.";
+  }
+};
+
+
 onMounted(async () => {
+
   try {
     const id = route.params.id;
-    productRetrive.value = await getProductId(id);
+
+    productRetrieve.value = await getProductId(id);
+
+    if (!productRetrieve.value) {
+      error.value = "Product not found.";
+    }
   } catch (err) {
-    error.value = "Failed to load product details";
+    error.value = "Failed to load product details,";
   }
 });
 
 </script>
+
 
 <style scoped>
 .add-to-cart-btn {
@@ -104,6 +119,4 @@ onMounted(async () => {
   color: white;
   border-color: #000000;
 }
-
-
 </style>

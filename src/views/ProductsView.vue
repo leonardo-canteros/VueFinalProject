@@ -41,7 +41,6 @@ import SearchProducts from "@/components/products/SearchProducts.vue";
 import { onMounted } from "vue";
 import { useRouter } from "vue-router";
 
-
 // store
 import { useProductsListStore } from "@/stores/ProductsStore";
 import { storeToRefs } from "pinia";

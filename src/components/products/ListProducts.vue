@@ -1,36 +1,44 @@
 <template>
-  <div class="d-flex flex-wrap justify-center">
-    <div v-for="product in listProduct" :key="product.id">
-      <RouterLink :to="{ name: 'productId', params: { id: product.id } }">
-        <v-card class="product-card ma-2 pa-2">
+  <v-container>
+    <div class="d-flex flex-wrap justify-center ga-5">
+      <v-card
+        flat
+        class="border-thin"
+        style="width: 320px"
+        v-for="product in listProduct"
+        :key="product.id"
+      >
+        <RouterLink :to="{ name: 'productId', params: { id: product.id } }">
           <v-img
             class="align-end text-white"
             height="300px"
             :src="product.image"
             cover
-          >
-          </v-img>
+          ></v-img>
 
-          <v-card-title class="product-name">
+          <v-card-title class="text-center font-weight-medium mt-3 text-black">
             {{ product.name }}
           </v-card-title>
 
-          <v-card-subtitle class="pt-4 product-price">
+          <v-card-subtitle class="text-center text-h4 text-grey mt-2">
             {{ product.price }}
           </v-card-subtitle>
+
           <v-card-text>
-            <div class="product-info">
-              <p class="quantity">Quantity: {{ product.quantity }}</p>
+            <div>
+              <p class="quantity text-center text-overline">
+                Quantity: {{ product.quantity }}
+              </p>
             </div>
           </v-card-text>
 
           <v-card-actions class="justify-center">
             <ButtonComponent>BUY NOW</ButtonComponent>
           </v-card-actions>
-        </v-card>
-      </RouterLink>
+        </RouterLink>
+      </v-card>
     </div>
-  </div>
+  </v-container>
 </template>
 
 <script setup lang="ts">
@@ -49,7 +57,8 @@ const props = defineProps({
 </script>
 
 <style scoped>
-.product-card {
+
+/* .product-card {
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -80,5 +89,6 @@ const props = defineProps({
 .quantity {
   color: #3949ab;
   padding-top: 1rem;
-}
+} */
+
 </style>

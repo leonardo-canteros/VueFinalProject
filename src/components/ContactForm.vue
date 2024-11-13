@@ -50,10 +50,9 @@
 </template>
 
 <script setup lang="ts">
-
-/* import { useForm, useField } from 'vee-validate';
+import { useForm, useField } from 'vee-validate';
 import * as yup from 'yup';
- 
+
 
 const validationSchema = yup.object({
   name: yup.string().required('Name is required').min(3, 'Name must be at least 3 characters long'),
@@ -82,24 +81,18 @@ const { value: name } = useField('name');
 const { value: email } = useField('email');
 const { value: subject } = useField('subject');
 const { value: message } = useField('message');
-*/
-
 </script>
 
 <style scoped>
-
 .div-container{
 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 border-radius: 8px;
 }
-
 .contact-container {
   background-color: rgb(255, 255, 255); 
   padding: 30px;
   color: rgb(0, 0, 0);
 }
-
-
 h2 {
   color: #000000; 
 }

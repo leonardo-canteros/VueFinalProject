@@ -1,45 +1,46 @@
 import { defineStore } from "pinia";
+import { ref } from "vue";
 
 import { getProductsAll } from "@/helpers/products.model";
 
-export const useProductsListStore = defineStore("productsStore", {
-  state: () => ({
-    listProducts: [],
-    id: 0,
-    loading: false,
-  }),
+export const useProductsListStore = defineStore("productsStore", () => {
+  
+    const listProducts = ref([])
+    const loading = ref(false);
+    const error = ref<string | null>(null);
 
-  actions: {
 
-    async fetchAllProducts() {
-      this.loading = true;
+    async function fetchAllProducts() {
+      loading.value = true;
       try {
         const result = await getProductsAll();
-        this.listProducts = result.data.response;
+        listProducts.value = result.data.response;
 
       } catch (error) {
-        this.error = "Error fetching products";
+        error.value = "Error fetching products";
       } finally {
-        this.loading = false;
+        loading.value = false;
       }
-    },
+    }
 
-    addProduct(product) {
-      this.listProducts.push(product);
-    },
+    function addProduct(product: any) {
+      listProducts.value.push(product);
+    }
 
-    filterListProduct(searchQuery) {
+    function filterListProduct(searchQuery: string) {
       if (searchQuery.trim() === "") {
-        this.listProducts;
+        listProducts.value;
         return;
       }
-        this.listProducts = this.listProducts.filter((product) => {
+        listProducts.value = listProducts.value.filter((product) => {
         return product.name.toLowerCase().includes(searchQuery.toLowerCase());
       });
-    },
+    }
 
-    clearProducts() {
-      this.listProducts = [];
-    },
-  },
+    function clearProducts() {
+      listProducts.value = [];
+    }
+  
+  return { fetchAllProducts, addProduct, filterListProduct, clearProducts, listProducts, error, loading}
+  
 });

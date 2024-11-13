@@ -8,30 +8,43 @@
 
         <v-spacer></v-spacer>
 
+        <!-- Dropdown menu -->
+
+        <v-btn id="menu-activator">
+          Menu <v-icon icon="mdi-domain"></v-icon
+        ></v-btn>
+
+        <v-menu activator="#menu-activator" open-on-hover>
+          <v-list>
+            <v-list-item v-for="item in menu" :key="item.icon">
+              <RouterLink :to="item.link" class="text-black">
+                <v-btn flat
+                  >{{ item.title }}
+                  <v-icon left size="x-small" class="ml-1">{{ item.icon }}</v-icon>
+                </v-btn>
+              </RouterLink>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+
         <v-toolbar-items class="hidden-sm-and-down">
-          <RouterLink
-            v-for="item in menu"
-            :key="item.icon"
-            :to="item.link"
-            class="text-white mt-3"
-          >
-            <v-btn flat
-              >{{ item.title }}
+          <!--           <RouterLink v-for="item in menu" :key="item.icon" :to="item.link" class="text-white mt-3">
+            <v-btn flat>{{ item.title }}
               <v-icon left class="px-3">{{ item.icon }}</v-icon>
             </v-btn>
-          </RouterLink>
+          </RouterLink> -->
 
           <RouterLink to="/login" class="text-white mt-3">
             <v-btn v-if="!authStore.isLoggedIn" flat>
               Login
-              <v-icon left  class="px-3">mdi-account-key-outline</v-icon>
+              <v-icon left class="px-3">mdi-account-key-outline</v-icon>
             </v-btn>
           </RouterLink>
 
           <RouterLink to="/" class="text-white mt-3">
             <v-btn v-if="authStore.isLoggedIn" flat @click="authStore.logout">
               Logout
-              <v-icon left  class="px-3">mdi-account-off-outline</v-icon>
+              <v-icon left class="px-3">mdi-account-off-outline</v-icon>
             </v-btn>
           </RouterLink>
         </v-toolbar-items>
@@ -51,7 +64,6 @@
   </div>
 </template>
 
-
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
 import { ref } from "vue";
@@ -64,7 +76,7 @@ const menu = ref([
   { title: "Home", link: "/", icon: "mdi-home" },
   { title: "About", link: "/about", icon: "mdi-information" },
   { title: "Products", link: "/products", icon: "mdi-cart" },
-  { title: "Contact", link: "/contact", icon: "mdi-contact" },
+  { title: "Contact", link: "/contact", icon: "mdi-email" },
 ]);
 </script>
 

@@ -65,16 +65,16 @@ const categories = ref([
 
 
 
-  const saveData = async () => {
-      console.log("Form data:", formData);
+const saveData = async () => {
+  console.log("Form data:", formData);
 
-      try {
-        await store.addProduct(formData);
-        console.log("Product added.");
-      } catch (error) {
-        console.error("Failed to add product:", error);
-      }
-    };
+  try {
+    await store.addProduct(formData);
+    console.log("Product added.");
+  } catch (error) {
+    console.error("Failed to add product:", error);
+  }
+};
 
 
 </script>

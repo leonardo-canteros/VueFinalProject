@@ -5,17 +5,13 @@
         <v-row>
           <v-col cols="12" md="6">
             <v-carousel>
-              <v-carousel-item
-                :key="0"
-                :src="productRetrieve.image"
-              ></v-carousel-item>
+              <v-carousel-item :key="0" :src="productRetrieve.image"></v-carousel-item>
             </v-carousel>
           </v-col>
 
           <v-col cols="12" md="6">
-            <v-card
-              >{{ $route.params.id }}
-
+            <v-card>
+              <v-card-text>Product ID: {{ $route.params.id }}</v-card-text>
               <v-card-title>{{ productRetrieve.name }}</v-card-title>
               <v-card-subtitle class="text-h6">{{
                 productRetrieve.price
@@ -29,7 +25,9 @@
                   <v-icon>mdi-plus</v-icon>
                 </v-btn>
                 <v-spacer></v-spacer>
-                <v-btn class="add-to-cart-btn">Add to cart</v-btn>
+                <v-btn class="mx-auto mt-2 py-6 add-to-cart-btn" min-width="230"
+                  style="background-color: #f46568; color: #ffffff" type="submit" block>Add to cart</v-btn>
+
               </v-card-actions>
             </v-card>
 
@@ -39,10 +37,7 @@
                 <p>{{ productRetrieve.description }}</p>
                 <v-list>
                   <v-list-item-group>
-                    <v-list-item
-                      v-for="(feature, index) in productRetrieve.features"
-                      :key="index"
-                    >
+                    <v-list-item v-for="(feature, index) in productRetrieve.features" :key="index">
                       <v-list-item-content>{{ feature }}</v-list-item-content>
                     </v-list-item>
                   </v-list-item-group>
@@ -59,65 +54,22 @@
 </template>
 
 <script setup lang="ts">
+
 import { useRoute } from "vue-router";
 import { ref, onMounted } from "vue";
-
-// store
 import { useProductsListStore } from "@/stores/ProductsStore";
-import { storeToRefs } from "pinia";
 
 const route = useRoute();
-
 const productRetrieve = ref();
-const error = ref();
-
 const store = useProductsListStore();
-const { listProducts } = storeToRefs(store);
 
-/* const getProductId = async (id) => {
-
-  try {
-    if (!listProducts.value || listProducts.value.length === 0) {
-      await store.fetchAllProducts();
-    }
-
-    return listProducts.value.find((product) => product.id === id);
-
-  } catch (err) {
-    error.value = "Failed to fetch products.";
-  }
-};
-
- */
 
 onMounted(async () => {
-  try {
-    const id = route.params.id;
-
-    productRetrieve.value = await store.getProductId(id);
-
-    if (!productRetrieve.value) {
-      error.value = "Product not found.";
-    }
-  } catch (err) {
-    error.value = "Failed to load product details,";
-  }
+  const productId = route.params.id;
+  productRetrieve.value = await store.getProductId(productId);
 });
+
 
 </script>
 
-<style scoped>
-.add-to-cart-btn {
-  border: 2px solid #000000;
-  border-radius: 8px;
-  padding: 8px 16px;
-  font-weight: bold;
-  transition: background-color 0.3s, border-color 0.3s;
-}
-
-.add-to-cart-btn:hover {
-  background-color: #000000;
-  color: white;
-  border-color: #000000;
-}
-</style>
+<style scoped></style>

@@ -1,14 +1,12 @@
 <template>
   <div class="d-flex flex-wrap justify-center">
     <div v-for="product in listProduct" :key="product.id">
-      <RouterLink :to="{ name: 'productId', params: { id: product.id } }">
+      <RouterLink :to="{
+        name: 'productId',
+        params: { id: product.id }
+      }">
         <v-card class="product-card ma-2 pa-2">
-          <v-img
-            class="align-end text-white"
-            height="300px"
-            :src="product.image"
-            cover
-          >
+          <v-img class="align-end text-white" height="300px" :src="product.image" cover>
           </v-img>
 
           <v-card-title class="product-name">
@@ -46,6 +44,7 @@ const props = defineProps({
     default: [],
   },
 });
+
 </script>
 
 <style scoped>

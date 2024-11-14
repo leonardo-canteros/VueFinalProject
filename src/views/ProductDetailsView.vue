@@ -5,12 +5,16 @@
         <v-row>
           <v-col cols="12" md="6">
             <v-carousel>
-              <v-carousel-item :key="0" :src="productRetrieve.image"></v-carousel-item>
+              <v-carousel-item
+                :key="0"
+                :src="productRetrieve.image"
+              ></v-carousel-item>
             </v-carousel>
           </v-col>
 
           <v-col cols="12" md="6">
-            <v-card>{{ $route.params.id }}
+            <v-card
+              >{{ $route.params.id }}
 
               <v-card-title>{{ productRetrieve.name }}</v-card-title>
               <v-card-subtitle class="text-h6">{{
@@ -35,7 +39,10 @@
                 <p>{{ productRetrieve.description }}</p>
                 <v-list>
                   <v-list-item-group>
-                    <v-list-item v-for="(feature, index) in productRetrieve.features" :key="index">
+                    <v-list-item
+                      v-for="(feature, index) in productRetrieve.features"
+                      :key="index"
+                    >
                       <v-list-item-content>{{ feature }}</v-list-item-content>
                     </v-list-item>
                   </v-list-item-group>
@@ -51,10 +58,7 @@
   </div>
 </template>
 
-
-
 <script setup lang="ts">
-
 import { useRoute } from "vue-router";
 import { ref, onMounted } from "vue";
 
@@ -70,12 +74,10 @@ const error = ref();
 const store = useProductsListStore();
 const { listProducts } = storeToRefs(store);
 
-
-const getProductId = async (id) => {
+/* const getProductId = async (id) => {
 
   try {
     if (!listProducts.value || listProducts.value.length === 0) {
-
       await store.fetchAllProducts();
     }
 
@@ -86,13 +88,13 @@ const getProductId = async (id) => {
   }
 };
 
+ */
 
 onMounted(async () => {
-
   try {
     const id = route.params.id;
 
-    productRetrieve.value = await getProductId(id);
+    productRetrieve.value = await store.getProductId(id);
 
     if (!productRetrieve.value) {
       error.value = "Product not found.";
@@ -103,7 +105,6 @@ onMounted(async () => {
 });
 
 </script>
-
 
 <style scoped>
 .add-to-cart-btn {

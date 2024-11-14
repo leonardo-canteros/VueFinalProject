@@ -35,7 +35,7 @@ import { useRouter } from "vue-router";
 import { useProductsListStore } from "@/stores/ProductsStore";
 import { storeToRefs } from "pinia";
 
-import TutorialDataService from "@/helpers/products.model";
+///import TutorialDataService from "@/helpers/products.model";
 
 
 const router = useRouter();
@@ -63,27 +63,19 @@ const categories = ref([
   "Keyboard",
 ]);
 
-const saveData = async () => {
 
-  console.log("Form data:", formData);
 
-  try {
-    const response = await TutorialDataService.create(formData);
+  const saveData = async () => {
+      console.log("Form data:", formData);
 
-    if (response.status === 201) {
+      try {
+        await store.addProduct(formData);
+        console.log("Product added.");
+      } catch (error) {
+        console.error("Failed to add product:", error);
+      }
+    };
 
-      
-      store.addProduct(response.data);
-      alert('New product!!!');
-    }
-  } catch (error) {
-    console.error('Error', error);
-    alert('Error.');
-    
-  }
-
-  //store.addProduct({ ...formData });
-};
 
 </script>
 

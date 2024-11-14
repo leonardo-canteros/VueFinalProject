@@ -64,11 +64,11 @@ const filterProducts = (searchQuery) => {
    store.filterListProduct(searchQuery);
 };
 
-//add product
 const router = useRouter();
 
 //button
 const goToForm = () => {
   router.push("/AddProduct");
 };
+
 </script>

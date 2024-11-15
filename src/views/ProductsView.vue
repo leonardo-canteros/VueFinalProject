@@ -13,6 +13,16 @@
           block
           >Add product</v-btn
         >
+
+        <v-btn
+          class="mt-2 py-6"
+          min-width="230"
+          @click="goToUpdateProduct"
+          style="background-color: #f46568; color: #ffffff"
+          type="submit"
+          block
+          >Update Product</v-btn
+        >
       </v-sheet>
     </div>
 
@@ -67,4 +77,11 @@ const router = useRouter();
 const goToForm = () => {
   router.push("/AddProduct");
 };
+
+//button
+const goToUpdateProduct = () => {
+  router.push("/TestView");
+};
+
+
 </script>

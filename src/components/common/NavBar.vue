@@ -11,16 +11,16 @@
         <!-- Dropdown menu -->
 
         <v-btn id="menu-activator">
-          Menu <v-icon icon="mdi-domain"></v-icon
-        ></v-btn>
+          Menu <v-icon icon="mdi-domain"></v-icon></v-btn>
 
-        <v-menu activator="#menu-activator" open-on-hover>
+        <v-menu activator="#menu-activator">
           <v-list>
             <v-list-item v-for="item in menu" :key="item.icon">
               <RouterLink :to="item.link" class="text-black">
-                <v-btn flat
-                  >{{ item.title }}
-                  <v-icon left size="x-small" class="ml-1">{{ item.icon }}</v-icon>
+                <v-btn flat>{{ item.title }}
+                  <v-icon left size="x-small" class="ml-1">{{
+                    item.icon
+                  }}</v-icon>
                 </v-btn>
               </RouterLink>
             </v-list-item>
@@ -28,12 +28,6 @@
         </v-menu>
 
         <v-toolbar-items class="hidden-sm-and-down">
-          <!--           <RouterLink v-for="item in menu" :key="item.icon" :to="item.link" class="text-white mt-3">
-            <v-btn flat>{{ item.title }}
-              <v-icon left class="px-3">{{ item.icon }}</v-icon>
-            </v-btn>
-          </RouterLink> -->
-
           <RouterLink to="/login" class="text-white mt-3">
             <v-btn v-if="!authStore.isLoggedIn" flat>
               Login
@@ -68,7 +62,6 @@
 import { useAuthStore } from "@/stores/auth";
 import { ref } from "vue";
 import { RouterLink, RouterView } from "vue-router";
-//import router from "@/router";
 
 const authStore = useAuthStore();
 

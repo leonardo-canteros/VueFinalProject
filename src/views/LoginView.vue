@@ -1,5 +1,5 @@
 <template>
-  <div class="pageview">
+  <div>
 
     <Login></Login>
 

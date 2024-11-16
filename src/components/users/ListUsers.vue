@@ -1,15 +1,20 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="desserts"
+    :items="usersList"
     :sort-by="[{ key: 'calories', order: 'asc' }]"
   >
+    <template v-slot:item.image="{ item: { image } }">
+      <img :src="image" width="40" height="40" />
+    </template>
+
     <template v-slot:top>
       <v-toolbar flat>
         <v-toolbar-title>My CRUD</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
-        <v-dialog v-model="dialog" max-width="500px">
+
+        <!-- <v-dialog v-model="dialog" max-width="500px">
           <template v-slot:activator="{ props }">
             <v-btn class="mb-2" color="primary" dark v-bind="props">
               New Item
@@ -67,8 +72,10 @@
               </v-btn>
             </v-card-actions>
           </v-card>
-        </v-dialog>
-        <v-dialog v-model="dialogDelete" max-width="500px">
+        </v-dialog> -->
+        <DialogOkCancel v-model="dialogDelete" />
+
+        <!-- <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
             <v-card-title class="text-h5"
               >Are you sure you want to delete this item?</v-card-title
@@ -87,192 +94,117 @@
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
-        </v-dialog>
+        </v-dialog> -->
       </v-toolbar>
     </template>
     <template v-slot:item.actions="{ item }">
       <v-icon class="me-2" size="small" @click="editItem(item)">
         mdi-pencil
       </v-icon>
-      <v-icon size="small" @click="deleteItem(item)"> mdi-delete </v-icon>
+      <v-icon size="small" @click="dialogDelete = true"> mdi-delete </v-icon>
     </template>
-    <template v-slot:no-data>
+    <!-- <template v-slot:no-data>
       <v-btn color="primary" @click="initialize"> Reset </v-btn>
-    </template>
+    </template> -->
   </v-data-table>
 </template>
-<script>
-export default {
-  data: () => ({
-    dialog: false,
-    dialogDelete: false,
-    headers: [
-      {
-        title: "Dessert (100g serving)",
-        align: "start",
-        sortable: false,
-        key: "name",
-      },
-      { title: "Calories", key: "calories" },
-      { title: "Fat (g)", key: "fat" },
-      { title: "Carbs (g)", key: "carbs" },
-      { title: "Protein (g)", key: "protein" },
-      { title: "Actions", key: "actions", sortable: false },
-    ],
-    desserts: [],
-    editedIndex: -1,
-    editedItem: {
-      name: "",
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0,
-    },
-    defaultItem: {
-      name: "",
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0,
-    },
-  }),
 
-  computed: {
-    formTitle() {
-      return this.editedIndex === -1 ? "New Item" : "Edit Item";
-    },
-  },
+<script setup lang="ts">
+import { getUsersList } from "@/helpers/usersServices";
+import { computed, onMounted, reactive, ref, watch } from "vue";
 
-  watch: {
-    dialog(val) {
-      val || this.close();
-    },
-    dialogDelete(val) {
-      val || this.closeDelete();
-    },
-  },
+const dialog = ref(false);
+const dialogDelete = ref(false);
+const headers = ref([{}]);
+headers.value = [
+  { title: "Image", key: "image" },
+  { title: "Username", key: "username" },
+  { title: "Email", key: "email" },
+  { title: "Role", key: "role" },
+  { title: "Deactivated_at", key: "deactivated_at" },
+  { title: "Actions", key: "actions", sortable: false },
+];
 
-  created() {
-    this.initialize();
-  },
+const editedIndex = ref(-1);
+const editedItem = ref({
+  name: "",
+  calories: 0,
+  fat: 0,
+  carbs: 0,
+  protein: 0,
+});
 
-  methods: {
-    initialize() {
-      this.desserts = [
-        {
-          name: "Frozen Yogurt",
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0,
-        },
-        {
-          name: "Ice cream sandwich",
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3,
-        },
-        {
-          name: "Eclair",
-          calories: 262,
-          fat: 16.0,
-          carbs: 23,
-          protein: 6.0,
-        },
-        {
-          name: "Cupcake",
-          calories: 305,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3,
-        },
-        {
-          name: "Gingerbread",
-          calories: 356,
-          fat: 16.0,
-          carbs: 49,
-          protein: 3.9,
-        },
-        {
-          name: "Jelly bean",
-          calories: 375,
-          fat: 0.0,
-          carbs: 94,
-          protein: 0.0,
-        },
-        {
-          name: "Lollipop",
-          calories: 392,
-          fat: 0.2,
-          carbs: 98,
-          protein: 0,
-        },
-        {
-          name: "Honeycomb",
-          calories: 408,
-          fat: 3.2,
-          carbs: 87,
-          protein: 6.5,
-        },
-        {
-          name: "Donut",
-          calories: 452,
-          fat: 25.0,
-          carbs: 51,
-          protein: 4.9,
-        },
-        {
-          name: "KitKat",
-          calories: 518,
-          fat: 26.0,
-          carbs: 65,
-          protein: 7,
-        },
-      ];
-    },
+const defaultItem = reactive({
+  name: "",
+  calories: 0,
+  fat: 0,
+  carbs: 0,
+  protein: 0,
+});
 
-    editItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialog = true;
-    },
+const formTitle = computed(() => {
+  return editedIndex.value === -1 ? "New Item" : "Edit Item";
+});
 
-    deleteItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialogDelete = true;
-    },
+const usersList = ref([]);
 
-    deleteItemConfirm() {
-      this.desserts.splice(this.editedIndex, 1);
-      this.closeDelete();
-    },
+onMounted(async () => {
+  usersList.value = await getUsersList();
+});
 
-    close() {
-      this.dialog = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
-    },
+watch(dialog, (val) => {
+  val || close();
+});
 
-    closeDelete() {
-      this.dialogDelete = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
-    },
+function editItem(item: {}): void {
+  // editedIndex.value = usersList.value.indexOf(item);
+  // editedItem.value = Object.assign({}, item);
+  dialog.value = true;
+}
 
-    save() {
-      if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem);
-      } else {
-        this.desserts.push(this.editedItem);
-      }
-      this.close();
-    },
-  },
-};
+function deleteItem(item: {}): void {
+  // editedIndex.value = usersList.value.indexOf(item);
+  // editedItem.value = Object.assign({}, item);
+  dialogDelete.value = true;
+}
+
+// watch(dialogDelete, (val) => {
+//   val || closeDelete();
+// });
+
+// function deleteItem(item: { name: string; calories: number; fat: number; carbs: number; protein: number; }): void  {
+//   editedIndex.value = desserts.value.indexOf(item);
+//   editedItem = Object.assign({}, item);
+//   dialogDelete.value = true;
+// }
+
+// deleteItemConfirm() {
+//   this.desserts.splice(this.editedIndex, 1);
+//   this.closeDelete();
+// },
+
+// close() {
+//   this.dialog = false;
+//   this.$nextTick(() => {
+//     this.editedItem = Object.assign({}, this.defaultItem);
+//     this.editedIndex = -1;
+//   });
+// },
+
+// closeDelete() {
+//   this.dialogDelete = false;
+//   this.$nextTick(() => {
+//     this.editedItem = Object.assign({}, this.defaultItem);
+//     this.editedIndex = -1;
+//   });
+// },
+
+// save() {
+//   if (this.editedIndex > -1) {
+//     Object.assign(this.desserts[this.editedIndex], this.editedItem);
+//   } else {
+//     this.desserts.push(this.editedItem);
+//   }
+//   this.close();
+// },
 </script>

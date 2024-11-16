@@ -2,16 +2,16 @@
   <FormContainer title="Log In" @submit="submit">
     <FormTextField
       label="Username"
+      icon="mdi-account-outline"
       placeholder="Username"
-      prepend-inner-icon="mdi-account-outline"
       v-model="username"
       :rules="[rules.required]"
     ></FormTextField>
 
     <FormTextField
       label="Password"
+      icon="mdi-lock-outline"
       placeholder="Password"
-      prepend-inner-icon="mdi-lock-outline"
       v-model="password"
       :rules="[rules.required]"
       :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"

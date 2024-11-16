@@ -8,6 +8,7 @@
     </div>
 
     <v-text-field
+      :prepend-inner-icon="icon"
       variant="outlined"
       density="compact"
       v-bind="$attrs"
@@ -24,6 +25,7 @@ defineOptions({
 
 const props = defineProps({
   label: String,
+  icon: String,
 });
 
 const model = defineModel();

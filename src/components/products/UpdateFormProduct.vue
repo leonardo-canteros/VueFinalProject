@@ -70,6 +70,8 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 //button
 const goToBack = () => {
-  router.back("/ProductsView");
+  router.back();
 };
+
+
 </script>

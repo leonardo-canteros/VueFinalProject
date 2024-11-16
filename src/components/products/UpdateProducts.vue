@@ -37,7 +37,7 @@
               <div class="text-caption title-color">Delete</div>
 
               <div class="text-body-1 mt-1">
-                <v-btn color="red" icon="mdi-delete" size="small"></v-btn>
+                  <DeleteProduct></DeleteProduct>
               </div>
             </v-col>
         </v-row>
@@ -48,7 +48,7 @@
 
 <script setup lang="ts">
 
-
+import DeleteProduct from "@/components/products/DeleteProduct.vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();

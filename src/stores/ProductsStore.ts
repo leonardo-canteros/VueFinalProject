@@ -1,45 +1,80 @@
 import { defineStore } from "pinia";
+import { ref } from "vue";
+import TutorialDataService from "@/helpers/products.model";
 
-import { getProductsAll } from "@/helpers/products.model";
+export const useProductsListStore = defineStore("productsStore", () => {
+  
+  const listProducts = ref([]);
+  const loading = ref(false);
+  const error = ref<string | null>(null);
 
-export const useProductsListStore = defineStore("productsStore", {
-  state: () => ({
-    listProducts: [],
-    id: 0,
-    loading: false,
-  }),
 
-  actions: {
 
-    async fetchAllProducts() {
-      this.loading = true;
-      try {
-        const result = await getProductsAll();
-        this.listProducts = result.data.response;
+  async function fetchAllProducts() {
+    loading.value = true;
+    try {
+      //  const result = await getProductsAll();
+      const result = await TutorialDataService.getAll();
+      console.log("resultado", result.data.response);
 
-      } catch (error) {
-        this.error = "Error fetching products";
-      } finally {
-        this.loading = false;
+      listProducts.value = result.data.response;
+    } catch (error) {
+      error.value = "Error fetching products";
+    } finally {
+      loading.value = false;
+    }
+  }
+
+  async function addProduct(product) {
+    try {
+      const respo = await TutorialDataService.create(product);
+
+      console.log("Respuesta: ---->", respo.data.response);
+
+      const newProduct = respo.data.response || respo.data;
+
+      listProducts.value.push(newProduct);
+    } catch (err) {
+      console.error("Error adding product:", err);
+      error.value = "Error adding product.";
+    }
+  }
+
+  async function getProductId(id) {
+    try {
+      if (!listProducts.value || listProducts.value.length === 0) {
+        await TutorialDataService.get(id);
       }
-    },
 
-    addProduct(product) {
-      this.listProducts.push(product);
-    },
+      return listProducts.value.find((product) => product.id === id);
+    } catch (err) {
+      error.value = "Failed to fetch products.";
+    }
+  }
 
-    filterListProduct(searchQuery) {
-      if (searchQuery.trim() === "") {
-        this.listProducts;
-        return;
-      }
-        this.listProducts = this.listProducts.filter((product) => {
-        return product.name.toLowerCase().includes(searchQuery.toLowerCase());
-      });
-    },
+  function filterListProduct(searchQuery: string) {
+    if (searchQuery.trim() === "") {
+      listProducts.value;
+      return;
+    }
+    listProducts.value = listProducts.value.filter((product) => {
+      return product.name.toLowerCase().includes(searchQuery.toLowerCase());
+    });
+  }
 
-    clearProducts() {
-      this.listProducts = [];
-    },
-  },
+  function clearProducts() {
+    listProducts.value = [];
+  }
+
+  
+  return {
+    fetchAllProducts,
+    getProductId,
+    addProduct,
+    filterListProduct,
+    clearProducts,
+    listProducts,
+    error,
+    loading,
+  };
 });

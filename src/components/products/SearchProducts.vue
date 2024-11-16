@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 
 const props = defineProps({
   listProduct: Array,
@@ -33,5 +33,13 @@ const emit = defineEmits(["filterProduct"]);
 
 const emitSearch = () => {
   emit("filterProduct", searchQuery.value);
+  searchQuery.value = ""; 
 };
+
+//watch
+watch(searchQuery, (newValue) => {
+  emit("filterProduct", newValue);
+  console.log(`searchQuery is ${newValue}`);
+});
+
 </script>

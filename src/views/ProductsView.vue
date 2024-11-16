@@ -13,17 +13,27 @@
           block
           >Add product</v-btn
         >
+
+        <v-btn
+          class="mt-2 py-6"
+          min-width="230"
+          @click="goToUpdateProduct"
+          style="background-color: #f46568; color: #ffffff"
+          type="submit"
+          block
+          >Update Product</v-btn
+        >
       </v-sheet>
     </div>
 
-    <SearchProducts 
-          :listProduct="listProducts" 
-          @filterProduct="filterProducts"/>
+    <SearchProducts
+      :listProduct="listProducts"
+      @filterProduct="filterProducts"
+    />
 
     <ListProducts
       title="List of Products"
       :listProduct="listProducts"
-        
     ></ListProducts>
 
     <!--     <ButtonComponent @click="clearList()">Clear</ButtonComponent>
@@ -32,7 +42,6 @@
 </template>
 
 <script setup lang="ts">
-
 //components
 import ListProducts from "@/components/products/ListProducts.vue";
 import SearchProducts from "@/components/products/SearchProducts.vue";
@@ -48,27 +57,31 @@ import { storeToRefs } from "pinia";
 const store = useProductsListStore();
 const { listProducts } = storeToRefs(store);
 
-
 onMounted(() => {
   store.fetchAllProducts();
 });
-
 
 //clear
 const clearList = () => {
   store.clearProducts();
 };
 
- //filter
+//filter
 const filterProducts = (searchQuery) => {
-   store.filterListProduct(searchQuery);
+  store.filterListProduct(searchQuery);
 };
 
-//add product
 const router = useRouter();
 
 //button
 const goToForm = () => {
   router.push("/AddProduct");
 };
+
+//button
+const goToUpdateProduct = () => {
+  router.push("/TestView");
+};
+
+
 </script>

@@ -58,6 +58,12 @@ const props = defineProps({
 
 <style scoped>
 
+
+.quantity {
+  color: #3949ab;
+  padding-top: 1rem;
+}
+
 /* .product-card {
   display: flex;
   flex-direction: column;
@@ -90,5 +96,4 @@ const props = defineProps({
   color: #3949ab;
   padding-top: 1rem;
 } */
-
 </style>

@@ -1,77 +1,32 @@
 <template>
-  <v-container fluid>
-    <v-form @submit.prevent="submit">
-      <v-img
-        class="mx-auto my-6"
-        max-width="228"
-        src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"
-      ></v-img>
+  <FormContainer title="Log In" @submit="submit">
+    <FormTextField
+      label="Username"
+      placeholder="Username"
+      prepend-inner-icon="mdi-account-outline"
+      v-model="username"
+      :rules="[rules.required]"
+    ></FormTextField>
 
-      <v-card
-        class="mx-auto pa-12 pb-8"
-        elevation="8"
-        max-width="448"
-        rounded="lg"
-      >
-        <div class="text-subtitle-1 text-medium-emphasis">Username</div>
-        <v-text-field
-          prepend-inner-icon="mdi-account-outline"
-          density="compact"
-          placeholder="Username"
-          variant="outlined"
-          v-model="username"
-          :rules="[rules.required]"
-        >
-        </v-text-field>
-        <div
-          class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
-        >
-          Password
-          <a
-            class="text-caption text-decoration-none text-blue"
-            href="#"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Forgot login password?</a
-          >
-        </div>
-        <v-text-field
-          :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
-          :type="visible ? 'text' : 'password'"
-          density="compact"
-          placeholder="Enter your password"
-          v-model="password"
-          prepend-inner-icon="mdi-lock-outline"
-          variant="outlined"
-          @click:append-inner="visible = !visible"
-          :rules="[rules.required]"
-        ></v-text-field>
+    <FormTextField
+      label="Password"
+      placeholder="Password"
+      prepend-inner-icon="mdi-lock-outline"
+      v-model="password"
+      :rules="[rules.required]"
+      :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
+      :type="visible ? 'text' : 'password'"
+      @click:append-inner="visible = !visible"
+    >
+      <!-- <FormLink label="Forgot login password?" class="text-caption"</FormLink> -->
+    </FormTextField>
 
-        <v-btn
-          class="mb-8"
-          color="blue"
-          size="large"
-          variant="tonal"
-          block
-          type="submit"
-        >
-          Log In
-        </v-btn>
+    <FormButton label="Log In" type="submit"></FormButton>
 
-        <v-card-text class="text-center">
-          <a
-            class="text-blue text-decoration-none"
-            href="#"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Sign up now <v-icon icon="mdi-chevron-right"></v-icon>
-          </a>
-        </v-card-text>
-      </v-card>
-    </v-form>
-  </v-container>
+    <v-card-text class="text-center">
+      <FormLink label="Sign up now" icon="mdi-chevron-right"></FormLink>
+    </v-card-text>
+  </FormContainer>
 </template>
 
 <script setup lang="ts">
@@ -79,6 +34,10 @@ import rules from "@/helpers/validation";
 import router from "@/router";
 import { useAuthStore } from "@/stores/auth";
 import { ref } from "vue";
+import FormButton from "./FormButton.vue";
+import FormContainer from "./FormContainer.vue";
+import FormLink from "./FormLink.vue";
+import FormTextField from "./FormTextField.vue";
 
 const authStore = useAuthStore();
 

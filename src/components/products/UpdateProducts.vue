@@ -26,7 +26,11 @@
               <div class="text-caption title-color">Update</div>
 
               <div class="text-body-1 mt-1">
-                <v-btn color="primary" icon="mdi-update" size="small"></v-btn>
+                <v-btn
+                     @click="goToFormUpdate" 
+                     color="primary" 
+                     icon="mdi-update" 
+                     size="small"></v-btn>
               </div>
             </v-col>
             <v-col cols="6" sm="2" md="2">
@@ -43,12 +47,26 @@
 </template>
 
 <script setup lang="ts">
+
+
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
 const props = defineProps({
   listProduct: {
     type: Array,
     default: [],
   },
 });
+
+
+//button
+const goToFormUpdate = () => {
+  router.push("/UpdateFormProduct");
+};
+
+
 </script>
 
 <style scoped>

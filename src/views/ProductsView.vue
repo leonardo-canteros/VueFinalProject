@@ -4,7 +4,7 @@
       <v-sheet class="mx-auto">
         <h1 class="my-2">Add product</h1>
 
-        <v-btn
+        <v-btn v-if="authStore.isLoggedIn && authStore.role === 'admin'" 
           class="mt-2 py-6"
           min-width="230"
           @click="goToForm"
@@ -14,7 +14,7 @@
           >Add product</v-btn
         >
 
-        <v-btn
+        <v-btn v-if="authStore.isLoggedIn && authStore.role === 'admin'" 
           class="mt-2 py-6"
           min-width="230"
           @click="goToUpdateProduct"
@@ -56,6 +56,11 @@ import { storeToRefs } from "pinia";
 
 const store = useProductsListStore();
 const { listProducts } = storeToRefs(store);
+
+//auth
+import { useAuthStore } from "@/stores/auth";
+
+const authStore = useAuthStore();
 
 onMounted(() => {
   store.fetchAllProducts();

@@ -11,13 +11,15 @@
         <!-- Dropdown menu -->
 
         <v-btn id="menu-activator">
-          Menu <v-icon icon="mdi-domain"></v-icon></v-btn>
+          Menu <v-icon icon="mdi-domain"></v-icon
+        ></v-btn>
 
         <v-menu activator="#menu-activator">
           <v-list>
             <v-list-item v-for="item in menu" :key="item.icon">
               <RouterLink :to="item.link" class="text-black">
-                <v-btn flat>{{ item.title }}
+                <v-btn flat
+                  >{{ item.title }}
                   <v-icon left size="x-small" class="ml-1">{{
                     item.icon
                   }}</v-icon>

@@ -8,12 +8,9 @@ export const useProductsListStore = defineStore("productsStore", () => {
   const loading = ref(false);
   const error = ref<string | null>(null);
 
-
-
   async function fetchAllProducts() {
     loading.value = true;
     try {
-      //  const result = await getProductsAll();
       const result = await TutorialDataService.getAll();
       console.log("resultado", result.data.response);
 
@@ -40,7 +37,28 @@ export const useProductsListStore = defineStore("productsStore", () => {
     }
   }
 
-  async function getProductId(id) {
+  async function updateProduct(productId: any, product: any) {
+    try {
+      const updateProdResponse = await TutorialDataService.update(productId, product);
+
+      console.log("Respuesta: ---->", updateProdResponse.data.response);
+
+      const productEdited = updateProdResponse.data.response || updateProdResponse.data;
+
+      const indexOfProductToReplace = listProducts.value.findIndex((productItem) => {
+        return productItem.id === productId;
+      });
+
+      listProducts.value[indexOfProductToReplace] = productEdited;
+
+
+    } catch (err) {
+      console.error("Error adding product:", err);
+      error.value = "Error adding product.";
+    }
+  }
+
+  async function getProductId(id: any) {
     try {
       if (!listProducts.value || listProducts.value.length === 0) {
         await TutorialDataService.get(id);
@@ -71,6 +89,7 @@ export const useProductsListStore = defineStore("productsStore", () => {
     fetchAllProducts,
     getProductId,
     addProduct,
+    updateProduct,
     filterListProduct,
     clearProducts,
     listProducts,

@@ -36,7 +36,7 @@ const router = createRouter({
       component: () => import("../views/AddProductView.vue"),
     },
     {
-      path: "/UpdateFormProduct",
+      path: "/edit-product/:id(\\d+)",
       name: "UpdateFormProduct",
       component: () => import("../components/products/UpdateFormProduct.vue"),
     },

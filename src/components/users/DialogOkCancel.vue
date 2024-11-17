@@ -5,12 +5,12 @@
       <slot></slot>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="blue-darken-1" variant="text" @click="emit('cancel')">{{
-          cancelBtnLegend
-        }}</v-btn>
-        <v-btn color="blue-darken-1" variant="text" @click="emit('ok')">{{
-          okBtnLegend
-        }}</v-btn>
+        <ButtonComponent @click="emit('cancel')">
+          {{ cancelBtnLegend }}
+        </ButtonComponent>
+        <ButtonComponent @click="emit('ok')">
+          {{ okBtnLegend }}
+        </ButtonComponent>
         <v-spacer></v-spacer>
       </v-card-actions>
     </v-card>
@@ -18,6 +18,7 @@
 </template>
 
 <script setup lang="ts">
+import ButtonComponent from "@/components/common/ButtonComponent.vue";
 const showDialog = defineModel({
   type: Boolean,
   required: true,
@@ -26,8 +27,7 @@ const showDialog = defineModel({
 defineProps({
   title: {
     type: String,
-    required: true,
-    default: "Are you sure you want to delete this item?",
+    default: "You must define a title",
   },
   cancelBtnLegend: {
     type: String,

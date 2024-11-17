@@ -21,3 +21,25 @@ export const getUsersList = async () => {
     const res = await axios.get(`${urlApiServer}/api/users/include_deleted`, params);
     return res.data.response;
 }
+
+export const createUser = async (user: any) => {
+    const headers = {
+      headers: {
+        'Authorization': 'Bearer ' + authStore.getToken(),
+      }}
+    const body = {
+      ...user
+    }
+    console.log(body);
+    const res = await axios.post(`${urlApiServer}/api/users/`, headers);
+    return res.data;
+}
+
+export const deleteUser = async (id: string) => {
+    const params = {
+      headers: {
+        'Authorization': 'Bearer ' + authStore.getToken(),
+      }}
+    const res = await axios.delete(`${urlApiServer}/api/users/${id}`, params);
+    return res.data;
+}

@@ -28,7 +28,7 @@
         </v-menu>
 
         <v-toolbar-items class="hidden-sm-and-down">
-          <RouterLink to="/users" class="text-white">
+          <RouterLink to="/users" class="text-white mt-3">
             <v-btn v-if="authStore.role === 'admin'" flat>
               Users
               <v-icon left>mdi-account-supervisor-outline</v-icon>

@@ -20,10 +20,11 @@
 
         <v-btn class="mx-auto mt-2 py-6" min-width="230" style="background-color: #f46568; color: #ffffff" type="submit"
           block>Enter product</v-btn>
-
-        {{ listProducts }}
       </v-form>
     </v-sheet>
+
+    {{ listProducts }}
+
   </v-container>
 </template>
 
@@ -33,9 +34,6 @@ import { ref, reactive } from "vue";
 import { useRouter } from "vue-router";
 import { useProductsListStore } from "@/stores/ProductsStore";
 import { storeToRefs } from "pinia";
-
-///import TutorialDataService from "@/helpers/products.model";
-
 
 const router = useRouter();
 
@@ -55,13 +53,13 @@ const formData = reactive({
 });
 
 const categories = ref([
+  "Electronic",
   "Percussion",
+  "Wind",
   "String",
-  "Woodwind",
-  "Brass",
   "Keyboard",
+  "Brass"
 ]);
-
 
 
 const saveData = async () => {
@@ -69,6 +67,7 @@ const saveData = async () => {
 
   try {
     await store.addProduct(formData);
+
     console.log("Product added.");
   } catch (error) {
     console.error("Failed to add product:", error);

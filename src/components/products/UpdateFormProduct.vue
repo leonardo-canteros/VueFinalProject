@@ -92,17 +92,14 @@ const formData = reactive({
 });
 
 const categories = ref([
+  "Electronic",
   "Percussion",
+  "Wind",
   "String",
-  "Woodwind",
-  "Brass",
   "Keyboard",
+  "Brass"
 ]);
-/*
-onMounted(async () => {
-      console.log(router.params.id );
-   }
-*/
+
 //button
 const goToBack = () => {
   router.back();
@@ -117,12 +114,7 @@ onMounted(async () => {
   
 })
 
- 
 
- /*
-console.log(productLoaded.value)
- formData.name = productLoaded.value.name 
-*/
   const updateData = async () => {
     console.log("Form data:", formData);
 

@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import UpdateProduct from "@/components/products/UpdateProducts.vue";
+import UpdateProduct from "@/components/products/ProductUpdate.vue";
 
 //vue
 import { onMounted } from "vue";

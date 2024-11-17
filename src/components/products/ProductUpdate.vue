@@ -27,7 +27,7 @@
 
               <div class="text-body-1 mt-1">
                 
-                     <RouterLink :to="{ name: 'UpdateFormProduct', params: { id: product.id } }">
+                     <RouterLink :to="{ name: 'ProductUpdateForm', params: { id: product.id } }">
                       <v-btn
                     
                      color="primary" 
@@ -40,7 +40,8 @@
               <div class="text-caption title-color">Delete</div>
 
               <div class="text-body-1 mt-1">
-                  <DeleteProduct></DeleteProduct>
+
+                <ProductDelete></ProductDelete>
               </div>
             </v-col>
         </v-row>
@@ -51,7 +52,7 @@
 
 <script setup lang="ts">
 
-import DeleteProduct from "@/components/products/DeleteProduct.vue";
+import ProductDelete from "@/components/products/ProductDelete.vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
@@ -66,7 +67,7 @@ const props = defineProps({
 
 //button
 const goToFormUpdate = () => {
-  router.push("/UpdateFormProduct");
+  router.push("/ProductUpdateForm");
 };
 
 

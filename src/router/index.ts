@@ -15,14 +15,14 @@ const router = createRouter({
       component: () => import("../views/AboutView.vue"),
     },
     {
-      path: "/products",
-      name: "products",
-      component: () => import("../views/ProductsView.vue"),
-    },
-    {
       path: "/contact",
       name: "contact",
       component: () => import("../views/ContactView.vue"),
+    },
+    {
+      path: "/products",
+      name: "products",
+      component: () => import("../views/ProductsListView.vue"),
     },
     {
       // /:orderId -> matches only numbers
@@ -31,19 +31,19 @@ const router = createRouter({
       component: () => import("../views/ProductDetailsView.vue"),
     },
     {
-      path: "/AddProduct",
-      name: "AddProduct",
-      component: () => import("../views/AddProductView.vue"),
+      path: "/ProductCreate",
+      name: "ProductCreate",
+      component: () => import("../views/ProductCreateView.vue"),
     },
     {
       path: "/edit-product/:id(\\d+)",
-      name: "UpdateFormProduct",
-      component: () => import("../components/products/UpdateFormProduct.vue"),
+      name: "ProductUpdateForm",
+      component: () => import("../components/products/ProductUpdateForm.vue"),
     },
     {
-      path: "/TestView",
-      name: "TestView",
-      component: () => import("../views/TestView.vue"),
+      path: "/ProductUpdate",
+      name: "ProductUpdate",
+      component: () => import("../views/ProductUpdateView.vue"),
     },
     {
       path: "/login",

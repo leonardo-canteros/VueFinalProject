@@ -18,7 +18,6 @@
 
         <v-select label="Category" :items="categories" v-model="formData.category" required></v-select>
 
-        <v-text-field label="Seller ID" v-model="formData.seller_id" required></v-text-field>
         <v-btn class="mx-auto mt-2 py-6" min-width="230" style="background-color: #f46568; color: #ffffff" type="submit"
           block>Enter product</v-btn>
 

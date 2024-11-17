@@ -26,18 +26,22 @@
               <div class="text-caption title-color">Update</div>
 
               <div class="text-body-1 mt-1">
-                <v-btn
-                     @click="goToFormUpdate" 
+                
+                     <RouterLink :to="{ name: 'ProductUpdateForm', params: { id: product.id } }">
+                      <v-btn
+                    
                      color="primary" 
                      icon="mdi-update" 
                      size="small"></v-btn>
+                    </RouterLink>
               </div>
             </v-col>
             <v-col cols="6" sm="2" md="2">
               <div class="text-caption title-color">Delete</div>
 
               <div class="text-body-1 mt-1">
-                  <DeleteProduct></DeleteProduct>
+
+                <ProductDelete></ProductDelete>
               </div>
             </v-col>
         </v-row>
@@ -48,7 +52,7 @@
 
 <script setup lang="ts">
 
-import DeleteProduct from "@/components/products/DeleteProduct.vue";
+import ProductDelete from "@/components/products/ProductDelete.vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
@@ -63,7 +67,7 @@ const props = defineProps({
 
 //button
 const goToFormUpdate = () => {
-  router.push("/UpdateFormProduct");
+  router.push("/ProductUpdateForm");
 };
 
 

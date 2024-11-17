@@ -31,7 +31,6 @@
               </p>
             </div>
           </v-card-text>
-
           <v-card-actions class="justify-center">
             <ButtonComponent>BUY NOW</ButtonComponent>
           </v-card-actions>
@@ -47,6 +46,7 @@ import { RouterLink } from "vue-router";
 
 //components
 import ButtonComponent from "@/components/common/ButtonComponent.vue";
+
 
 const props = defineProps({
   listProduct: {
@@ -64,36 +64,4 @@ const props = defineProps({
   padding-top: 1rem;
 }
 
-/* .product-card {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  width: 300px;
-  max-width: 300px;
-  height: 600px;
-}
-
-.info-title {
-  font-size: 1rem;
-  font-weight: bolder;
-}
-
-.product-info {
-  padding: 1rem;
-}
-
-.product-name {
-  font-size: 1.3rem;
-  color: #000000;
-}
-
-.product-price {
-  font-size: 1.75rem;
-  color: #000000;
-}
-
-.quantity {
-  color: #3949ab;
-  padding-top: 1rem;
-} */
 </style>

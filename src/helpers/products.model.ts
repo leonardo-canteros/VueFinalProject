@@ -6,9 +6,6 @@ const authStore = useAuthStore();
 
 const http = axios.create({
   baseURL: "https://upper-serena-fastapi-ecommerce-6026090d.koyeb.app/api/",
-  headers: {
-    Authorization: "Bearer " + authStore.getToken(),
-  },
 });
 
 
@@ -22,15 +19,38 @@ class TutorialDataService {
   }
 
   create(data: any) {
-    return http.post("/products", data);
+    data.seller_id = authStore.getUserId();
+    return http.post(
+      "/products", 
+      data,
+        {
+          headers: {
+            Authorization: "Bearer " + authStore.getToken()
+          }
+        }
+    );
   }
 
   update(id: string, data: any) {
-    return http.put(`/products/${id}`, data);
+    return http.put(`/products/${id}`, 
+    data,
+    {
+      headers: {
+        Authorization: "Bearer " + authStore.getToken()
+      }
+    }
+    );
   }
 
   delete(id: string) {
-    return http.delete(`/products/${id}`);
+    return http.delete(
+      `/products/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + authStore.getToken()
+        }
+      }
+      );
   }
 }
 

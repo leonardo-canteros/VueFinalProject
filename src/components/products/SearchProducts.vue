@@ -39,7 +39,6 @@ const emitSearch = () => {
 //watch
 watch(searchQuery, (newValue) => {
   emit("filterProduct", newValue);
-  console.log(`searchQuery is ${newValue}`);
 });
 
 </script>

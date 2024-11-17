@@ -34,6 +34,12 @@ export const useAuthStore = defineStore("auth", () => {
         return token.value;
     }
 
+
+
+    const getUserId = () => {
+        return userId.value;
+    }
+
     const getProfile = async () => {
         const params = {
         headers: {
@@ -52,5 +58,5 @@ export const useAuthStore = defineStore("auth", () => {
         isLoggedIn.value = false;
     }
 
-    return { fetchToken, getToken, isLoggedIn, logout, role, userId };
+    return { fetchToken, getToken, getUserId, isLoggedIn, logout, role, userId };
 });

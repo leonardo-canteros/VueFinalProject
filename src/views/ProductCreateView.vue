@@ -20,6 +20,18 @@
 
         <v-btn class="mx-auto mt-2 py-6" min-width="230" style="background-color: #f46568; color: #ffffff" type="submit"
           block>Enter product</v-btn>
+
+          <v-btn
+          class="mx-auto mt-2 py-6 text-white"
+          color="#3949ab"
+
+          min-width="230"
+          type="submit"
+          @click="goToProductsList"
+          block
+        >
+          <v-icon icon="mdi-arrow-left" start></v-icon>Back</v-btn
+        >  
       </v-form>
     </v-sheet>
 
@@ -60,6 +72,16 @@ const categories = ref([
   "Keyboard",
   "Brass"
 ]);
+
+//button
+const goToBack = () => {
+  router.back();
+};
+
+//button
+const goToProductsList = () => {
+  router.push("/products");
+};
 
 
 const saveData = async () => {

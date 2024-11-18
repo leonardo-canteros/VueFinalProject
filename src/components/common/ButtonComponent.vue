@@ -11,6 +11,8 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+defineEmits(["click"]);
+</script>
 
 <style scoped></style>

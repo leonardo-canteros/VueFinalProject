@@ -27,11 +27,16 @@ export const createUser = async (user: any) => {
       headers: {
         'Authorization': 'Bearer ' + authStore.getToken(),
       }}
-    const body = {
-      ...user
-    }
-    console.log(body);
-    const res = await axios.post(`${urlApiServer}/api/users/`, headers);
+    const res = await axios.post(`${urlApiServer}/api/users/`, user, headers);
+    return res.data;
+}
+
+export const updateUser = async (user: any) => {
+    const headers = {
+      headers: {
+        'Authorization': 'Bearer ' + authStore.getToken(),
+      }}
+    const res = await axios.put(`${urlApiServer}/api/users/${user.id}`, user, headers);
     return res.data;
 }
 

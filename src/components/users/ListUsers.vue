@@ -1,13 +1,19 @@
 <template>
+  <v-skeleton-loader />
   <v-data-table
     :headers="headers"
     :items-per-page="5"
     :items="usersList"
     :search="search"
     :sort-by="[{ key: 'username', order: 'asc' }]"
+    :loading="loading"
   >
+    <template v-slot:loading>
+      <v-skeleton-loader type="table-row@5"></v-skeleton-loader>
+    </template>
     <template v-slot:item.image="{ item: { image } }">
-      <img :src="image" width="40" height="40" />
+      <img v-if="image" :src="image" width="40" height="40" />
+      <span v-else>No image</span>
     </template>
 
     <template v-slot:item.deactivated_at="{ item: { deactivated_at } }">
@@ -51,7 +57,7 @@
           <v-card-text>
             <v-row dense>
               <v-col cols="12" sm="6">
-                <v-text-field v-model="dialog.user.id" label="ID" disabled>
+                <v-text-field v-model="dialog.user.id" label="ID" readonly>
                 </v-text-field>
               </v-col>
 
@@ -59,7 +65,7 @@
                 <v-text-field
                   :v-model="dialog.user.deactivated_at"
                   label="Deactivated At"
-                  disabled
+                  readonly
                 >
                 </v-text-field>
               </v-col>
@@ -81,13 +87,6 @@
                 ></v-text-field>
               </v-col>
 
-              <v-col cols="12" sm="12">
-                <v-text-field
-                  v-model="dialog.user.image"
-                  label="Image URL"
-                ></v-text-field>
-              </v-col>
-
               <v-col cols="12" sm="6">
                 <v-select
                   v-model="dialog.user.role"
@@ -95,6 +94,24 @@
                   label="Role*"
                   required
                 ></v-select>
+              </v-col>
+
+              <v-col v-if="!dialog.editMode" cols="12" sm="6">
+                <v-text-field
+                  v-model="password"
+                  label="Password*"
+                  required
+                  :append-inner-icon="passVisible ? 'mdi-eye-off' : 'mdi-eye'"
+                  :type="passVisible ? 'text' : 'password'"
+                  @click:append-inner="passVisible = !passVisible"
+                ></v-text-field>
+              </v-col>
+
+              <v-col cols="12" sm="12">
+                <v-text-field
+                  v-model="dialog.user.image"
+                  label="Image URL"
+                ></v-text-field>
               </v-col>
             </v-row>
 
@@ -129,13 +146,19 @@
 import ButtonComponent from "@/components/common/ButtonComponent.vue";
 import DialogOkCancel from "@/components/users/DialogOkCancel.vue";
 import { formatDate } from "@/helpers/format";
-import { createUser, deleteUser, getUsersList } from "@/helpers/usersServices";
-import { onMounted, reactive, ref, watch } from "vue";
+import {
+  createUser,
+  deleteUser,
+  getUsersList,
+  updateUser,
+} from "@/helpers/usersServices";
+import { nextTick, onMounted, reactive, ref, watch } from "vue";
 
 const usersList = ref([]);
+const loading = ref(false);
 
-onMounted(async () => {
-  usersList.value = await getUsersList();
+onMounted(() => {
+  updateTable();
 });
 
 const search = ref("");
@@ -178,6 +201,9 @@ const dialog = reactive<{
   },
 });
 
+const password = ref("");
+const passVisible = ref(false);
+
 const dialogDelete = reactive({
   show: false,
   id: "",
@@ -200,8 +226,11 @@ function addUserInit(): void {
 }
 
 function addUserConfirm(): void {
-  createUser(JSON.parse(JSON.stringify(dialog.user)));
+  let user = JSON.parse(JSON.stringify(dialog.user));
+  user.password = password.value;
+  createUser(user);
   clearDialog();
+  updateTable();
 }
 
 function editUserInit(item: {}): void {
@@ -213,8 +242,10 @@ function editUserInit(item: {}): void {
 }
 
 function editUserConfirm(): void {
-  // editUser(dialog.user);
+  const user = JSON.parse(JSON.stringify(dialog.user));
+  updateUser(user);
   clearDialog();
+  updateTable();
 }
 
 function deleteUserInit(item: {}): void {
@@ -227,15 +258,13 @@ function deleteUserInit(item: {}): void {
 function deleteUserConfirm(): void {
   deleteUser(dialogDelete.id);
   clearDialogDelete();
+  updateTable();
 }
 
-watch(dialogDelete, async (val) => {
-  if (!val.show) {
-    usersList.value = await getUsersList();
-  }
-});
-
 function clearDialog(): void {
+  dialog.title = "";
+  dialog.show = false;
+  dialog.editMode = false;
   dialog.user = {
     id: "",
     username: "",
@@ -244,9 +273,7 @@ function clearDialog(): void {
     deactivated_at: "",
     image: "",
   };
-  dialog.title = "";
-  dialog.editMode = false;
-  dialog.show = false;
+  password.value = "";
 }
 
 function clearDialogDelete(): void {
@@ -254,4 +281,13 @@ function clearDialogDelete(): void {
   dialogDelete.msg = "";
   dialogDelete.show = false;
 }
+
+const updateTable = async () => {
+  loading.value = true;
+  await nextTick();
+  usersList.value = await getUsersList();
+  setTimeout(() => {
+    loading.value = false;
+  }, 700);
+};
 </script>

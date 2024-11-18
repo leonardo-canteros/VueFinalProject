@@ -20,22 +20,24 @@
       :type="visible ? 'text' : 'password'"
       @click:append-inner="visible = !visible"
     >
-      <FormLink label="Forgot login password?" class="text-caption"</FormLink>
+      <FormLink label="Forgot login password?" class="text-caption" @click="passwordHelp" </FormLink>
     </FormTextField>
 
     <FormButton :loading="loading" label="Log In" type="submit"></FormButton>
 
     <v-alert
-      v-if="msgLogin.show"
+      v-if="msgAlert.show"
       density="compact"
-      :text="msgLogin.text"
-      title="Login Error"
-      :type="(msgLogin.isError ? 'error' : 'success') as 'error' | 'success'"
+      :text="msgAlert.text"
+      :title="msgAlert.title"
       closable
+      :type="(msgAlert.isError ? 'error' : 'warning')"
     ></v-alert>
 
     <v-card-text class="text-center">
-      <FormLink label="Sign up now" icon="mdi-chevron-right"></FormLink>
+      <RouterLink to="/register" class="text-white mt-3">
+        <FormLink label="Sign up now" icon="mdi-chevron-right"></FormLink>
+      </RouterLink>
     </v-card-text>
   </FormContainer>
 </template>
@@ -74,8 +76,16 @@ const authStore = useAuthStore();
 const loading = ref(false);
 const visible = ref(false);
 
-const msgLogin = reactive({
+const passwordHelp = () => {
+    msgAlert.show = true;
+    msgAlert.title = "Password Forgotten";
+    msgAlert.text = "We can't help you. Maybe in future release";
+    msgAlert.isError = false;
+}
+
+const msgAlert = reactive({
   show: false,
+  title: "",
   text: "",
   isError: true,
 });
@@ -89,9 +99,10 @@ const submitForm = handleSubmit(async (values) => {
       router.push("/");
     }
   } catch (error: any) {
-    msgLogin.show = true;
-    msgLogin.text = error.message;
-    msgLogin.isError = true;
+    msgAlert.show = true;
+    msgAlert.title = "Login Error";
+    msgAlert.text = error.message;
+    msgAlert.isError = true;
   }
 });
 </script>

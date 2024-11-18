@@ -48,70 +48,75 @@
         <DialogOkCancel
           v-model="dialog.show"
           :title="dialog.title"
+          @ok="submitForm"
           @cancel="clearDialog"
-          @ok="saveUser"
           cancel-btn-legend="Cancel"
           ok-btn-legend="Save"
           max-width="600"
         >
           <v-card-text>
             <v-row dense>
-              <v-col cols="12" sm="6">
-                <v-text-field v-model="dialog.user.id" label="ID" readonly>
-                </v-text-field>
+              <v-col v-if="dialog.editMode" cols="12" sm="6">
+                <BaseTextField v-model="id" label="ID" readonly></BaseTextField>
               </v-col>
 
-              <v-col cols="12" sm="6">
-                <v-text-field
-                  :v-model="dialog.user.deactivated_at"
+              <v-col v-if="dialog.editMode" cols="12" sm="6">
+                <BaseTextField
+                  :v-model="deactivated_at"
                   label="Deactivated At"
                   readonly
-                >
-                </v-text-field>
+                ></BaseTextField>
               </v-col>
 
               <v-col cols="12" sm="6">
-                <v-text-field
-                  v-model="dialog.user.username"
+                <BaseTextField
+                  v-model="username"
+                  :error-messages="errors.username"
                   label="Username*"
                   required
-                >
-                </v-text-field>
+                ></BaseTextField>
               </v-col>
 
               <v-col cols="12" sm="6">
-                <v-text-field
-                  v-model="dialog.user.email"
+                <BaseTextField
+                  v-model="email"
+                  :error-messages="errors.email"
                   label="Email*"
                   required
-                ></v-text-field>
+                ></BaseTextField>
               </v-col>
 
               <v-col cols="12" sm="6">
                 <v-select
-                  v-model="dialog.user.role"
+                  v-model="(role as string | null | undefined)"
                   :items="['admin', 'seller', 'customer']"
                   label="Role*"
+                  :error-messages="errors.role"
+                  color="primary"
+                  outlined
                   required
                 ></v-select>
               </v-col>
 
               <v-col v-if="!dialog.editMode" cols="12" sm="6">
-                <v-text-field
+                <BaseTextField
                   v-model="password"
+                  :error-messages="errors.password"
                   label="Password*"
                   required
-                  :append-inner-icon="passVisible ? 'mdi-eye-off' : 'mdi-eye'"
-                  :type="passVisible ? 'text' : 'password'"
-                  @click:append-inner="passVisible = !passVisible"
-                ></v-text-field>
+                  :append-inner-icon="
+                    passwordIsVisible ? 'mdi-eye-off' : 'mdi-eye'
+                  "
+                  :type="passwordIsVisible ? 'text' : 'password'"
+                  @click:append-inner="passwordIsVisible = !passwordIsVisible"
+                ></BaseTextField>
               </v-col>
 
               <v-col cols="12" sm="12">
-                <v-text-field
-                  v-model="dialog.user.image"
+                <BaseTextField
+                  v-model="image"
                   label="Image URL"
-                ></v-text-field>
+                ></BaseTextField>
               </v-col>
             </v-row>
 
@@ -144,6 +149,7 @@
 
 <script setup lang="ts">
 import ButtonComponent from "@/components/common/ButtonComponent.vue";
+import BaseTextField from "@/components/users/BaseTextField.vue";
 import DialogOkCancel from "@/components/users/DialogOkCancel.vue";
 import { formatDate } from "@/helpers/format";
 import {
@@ -152,7 +158,55 @@ import {
   getUsersList,
   updateUser,
 } from "@/helpers/usersServices";
+import { useField, useForm } from "vee-validate";
 import { nextTick, onMounted, reactive, ref, watch } from "vue";
+import * as yup from "yup";
+
+const editUserSchema = yup.object({
+  username: yup
+    .string()
+    .required("Username is required")
+    .min(3, "Username must be at least 3 characters long"),
+  email: yup
+    .string()
+    .required("Email is required")
+    .email("Must be a valid email address"),
+  role: yup
+    .mixed()
+    .oneOf(["admin", "seller", "customer"] as const)
+    .required("Role is required"),
+});
+
+const addUserSchema = editUserSchema.concat(
+  yup.object().shape({
+    password: yup
+      .string()
+      .required("Password is required")
+      .min(3, "Password must be at least 3 characters long"),
+  })
+);
+
+const validationSchema = ref(yup.object().shape({}));
+
+const { handleSubmit, errors } = useForm({
+  validationSchema,
+});
+
+const { value: id } = useField("id");
+const { value: username } = useField("username");
+const { value: email } = useField("email");
+const { value: role } = useField("role");
+const { value: password } = useField("password");
+const { value: deactivated_at } = useField("deactivated_at");
+const { value: image } = useField("image");
+
+const submitForm = handleSubmit((values) => {
+  if (dialog.editMode) {
+    editUserConfirm(values);
+  } else {
+    addUserConfirm(values);
+  }
+});
 
 const usersList = ref([]);
 const loading = ref(false);
@@ -173,50 +227,23 @@ headers.value = [
   { title: "Actions", key: "actions", sortable: false },
 ];
 
-interface User {
-  id: string;
-  username: string;
-  email: string;
-  role: string;
-  deactivated_at: string | null;
-  image: string | null;
-}
-
-const dialog = reactive<{
-  show: boolean;
-  editMode: boolean;
-  title: string;
-  user: User;
-}>({
+const dialog = reactive({
   show: false,
   editMode: false,
   title: "",
-  user: {
-    id: "",
-    username: "",
-    email: "",
-    role: "",
-    deactivated_at: "",
-    image: "",
-  },
 });
 
-const password = ref("");
-const passVisible = ref(false);
+watch(dialog, (newVal) => {
+  validationSchema.value = newVal.editMode ? editUserSchema : addUserSchema;
+});
+
+const passwordIsVisible = ref(false);
 
 const dialogDelete = reactive({
   show: false,
   id: "",
   msg: "",
 });
-
-function saveUser(): void {
-  if (dialog.editMode) {
-    editUserConfirm();
-  } else {
-    addUserConfirm();
-  }
-}
 
 function addUserInit(): void {
   clearDialog();
@@ -225,25 +252,28 @@ function addUserInit(): void {
   dialog.editMode = false;
 }
 
-function addUserConfirm(): void {
-  let user = JSON.parse(JSON.stringify(dialog.user));
-  user.password = password.value;
-  createUser(user);
+function addUserConfirm(values: {}): void {
+  // let user = JSON.parse(JSON.stringify(values));
+  // user.password = passwordInput.value;
+  createUser(values);
   clearDialog();
   updateTable();
 }
 
 function editUserInit(item: {}): void {
   const itemJson = JSON.parse(JSON.stringify(item));
-  dialog.user = itemJson;
+  id.value = itemJson.id;
+  username.value = itemJson.username;
+  email.value = itemJson.email;
+  role.value = itemJson.role;
   dialog.title = "Edit User";
   dialog.show = true;
   dialog.editMode = true;
 }
 
-function editUserConfirm(): void {
-  const user = JSON.parse(JSON.stringify(dialog.user));
-  updateUser(user);
+function editUserConfirm(values: {}): void {
+  // const user = JSON.parse(JSON.stringify(dialog.user));
+  updateUser(values);
   clearDialog();
   updateTable();
 }
@@ -265,14 +295,12 @@ function clearDialog(): void {
   dialog.title = "";
   dialog.show = false;
   dialog.editMode = false;
-  dialog.user = {
-    id: "",
-    username: "",
-    email: "",
-    role: "",
-    deactivated_at: "",
-    image: "",
-  };
+  id.value = "";
+  username.value = "";
+  email.value = "";
+  role.value = "";
+  deactivated_at.value = "";
+  image.value = "";
   password.value = "";
 }
 

@@ -28,13 +28,6 @@
         </v-menu>
 
         <v-toolbar-items class="hidden-sm-and-down">
-          <RouterLink to="/users" class="text-white mt-3">
-            <v-btn v-if="authStore.role === 'admin'" flat>
-              Users
-              <v-icon left>mdi-account-supervisor-outline</v-icon>
-            </v-btn>
-          </RouterLink>
-
           <RouterLink to="/login" class="text-white mt-3">
             <v-btn v-if="!authStore.isLoggedIn" flat>
               Login
@@ -67,7 +60,7 @@
 
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { RouterLink, RouterView } from "vue-router";
 
 const authStore = useAuthStore();
@@ -78,6 +71,18 @@ const menu = ref([
   { title: "Products", link: "/products", icon: "mdi-cart" },
   { title: "Contact", link: "/contact", icon: "mdi-email" },
 ]);
+
+watch(authStore, (newValue) => {
+  if (newValue.role === "admin") {
+    menu.value.push({
+      title: "Users",
+      link: "/users",
+      icon: "mdi-account-supervisor",
+    });
+  } else {
+    menu.value = menu.value.filter((item) => item.title !== "Users");
+  }
+});
 </script>
 
 <style scoped></style>

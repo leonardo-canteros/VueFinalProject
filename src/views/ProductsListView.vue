@@ -18,9 +18,6 @@
 
     <ProductsList title="List of Products" :listProduct="listProducts"></ProductsList>
 
-    <!-- <ListProducts title="List of Products" :listProduct="listProducts"></ListProducts>
-        <ButtonComponent @click="clearList()">Clear</ButtonComponent>
- -->
   </v-container>
 </template>
 
@@ -49,10 +46,6 @@ onMounted(() => {
   store.fetchAllProducts();
 });
 
-//clear
-const clearList = () => {
-  store.clearProducts();
-};
 
 //filter
 const filterProducts = (searchQuery) => {

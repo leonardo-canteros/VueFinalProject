@@ -7,18 +7,16 @@
       <slot></slot>
     </div>
 
-    <v-text-field
+    <base-text-field
       :prepend-inner-icon="icon"
-      variant="outlined"
-      density="compact"
       v-bind="$attrs"
       v-model="model"
-    >
-    </v-text-field>
+    ></base-text-field>
   </div>
 </template>
 
 <script setup lang="ts">
+import BaseTextField from "@/components/common/BaseTextField.vue";
 defineOptions({
   inheritAttrs: false,
 });

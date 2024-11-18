@@ -30,6 +30,7 @@
 </template>
 
 <script setup lang="ts">
+import ButtonComponent from "@/components/common/ButtonComponent.vue";
 import FormButton from "@/components/auth/FormButton.vue";
 import FormContainer from "@/components/auth/FormContainer.vue";
 import FormLink from "@/components/auth/FormLink.vue";

@@ -1,10 +1,17 @@
 <template>
-  <v-btn class="mb-8" color="blue" size="large" variant="tonal" block>
+  <ButtonComponent
+    :min-width="null"
+    class="mb-8"
+    size="large"
+    variant="tonal"
+    block
+  >
     {{ label }}
-  </v-btn>
+  </ButtonComponent>
 </template>
 
 <script setup lang="ts">
+import ButtonComponent from "@/components/common/ButtonComponent.vue";
 const props = defineProps({
   label: {
     type: String,

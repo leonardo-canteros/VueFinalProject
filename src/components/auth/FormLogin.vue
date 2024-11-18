@@ -1,11 +1,12 @@
 <template>
-  <FormContainer title="Log In" @submit="submit">
+  <FormContainer title="Log In" @submit="submitForm">
     <FormTextField
       label="Username"
       icon="mdi-account-outline"
       placeholder="Username"
       v-model="username"
-      :rules="[rules.required]"
+      :error-messages="errors.username"
+      required
     ></FormTextField>
 
     <FormTextField
@@ -13,7 +14,8 @@
       icon="mdi-lock-outline"
       placeholder="Password"
       v-model="password"
-      :rules="[rules.required]"
+      :error-messages="errors.password"
+      required
       :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
       :type="visible ? 'text' : 'password'"
       @click:append-inner="visible = !visible"
@@ -30,27 +32,39 @@
 </template>
 
 <script setup lang="ts">
-import ButtonComponent from "@/components/common/ButtonComponent.vue";
 import FormButton from "@/components/auth/FormButton.vue";
 import FormContainer from "@/components/auth/FormContainer.vue";
 import FormLink from "@/components/auth/FormLink.vue";
 import FormTextField from "@/components/auth/FormTextField.vue";
-import rules from "@/helpers/validation";
 import router from "@/router";
 import { useAuthStore } from "@/stores/auth";
+import { useForm, useField } from "vee-validate";
 import { ref } from "vue";
+import * as yup from "yup";
+
+const validationSchema = yup.object({
+  username: yup
+    .string()
+    .required("Username is required")
+    .min(3, "Username must be at least 3 characters long"),
+  password: yup
+    .string()
+    .required("Password is required")
+    .min(3, "Password must be at least 3 characters long"),
+});
+
+const { handleSubmit, errors } = useForm({
+  validationSchema,
+});
+
+const { value: username } = useField<string>("username");
+const { value: password } = useField<string>("password");
 
 const authStore = useAuthStore();
 
 const visible = ref(false);
 
-const username = ref(null);
-const password = ref(null);
-
-const submit = async () => {
-  if (!username.value || !password.value) {
-    return;
-  }
+const submitForm = handleSubmit(async (values) => {
   try {
     await authStore.fetchToken(username.value, password.value);
     if (authStore.isLoggedIn) {
@@ -59,5 +73,5 @@ const submit = async () => {
   } catch (error) {
     console.log(error);
   }
-};
+});
 </script>

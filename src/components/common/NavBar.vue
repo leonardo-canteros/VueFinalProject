@@ -8,8 +8,6 @@
 
         <v-spacer></v-spacer>
 
-        <!-- Dropdown menu -->
-
         <v-btn id="menu-activator">
           Menu <v-icon icon="mdi-domain"></v-icon
         ></v-btn>
@@ -60,7 +58,7 @@
 
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { RouterLink, RouterView } from "vue-router";
 
 const authStore = useAuthStore();
@@ -71,6 +69,18 @@ const menu = ref([
   { title: "Products", link: "/products", icon: "mdi-cart" },
   { title: "Contact", link: "/contact", icon: "mdi-email" },
 ]);
+
+watch(authStore, (newValue) => {
+  if (newValue.role === "admin") {
+    menu.value.push({
+      title: "Users",
+      link: "/users",
+      icon: "mdi-account-supervisor",
+    });
+  } else {
+    menu.value = menu.value.filter((item) => item.title !== "Users");
+  }
+});
 </script>
 
 <style scoped></style>

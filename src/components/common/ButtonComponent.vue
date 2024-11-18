@@ -5,6 +5,7 @@
       min-width="230"
       class="v-btn--slim v-theme--light v-btn--density-default v-btn--size-large v-btn--variant-flat text-none v-btn--block"
       style="background-color: #f46568; color: #ffffff"
+      v-bind="$attrs"
     >
       <slot></slot>
     </v-btn>

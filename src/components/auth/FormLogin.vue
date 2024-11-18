@@ -1,94 +1,108 @@
 <template>
-  <v-container>
-    <v-form @submit.prevent="submit" class="my-8">
-      <v-card
-        class="mx-auto pa-12 pb-8"
-        elevation="8"
-        max-width="448"
-        rounded="lg"
-      >
-        <div class="text-subtitle-1 text-medium-emphasis">Username</div>
-        <v-text-field
-          prepend-inner-icon="mdi-account-outline"
-          density="compact"
-          placeholder="Username"
-          variant="outlined"
-          v-model="username"
-          :rules="[rules.required]"
-        >
-        </v-text-field>
-        <div
-          class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
-        >
-          Password
-          <a
-            class="text-caption text-decoration-none"
-            href="#"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Forgot login password?</a
-          >
-        </div>
-        <v-text-field
-          :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
-          :type="visible ? 'text' : 'password'"
-          density="compact"
-          placeholder="Enter your password"
-          v-model="password"
-          prepend-inner-icon="mdi-lock-outline"
-          variant="outlined"
-          @click:append-inner="visible = !visible"
-          :rules="[rules.required]"
-        ></v-text-field>
-        <v-btn
-          style="background-color: #f46568; color: #ffffff"
-          class="mb-8"
-          size="large"
-          block
-          type="submit"
-        >
-          Log In
-        </v-btn>
-        <v-card-text class="text-center">
-          <a
-            class="text-decoration-none"
-            href="#"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Sign up now <v-icon icon="mdi-chevron-right"></v-icon>
-          </a>
-        </v-card-text>
-      </v-card>
-    </v-form>
-  </v-container>
+  <FormContainer title="Log In" @submit="submitForm">
+    <FormTextField
+      label="Username"
+      icon="mdi-account-outline"
+      placeholder="Username"
+      v-model="username"
+      :error-messages="errors.username"
+      required
+    ></FormTextField>
+
+    <FormTextField
+      label="Password"
+      icon="mdi-lock-outline"
+      placeholder="Password"
+      v-model="password"
+      :error-messages="errors.password"
+      required
+      :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
+      :type="visible ? 'text' : 'password'"
+      @click:append-inner="visible = !visible"
+    >
+      <FormLink label="Forgot login password?" class="text-caption" @click="passwordHelp" </FormLink>
+    </FormTextField>
+
+    <FormButton :loading="loading" label="Log In" type="submit"></FormButton>
+
+    <v-alert
+      v-if="msgAlert.show"
+      density="compact"
+      :text="msgAlert.text"
+      :title="msgAlert.title"
+      closable
+      :type="(msgAlert.isError ? 'error' : 'warning')"
+    ></v-alert>
+
+    <v-card-text class="text-center">
+      <RouterLink to="/register" class="text-white mt-3">
+        <FormLink label="Sign up now" icon="mdi-chevron-right"></FormLink>
+      </RouterLink>
+    </v-card-text>
+  </FormContainer>
 </template>
 
 <script setup lang="ts">
-import rules from "@/helpers/validation";
+import FormButton from "@/components/auth/FormButton.vue";
+import FormContainer from "@/components/auth/FormContainer.vue";
+import FormLink from "@/components/auth/FormLink.vue";
+import FormTextField from "@/components/auth/FormTextField.vue";
 import router from "@/router";
 import { useAuthStore } from "@/stores/auth";
-import { ref } from "vue";
+import { useField, useForm } from "vee-validate";
+import { reactive, ref } from "vue";
+import * as yup from "yup";
+
+const validationSchema = yup.object({
+  username: yup
+    .string()
+    .required("Username is required")
+    .min(3, "Username must be at least 3 characters long"),
+  password: yup
+    .string()
+    .required("Password is required")
+    .min(3, "Password must be at least 3 characters long"),
+});
+
+const { handleSubmit, errors } = useForm({
+  validationSchema,
+});
+
+const { value: username } = useField<string>("username");
+const { value: password } = useField<string>("password");
 
 const authStore = useAuthStore();
 
+const loading = ref(false);
 const visible = ref(false);
 
-const username = ref(null);
-const password = ref(null);
+const passwordHelp = () => {
+    msgAlert.show = true;
+    msgAlert.title = "Password Forgotten";
+    msgAlert.text = "We can't help you. Maybe in future release";
+    msgAlert.isError = false;
+}
 
-const submit = async () => {
-  if (!username.value || !password.value) {
-    return;
-  }
+const msgAlert = reactive({
+  show: false,
+  title: "",
+  text: "",
+  isError: true,
+});
+
+const submitForm = handleSubmit(async (values) => {
   try {
+    loading.value = true;
+    setTimeout(() => (loading.value = false), 2000);
     await authStore.fetchToken(username.value, password.value);
     if (authStore.isLoggedIn) {
       router.push("/");
     }
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    msgAlert.show = true;
+    msgAlert.title = "Login Error";
+    msgAlert.text = error.message;
+    msgAlert.isError = true;
   }
-};
+});
 </script>

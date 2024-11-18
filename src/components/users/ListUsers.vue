@@ -149,7 +149,7 @@
 
 <script setup lang="ts">
 import ButtonComponent from "@/components/common/ButtonComponent.vue";
-import BaseTextField from "@/components/users/BaseTextField.vue";
+import BaseTextField from "@/components/common/BaseTextField.vue";
 import DialogOkCancel from "@/components/users/DialogOkCancel.vue";
 import { formatDate } from "@/helpers/format";
 import {

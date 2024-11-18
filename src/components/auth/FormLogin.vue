@@ -30,14 +30,14 @@
 </template>
 
 <script setup lang="ts">
+import FormButton from "@/components/auth/FormButton.vue";
+import FormContainer from "@/components/auth/FormContainer.vue";
+import FormLink from "@/components/auth/FormLink.vue";
+import FormTextField from "@/components/auth/FormTextField.vue";
 import rules from "@/helpers/validation";
 import router from "@/router";
 import { useAuthStore } from "@/stores/auth";
 import { ref } from "vue";
-import FormButton from "./FormButton.vue";
-import FormContainer from "./FormContainer.vue";
-import FormLink from "./FormLink.vue";
-import FormTextField from "./FormTextField.vue";
 
 const authStore = useAuthStore();
 

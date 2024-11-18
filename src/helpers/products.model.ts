@@ -10,8 +10,8 @@ const http = axios.create({
 
 
 class TutorialDataService {
-  getAll() {
-    return http.get("/products");
+  getAll(sortBy = 'name', sortDir = 'asc') {
+    return http.get(`/products?sort_by=${sortBy}&sort_dir=${sortDir}`);
   }
 
   get(id: string) {

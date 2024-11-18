@@ -8,16 +8,13 @@
         color="red"
       ></v-btn>
     </template>
-
     <template v-slot:default="{ isActive }">
       <v-card title="Hey!">
         <v-card-text>
           "Are you sure you want to delete this product?"
         </v-card-text>
-
         <v-card-actions>
           <v-spacer></v-spacer>
-
           <v-btn text="Close" @click="isActive.value = false"></v-btn>
         </v-card-actions>
       </v-card>

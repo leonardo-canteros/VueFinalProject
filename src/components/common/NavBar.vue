@@ -46,7 +46,6 @@
         </v-toolbar-items>
       </v-toolbar>
 
-      <v-content>
         <RouterView />
 
         <!--         <v-container fluid fill-height>
@@ -55,7 +54,6 @@
           </v-layout>
 
         </v-container> -->
-      </v-content>
     </v-app>
   </div>
 </template>

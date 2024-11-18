@@ -3,7 +3,6 @@
     class="text-blue text-decoration-none"
     href="#"
     rel="noopener noreferrer"
-    target="_blank"
     v-bind="$attrs"
   >
     {{ label }} <v-icon v-if="icon" :icon="icon"></v-icon>

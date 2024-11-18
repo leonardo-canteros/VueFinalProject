@@ -20,10 +20,19 @@
       :type="visible ? 'text' : 'password'"
       @click:append-inner="visible = !visible"
     >
-      <!-- <FormLink label="Forgot login password?" class="text-caption"</FormLink> -->
+      <FormLink label="Forgot login password?" class="text-caption"</FormLink>
     </FormTextField>
 
-    <FormButton label="Log In" type="submit"></FormButton>
+    <FormButton :loading="loading" label="Log In" type="submit"></FormButton>
+
+    <v-alert
+      v-if="msgLogin.show"
+      density="compact"
+      :text="msgLogin.text"
+      title="Login Error"
+      :type="(msgLogin.isError ? 'error' : 'success') as 'error' | 'success'"
+      closable
+    ></v-alert>
 
     <v-card-text class="text-center">
       <FormLink label="Sign up now" icon="mdi-chevron-right"></FormLink>
@@ -38,8 +47,8 @@ import FormLink from "@/components/auth/FormLink.vue";
 import FormTextField from "@/components/auth/FormTextField.vue";
 import router from "@/router";
 import { useAuthStore } from "@/stores/auth";
-import { useForm, useField } from "vee-validate";
-import { ref } from "vue";
+import { useField, useForm } from "vee-validate";
+import { reactive, ref } from "vue";
 import * as yup from "yup";
 
 const validationSchema = yup.object({
@@ -62,16 +71,27 @@ const { value: password } = useField<string>("password");
 
 const authStore = useAuthStore();
 
+const loading = ref(false);
 const visible = ref(false);
+
+const msgLogin = reactive({
+  show: false,
+  text: "",
+  isError: true,
+});
 
 const submitForm = handleSubmit(async (values) => {
   try {
+    loading.value = true;
+    setTimeout(() => (loading.value = false), 2000);
     await authStore.fetchToken(username.value, password.value);
     if (authStore.isLoggedIn) {
       router.push("/");
     }
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    msgLogin.show = true;
+    msgLogin.text = error.message;
+    msgLogin.isError = true;
   }
 });
 </script>

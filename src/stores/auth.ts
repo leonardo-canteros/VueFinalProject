@@ -25,8 +25,14 @@ export const useAuthStore = defineStore("auth", () => {
             token.value = res.data.access_token
             isLoggedIn.value = true;
             await getProfile();
-        } catch (error) {
-            console.log(error);
+        } catch (reason: any) {
+            // if (reason.response!.status === 400) {
+            // // Handle 400
+            // } else {
+            // // Handle else
+            // }
+            // console.log(reason.response.data.detail)
+            throw new Error(reason.response.data.detail);
         }
     }
 

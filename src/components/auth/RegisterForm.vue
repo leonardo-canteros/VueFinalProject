@@ -1,56 +1,68 @@
 <template>
-  <FormContainer title="Log In" @submit="submitForm">
-    <FormTextField
-      label="Username"
-      icon="mdi-account-outline"
-      placeholder="Username"
-      v-model="username"
-      :error-messages="errors.username"
-      required
-    ></FormTextField>
+  <FormContainer title="Register" @submit="submitForm" max-width="700">
+    <v-row justify="center">
+      <v-col cols="12" md="6">
+        <FormTextField
+          label="Username*"
+          icon="mdi-account-outline"
+          placeholder="Username"
+          v-model="username"
+          :error-messages="errors.username"
+          required
+        ></FormTextField>
+      </v-col>
 
-    <FormTextField
-      label="Email"
-      icon="mdi-email-outline"
-      placeholder="Email"
-      v-model="email"
-      :error-messages="errors.email"
-      required
-    ></FormTextField>
+      <v-col cols="12" md="6">
+        <FormTextField
+          label="Email*"
+          icon="mdi-email-outline"
+          placeholder="Email"
+          v-model="email"
+          :error-messages="errors.email"
+          required
+        ></FormTextField>
+      </v-col>
 
-    <v-select
-      v-model="(role as string | null | undefined)"
-      :items="['seller', 'customer']"
-      label="Role*"
-      :error-messages="errors.role"
-      color="primary"
-      outlined
-      required
-    ></v-select>
+      <v-col cols="12" md="6">
+        <FormSelect
+          v-model="(role as string | null | undefined)"
+          :items="['seller', 'customer']"
+          label="Role*"
+          :error-messages="errors.role"
+          color="primary"
+          outlined
+          required
+        ></FormSelect>
+      </v-col>
 
-    <FormTextField
-      label="Password"
-      icon="mdi-lock-outline"
-      placeholder="Password"
-      v-model="password"
-      :error-messages="errors.password"
-      required
-      :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
-      :type="visible ? 'text' : 'password'"
-      @click:append-inner="visible = !visible"
-    >
-    </FormTextField>
+      <v-col cols="12" md="6">
+        <FormTextField
+          label="Password*"
+          icon="mdi-lock-outline"
+          placeholder="Password"
+          v-model="password"
+          :error-messages="errors.password"
+          required
+          :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
+          :type="visible ? 'text' : 'password'"
+          @click:append-inner="visible = !visible"
+        >
+        </FormTextField>
+      </v-col>
 
-    <FormTextField
-      label="Image URL"
-      icon="mdi-image-outline"
-      placeholder="Copy your image URL"
-      v-model="image"
-      :error-messages="errors.image"
-      required
-    ></FormTextField>
+      <v-col cols="12" md="12">
+        <FormTextField
+          label="Image URL"
+          icon="mdi-image-outline"
+          placeholder="Copy your image URL"
+          v-model="image"
+          :error-messages="errors.image"
+          required
+        ></FormTextField>
+      </v-col>
+    </v-row>
 
-    <FormButton :loading="loading" label="Log In" type="submit"></FormButton>
+    <FormButton :loading="loading" label="Sing Up" type="submit"></FormButton>
 
     <v-alert
       v-if="msgAlert.show"
@@ -61,18 +73,16 @@
       :type="msgAlert.isError ? 'error' : 'warning'"
     ></v-alert>
 
-    <v-card-text class="text-center">
-      <RouterLink to="/register" class="text-white mt-3">
-        <FormLink label="Sign up now" icon="mdi-chevron-right"></FormLink>
-      </RouterLink>
-    </v-card-text>
+    <small class="text-caption text-medium-emphasis"
+      >*indicates required field</small
+    >
   </FormContainer>
 </template>
 
 <script setup lang="ts">
 import FormButton from "@/components/auth/FormButton.vue";
 import FormContainer from "@/components/auth/FormContainer.vue";
-import FormLink from "@/components/auth/FormLink.vue";
+import FormSelect from "@/components/auth/FormSelect.vue";
 import FormTextField from "@/components/auth/FormTextField.vue";
 import router from "@/router";
 import { useAuthStore } from "@/stores/auth";

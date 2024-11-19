@@ -15,7 +15,11 @@ export const useProductsListStore = defineStore("productsStore", () => {
         try {
           const result = await TutorialDataService.getAll();
 
-          listProducts.value = result.data.response;
+
+
+          listProducts.value = result.data.response.filter((product) => {
+            return product.deactivated_at	=== null;
+          });
         } catch (error) {
           error.value = "Error fetching products";
         } finally {
@@ -95,13 +99,13 @@ export const useProductsListStore = defineStore("productsStore", () => {
       }
 
 
-      async function deleteProduct(productId: any) {
+      async function deleteProduct(productId: string) {
         try {
           await TutorialDataService.delete(`${productId}`);
 
-          listProducts.value = listProducts.value.filter(
+     /*      listProducts.value = listProducts.value.filter(
             (product) => product.id !== productId
-          );
+          ); */
         } catch (error) {
           console.error("Error al borrar:", error);
         }

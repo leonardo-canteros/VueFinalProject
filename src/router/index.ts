@@ -27,7 +27,7 @@ const router = createRouter({
     {
       path: "/product/:id(\\d+)",
       name: "productId",
-      component: () => import("../views/ProductDetailsView.vue"),
+      component: () => import("../components/products/ProductDetails.vue"),
     },
     {
       path: "/ProductCreate",
@@ -43,6 +43,11 @@ const router = createRouter({
       path: "/ProductUpdate",
       name: "ProductUpdate",
       component: () => import("../views/ProductUpdateView.vue"),
+    },
+    {
+      path: "/ProductDelete/:id(\\d+)",
+      name: "ProductDelete",
+      component: () => import("../components/products/ProductDelete.vue"),
     },
     {
       path: "/login",

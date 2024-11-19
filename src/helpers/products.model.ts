@@ -4,6 +4,25 @@ import { useAuthStore } from "@/stores/auth";
 const authStore = useAuthStore();
 
 
+export interface FormData {
+  name: string;
+  price: number;
+  quantity: number;
+  description: string;
+  image: string;
+  category: string;
+  seller_id: string;
+}
+
+export interface Product {
+  id: string;      
+  name: string;
+  price: number;
+  quantity: number;
+  image: string;
+}
+
+
 const http = axios.create({
   baseURL: "https://upper-serena-fastapi-ecommerce-6026090d.koyeb.app/api/",
 });

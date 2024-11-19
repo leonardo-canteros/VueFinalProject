@@ -30,6 +30,7 @@ import { useRouter, useRoute } from "vue-router";
 import { ref, reactive, onMounted } from "vue";
 import { useProductsListStore } from "@/stores/ProductsStore";
 
+import type { FormData } from "@/helpers/products.model";
 
 const router = useRouter();
 const route = useRoute();
@@ -38,7 +39,8 @@ const productLoaded = ref();
 const productId = route.params.id;
 
 
-const formData = reactive({
+
+const formData = reactive<FormData>({
   name: "",
   price: 0,
   quantity: 0,

@@ -52,10 +52,12 @@ import { useRouter } from "vue-router";
 
 const router = useRouter();
 
+import type { Product } from "@/helpers/products.model"; 
+
 const props = defineProps({
   listProduct: {
-    type: Array,
-    default: [],
+    type: Array as () => Product[],
+    default: () => [], 
   },
 });
 

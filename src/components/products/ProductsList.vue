@@ -41,11 +41,12 @@
 <script setup lang="ts">
 import { RouterLink } from "vue-router";
 import ButtonComponent from "@/components/common/ButtonComponent.vue";
+import type { Product } from "@/helpers/products.model"; 
 
 const props = defineProps({
   listProduct: {
-    type: Array,
-    default: [],
+    type: Array as () => Product[],
+    default: () => [], 
   },
 });
 

@@ -27,20 +27,16 @@
                 <v-spacer></v-spacer>
                 <v-btn class="mx-auto mt-2 py-6 add-to-cart-btn" min-width="230"
                   style="background-color: #f46568; color: #ffffff" type="submit" block>Add to cart</v-btn>
-
               </v-card-actions>
             </v-card>
-
             <v-card class="mt-4">
               <v-card-title>More information:</v-card-title>
               <v-card-text>
                 <p>{{ productRetrieve.description }}</p>
                 <v-list>
-                
                     <v-list-item v-for="(feature, index) in productRetrieve.features" :key="index">
                       <v-list-item-title>{{ feature }}</v-list-item-title>
                     </v-list-item>
-
                 </v-list>
               </v-card-text>
             </v-card>
@@ -63,14 +59,11 @@ const route = useRoute();
 const productRetrieve = ref();
 const store = useProductsListStore();
 
-
 onMounted(async () => {
   const productId = route.params.id;
   productRetrieve.value = await store.getProductId(productId);
  
 });
-
-
 
 </script>
 

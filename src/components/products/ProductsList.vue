@@ -15,7 +15,6 @@
             :src="product.image"
             cover
           ></v-img>
-
           <v-card-title class="text-center font-weight-medium mt-3 text-black">
             {{ product.name }}
           </v-card-title>
@@ -23,7 +22,6 @@
           <v-card-subtitle class="text-center text-h4 text-grey mt-2">
             {{ product.price }}
           </v-card-subtitle>
-
           <v-card-text>
             <div>
               <p class="quantity text-center text-overline">
@@ -40,14 +38,9 @@
   </v-container>
 </template>
 
-
 <script setup lang="ts">
-//Router
 import { RouterLink } from "vue-router";
-
-//components
 import ButtonComponent from "@/components/common/ButtonComponent.vue";
-
 
 const props = defineProps({
   listProduct: {
@@ -55,10 +48,10 @@ const props = defineProps({
     default: [],
   },
 });
+
 </script>
 
 <style scoped>
-
 
 .quantity {
   color: #3949ab;

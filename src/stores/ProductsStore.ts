@@ -8,17 +8,13 @@ export const useProductsListStore = defineStore("productsStore", () => {
       const error = ref<string | null>(null);
       const originalProducts = ref([]);
 
-
-
       async function fetchAllProducts() {
         loading.value = true;
         try {
           const result = await TutorialDataService.getAll();
 
-
-
           listProducts.value = result.data.response.filter((product) => {
-            return product.deactivated_at	=== null;
+            return product.deactivated_at === null;
           });
         } catch (error) {
           error.value = "Error fetching products";
@@ -27,16 +23,11 @@ export const useProductsListStore = defineStore("productsStore", () => {
         }
       }
 
-  
 
       async function addProduct(product) {
         try {
           const respo = await TutorialDataService.create(product);
-
           const newProduct = respo.data.response || respo.data;
-
-          console.log("Nuevo producto:", newProduct);
-
           listProducts.value.push(newProduct);
 
         } catch (err) {
@@ -50,8 +41,6 @@ export const useProductsListStore = defineStore("productsStore", () => {
             productId,
             product
           );
-
-          console.log("Respuesta: ---->", updateProdResponse.data.response);
 
           const productEdited =
             updateProdResponse.data.response || updateProdResponse.data;
@@ -68,7 +57,7 @@ export const useProductsListStore = defineStore("productsStore", () => {
           error.value = "Error adding product.";
         }
       }
-      
+
 
       async function getProductId(id: any) {
         try {
@@ -81,7 +70,6 @@ export const useProductsListStore = defineStore("productsStore", () => {
           error.value = "Failed to fetch products.";
         }
       }
-
 
       function filterListProduct(searchQuery: any) {
         if (originalProducts.value.length === 0) {
@@ -102,21 +90,16 @@ export const useProductsListStore = defineStore("productsStore", () => {
       async function deleteProduct(productId: string) {
         try {
           await TutorialDataService.delete(`${productId}`);
-
-     /*      listProducts.value = listProducts.value.filter(
-            (product) => product.id !== productId
-          ); */
         } catch (error) {
           console.error("Error al borrar:", error);
         }
       }
 
-
       function clearProducts() {
         listProducts.value = [];
       }
 
-
+      
       return {
         fetchAllProducts,
         getProductId,

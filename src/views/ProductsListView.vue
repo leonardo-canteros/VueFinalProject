@@ -4,20 +4,41 @@
       <v-sheet class="mx-auto">
         <h1 class="my-2">Add product</h1>
 
-        <v-btn v-if="authStore.isLoggedIn && authStore.role === 'admin'" class="mt-2 py-6" min-width="230"
-          @click="goToForm" style="background-color: #f46568; color: #ffffff" type="submit" block>Add product</v-btn>
+        <RouterLink :to="`/ProductCreate`">
+          <v-btn
+            v-if="authStore.isLoggedIn && authStore.role === 'admin'"
+            class="mt-2 py-6"
+            min-width="230"
+            style="background-color: #f46568; color: #ffffff"
+            type="submit"
+            block
+            >Add product</v-btn
+          >
+        </RouterLink>
 
-        <v-btn v-if="authStore.isLoggedIn && authStore.role === 'admin'" class="mt-2 py-6" min-width="230"
-          @click="goToUpdateProduct" style="background-color: #f46568; color: #ffffff" type="submit" block>Update
-          Product</v-btn>
+        <RouterLink :to="`/ProductUpdate`">
+          <v-btn
+            v-if="authStore.isLoggedIn && authStore.role === 'admin'"
+            class="mt-2 py-6"
+            min-width="230"
+            style="background-color: #f46568; color: #ffffff"
+            type="submit"
+            block
+            >Update Product</v-btn
+          >
+        </RouterLink>
       </v-sheet>
-
     </div>
-    
-    <ProductSearchBar :listProduct="listProducts" @filterProduct="filterProducts"></ProductSearchBar>
 
-    <ProductsList title="List of Products" :listProduct="listProducts"></ProductsList>
+    <ProductSearchBar
+      :listProduct="listProducts"
+      @filterProduct="filterProducts"
+    ></ProductSearchBar>
 
+    <ProductsList
+      title="List of Products"
+      :listProduct="listProducts"
+    ></ProductsList>
   </v-container>
 </template>
 
@@ -46,7 +67,6 @@ onMounted(() => {
   store.fetchAllProducts();
 });
 
-
 //filter
 const filterProducts = (searchQuery) => {
   store.filterListProduct(searchQuery);
@@ -54,15 +74,14 @@ const filterProducts = (searchQuery) => {
 
 const router = useRouter();
 
-//button
+/* //button
 const goToForm = () => {
   router.push("/ProductCreate");
-};
+}; */
 
-//button
+/* //button
 const goToUpdateProduct = () => {
   router.push("/ProductUpdate");
 };
-
-
+ */
 </script>

@@ -45,6 +45,11 @@ const router = createRouter({
       component: () => import("../views/ProductUpdateView.vue"),
     },
     {
+      path: "/ProductDelete/:id(\\d+)",
+      name: "ProductDelete",
+      component: () => import("../components/products/ProductDelete.vue"),
+    },
+    {
       path: "/login",
       name: "login",
       // route level code-splitting

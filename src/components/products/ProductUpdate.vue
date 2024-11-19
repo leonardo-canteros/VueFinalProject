@@ -37,14 +37,11 @@
             <div class="text-caption title-color">Delete</div>
 
             <div class="text-body-1 mt-1">
-              <v-btn
-                @click="deleteItemList(product.id)"
-                icon="mdi-delete"
-                color="red"
-                size="small"
-              ></v-btn>
-              <!--                 <ProductDelete></ProductDelete>
- -->
+              <RouterLink
+                :to="{ name: 'ProductDelete', params: { id: product.id } }"
+              >
+                <v-btn color="red" icon="mdi-delete" size="small"></v-btn>
+              </RouterLink>
             </div>
           </v-col>
         </v-row>
@@ -54,7 +51,6 @@
 </template>
 
 <script setup lang="ts">
-//import ProductDelete from "@/components/products/ProductDelete.vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
@@ -66,24 +62,11 @@ const props = defineProps({
   },
 });
 
-//button
+/* //button
 const goToFormUpdate = () => {
   router.push("/ProductUpdateForm");
 };
-
-import { useProductsListStore } from "@/stores/ProductsStore";
-
-const store = useProductsListStore();
-
-const deleteItemList = async (id) => {
-  try {
-    await store.deleteProduct(id);
-
-    console.log("Product delete.");
-  } catch (error) {
-    console.error("Failed to add product:", error);
-  }
-};
+ */
 </script>
 
 <style scoped>

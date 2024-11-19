@@ -7,6 +7,7 @@
         elevation="8"
         max-width="448"
         rounded="lg"
+        v-bind="$attrs"
       >
         <slot></slot>
       </v-card>

@@ -5,12 +5,9 @@
 </template>
 
 <script setup lang="ts">
+
 import UpdateProduct from "@/components/products/ProductUpdate.vue";
-
-//vue
 import { onMounted } from "vue";
-
-// store
 import { useProductsListStore } from "@/stores/ProductsStore";
 import { storeToRefs } from "pinia";
 
@@ -20,6 +17,7 @@ const { listProducts } = storeToRefs(store);
 onMounted(() => {
   store.fetchAllProducts();
 });
+
 </script>
 
 <style scoped></style>

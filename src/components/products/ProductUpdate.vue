@@ -2,9 +2,8 @@
   <div>
     <v-container>
       <div class="ma-4">
-        <h1>List products</h1>
+        <h1>Manage Your Products</h1>
       </div>
-      <!-- props -->
       <v-card
         flat
         v-for="product in listProduct"
@@ -24,7 +23,6 @@
           </v-col>
           <v-col cols="6" sm="2" md="2">
             <div class="text-caption title-color">Update</div>
-
             <div class="text-body-1 mt-1">
               <RouterLink
                 :to="{ name: 'ProductUpdateForm', params: { id: product.id } }"
@@ -35,7 +33,6 @@
           </v-col>
           <v-col cols="6" sm="2" md="2">
             <div class="text-caption title-color">Delete</div>
-
             <div class="text-body-1 mt-1">
               <RouterLink
                 :to="{ name: 'ProductDelete', params: { id: product.id } }"
@@ -62,11 +59,6 @@ const props = defineProps({
   },
 });
 
-/* //button
-const goToFormUpdate = () => {
-  router.push("/ProductUpdateForm");
-};
- */
 </script>
 
 <style scoped>

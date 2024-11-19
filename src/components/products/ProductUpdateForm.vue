@@ -38,7 +38,6 @@ const productLoaded = ref();
 const productId = route.params.id;
 
 
-// reactive with objects
 const formData = reactive({
   name: "",
   price: 0,
@@ -58,7 +57,6 @@ const categories = ref([
   "Brass"
 ]);
 
-//button
 const goToBack = () => {
   router.back();
 };

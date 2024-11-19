@@ -20,12 +20,9 @@ const store = useProductsListStore();
 const productId = route.params.id;
 
 
-
 const deleteItemList = async (id: any) => {
   try {
     await store.deleteProduct(id);
-
-    console.log("Product delete: ", productId);
   } catch (error) {
     console.error("Error deleting post: ", error);
   }

@@ -55,7 +55,6 @@
     ></ProductSearchBar>
 
     <ProductsList
-      title="List of Products"
       :listProduct="listProducts"
     ></ProductsList>
   </v-container>
@@ -82,7 +81,7 @@ onMounted(() => {
   store.fetchAllProducts();
 });
 
-const filterProducts = (searchQuery) => {
+const filterProducts = (searchQuery: String) => {
   store.filterListProduct(searchQuery);
 };
 </script>

@@ -252,10 +252,10 @@ function addUserInit(): void {
   dialog.editMode = false;
 }
 
-function addUserConfirm(values: {}): void {
+async function addUserConfirm(values: {}): Promise<void> {
   // let user = JSON.parse(JSON.stringify(values));
   // user.password = passwordInput.value;
-  createUser(values);
+  await createUser(values);
   clearDialog();
   updateTable();
 }
@@ -271,9 +271,9 @@ function editUserInit(item: {}): void {
   dialog.editMode = true;
 }
 
-function editUserConfirm(values: {}): void {
+async function editUserConfirm(values: {}): Promise<void> {
   // const user = JSON.parse(JSON.stringify(dialog.user));
-  updateUser(values);
+  await updateUser(values);
   clearDialog();
   updateTable();
 }
@@ -285,10 +285,10 @@ function deleteUserInit(item: {}): void {
   dialogDelete.show = true;
 }
 
-function deleteUserConfirm(): void {
-  deleteUser(dialogDelete.id);
+async function deleteUserConfirm(): Promise<void> {
+  await deleteUser(dialogDelete.id);
   clearDialogDelete();
-  updateTable();
+  await updateTable();
 }
 
 function clearDialog(): void {

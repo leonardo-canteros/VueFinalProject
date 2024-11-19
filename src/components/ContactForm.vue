@@ -1,8 +1,8 @@
 <template>
-  <v-container class="contact-container" fluid>
+  <v-container class="contact-container" max-width="750px">
     <div class ="div-container">
-      <v-row justify="center">
-        <v-col cols="12" md="8">
+      <v-row justify="center" class="mx-auto">
+        <v-col cols="12" md="8" sm="8">
           <h2 class="text-center mb-4">Contact Us</h2>
 
           <form @submit.prevent="handleSubmit(submitForm)">
@@ -39,9 +39,7 @@
               outlined
               color="primary"
             ></v-textarea>
-
-
-            <v-btn color="primary" class="mt-4" type="submit">Send</v-btn>
+            <v-btn class="mx-auto mt-2 py-6 text-white" color="#f46568" min-width="230" type="submit" block>Send</v-btn>
           </form>
         </v-col>
       </v-row>

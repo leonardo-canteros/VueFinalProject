@@ -50,6 +50,20 @@ export const createUser = async (user: any) => {
   }  
 }
 
+export const registerUser = async (user: any) => {
+  try {
+    const headers = {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      }
+    }
+    const res = await axios.post(`${urlApiServer}/auth/register`, user, headers);
+    return res.data;
+  } catch (reason: any) {
+    throw new Error(reason.response.data.detail);
+  }  
+}
+
 export const updateUser = async (user: any) => {
   try {
     const headers = {

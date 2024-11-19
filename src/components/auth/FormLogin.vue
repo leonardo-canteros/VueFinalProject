@@ -27,10 +27,11 @@
 
     <v-alert
       v-if="msgAlert.show"
+      v-model="msgAlert.show"
+      closable
       density="compact"
       :text="msgAlert.text"
       :title="msgAlert.title"
-      closable
       :type="(msgAlert.isError ? 'error' : 'warning')"
     ></v-alert>
 

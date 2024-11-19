@@ -66,10 +66,11 @@
 
     <v-alert
       v-if="msgAlert.show"
+      v-model="msgAlert.show"
+      closable
       density="compact"
       :text="msgAlert.text"
       :title="msgAlert.title"
-      closable
       :type="msgAlert.isError ? 'error' : 'warning'"
     ></v-alert>
 
@@ -84,8 +85,8 @@ import FormButton from "@/components/auth/FormButton.vue";
 import FormContainer from "@/components/auth/FormContainer.vue";
 import FormSelect from "@/components/auth/FormSelect.vue";
 import FormTextField from "@/components/auth/FormTextField.vue";
+import { registerUser } from "@/helpers/usersServices";
 import router from "@/router";
-import { useAuthStore } from "@/stores/auth";
 import { useField, useForm } from "vee-validate";
 import { reactive, ref } from "vue";
 import * as yup from "yup";
@@ -119,8 +120,6 @@ const { value: email } = useField<string>("email");
 const { value: role } = useField<string>("role");
 const { value: image } = useField<string>("image");
 
-const authStore = useAuthStore();
-
 const loading = ref(false);
 const visible = ref(false);
 
@@ -142,13 +141,11 @@ const submitForm = handleSubmit(async (values) => {
   try {
     loading.value = true;
     setTimeout(() => (loading.value = false), 2000);
-    await authStore.fetchToken(username.value, password.value);
-    if (authStore.isLoggedIn) {
-      router.push("/");
-    }
+    await registerUser(values);
+    router.push("/login");
   } catch (error: any) {
     msgAlert.show = true;
-    msgAlert.title = "Login Error";
+    msgAlert.title = "Registration Error";
     msgAlert.text = error.message;
     msgAlert.isError = true;
   }

@@ -27,11 +27,12 @@
             <v-btn icon>
               <v-icon>mdi-heart-outline</v-icon>
             </v-btn>
-
-            <v-btn icon>
-              <v-icon>mdi-cart-outline</v-icon>
-            </v-btn>
-
+            <RouterLink to="/cart" class="text-white">
+              <v-btn icon>
+                <v-icon >mdi-cart-outline</v-icon>
+              </v-btn>
+            </RouterLink>
+            
             <RouterLink to="/login" class="text-white">
               <v-btn v-if="!authStore.isLoggedIn" icon>
                 <v-icon left class="px-3">mdi-account-key-outline</v-icon>

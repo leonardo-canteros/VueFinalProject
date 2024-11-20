@@ -68,6 +68,7 @@ const menu = ref([
   { title: "About", link: "/about", icon: "mdi-information" },
   { title: "Products", link: "/products", icon: "mdi-cart" },
   { title: "Contact", link: "/contact", icon: "mdi-email" },
+  { title: "Cart", link: "/cart", icon: "mdi-cart" },
 ]);
 
 watch(authStore, (newValue) => {

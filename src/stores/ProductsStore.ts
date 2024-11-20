@@ -29,8 +29,8 @@ export const useProductsListStore = defineStore("productsStore", () => {
       listProducts.value = result.data.response.filter((product: Product) => {
         return product.deactivated_at === null;
       });
-    } catch (error) {
-      error.value = "Error fetching products";
+    } catch (err) {
+        error.value = "Error fetching products";
     } finally {
       loading.value = false;
     }

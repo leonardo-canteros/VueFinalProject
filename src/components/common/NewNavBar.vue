@@ -25,16 +25,28 @@
             <v-spacer></v-spacer>
 
             <v-btn icon>
-              <v-icon>mdi-magnify</v-icon>
+              <v-icon>mdi-heart-outline</v-icon>
             </v-btn>
 
             <v-btn icon>
-              <v-icon>mdi-heart</v-icon>
+              <v-icon>mdi-cart-outline</v-icon>
             </v-btn>
 
-            <v-btn icon>
+            <RouterLink to="/login" class="text-white">
+              <v-btn v-if="!authStore.isLoggedIn" icon>
+                <v-icon left class="px-3">mdi-account-key-outline</v-icon>
+              </v-btn>
+            </RouterLink>
+
+            <RouterLink to="/" class="text-white">
+              <v-btn v-if="authStore.isLoggedIn" icon @click="authStore.logout">
+                <v-icon left class="px-3">mdi-account-off-outline</v-icon>
+              </v-btn>
+            </RouterLink>
+
+            <!-- <v-btn icon>
               <v-icon>mdi-dots-vertical</v-icon>
-            </v-btn>
+            </v-btn> -->
           </v-app-bar>
         </v-row>
       </v-card>

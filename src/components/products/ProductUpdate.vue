@@ -1,9 +1,30 @@
 <template>
   <div>
     <v-container>
-      <div class="ma-4">
-        <h1>Manage Your Products</h1>
-      </div>
+      <v-row no-gutters class="mb-6">
+        
+        <v-col cols="12" md="6">
+          <v-sheet class="main-title pa-2">
+            Manage Your Products
+          </v-sheet>
+        </v-col>
+
+        <v-col cols="12" md="6">
+          <v-sheet class="pa-2">
+            <v-btn
+              class="mx-auto py-6 text-white mr-6"
+              color="#3949ab"
+              min-width="230"
+              type="submit"
+              @click="goToBack"
+              block
+            >
+              <v-icon icon="mdi-arrow-left" start></v-icon>Back</v-btn
+            >
+          </v-sheet>
+        </v-col>
+      </v-row>
+
       <v-card
         flat
         v-for="product in listProduct"
@@ -12,17 +33,17 @@
       >
         <v-row no-gutters>
           <v-col cols="12" sm="6" md="6">
-            <div class="text-caption title-color">Product name</div>
+            <div class="text-caption sub-title">Product name</div>
 
             <div class="text-body-1 mt-1">{{ product.name }}</div>
           </v-col>
           <v-col cols="12" sm="2" md="2">
-            <div class="text-caption title-color">User</div>
+            <div class="text-caption sub-title">User</div>
 
             <div class="text-body-1 mt-1"></div>
           </v-col>
           <v-col cols="6" sm="2" md="2">
-            <div class="text-caption title-color">Update</div>
+            <div class="text-caption sub-title">Update</div>
             <div class="text-body-1 mt-1">
               <RouterLink
                 :to="{ name: 'ProductUpdateForm', params: { id: product.id } }"
@@ -32,7 +53,7 @@
             </div>
           </v-col>
           <v-col cols="6" sm="2" md="2">
-            <div class="text-caption title-color">Delete</div>
+            <div class="text-caption sub-title">Delete</div>
             <div class="text-body-1 mt-1">
               <RouterLink
                 :to="{ name: 'ProductDelete', params: { id: product.id } }"
@@ -49,22 +70,28 @@
 
 <script setup lang="ts">
 import { useRouter } from "vue-router";
+import type { Product } from "@/helpers/products.model";
 
 const router = useRouter();
 
-import type { Product } from "@/helpers/products.model"; 
+const goToBack = () => {
+  router.push("/products");
+};
 
 const props = defineProps({
   listProduct: {
     type: Array as () => Product[],
-    default: () => [], 
+    default: () => [],
   },
 });
-
 </script>
 
 <style scoped>
-.title-color {
+.main-title {
+  font-size: 1.8rem;
+}
+
+.sub-title {
   color: #757575;
 }
 </style>

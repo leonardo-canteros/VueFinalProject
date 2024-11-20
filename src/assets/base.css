@@ -12,11 +12,10 @@ body {
   height: 100vh;
   margin: 0;
   font-size: 18px;
-  color: black;
-  display: flex;
-  flex-direction: column;
+/*   display: flex;
+  flex-direction: column; */
 }
-
+/* 
 .pageview {
   flex: 1;
   display: flex;
@@ -24,3 +23,4 @@ body {
   min-height: 100vh;
 }
 
+ */

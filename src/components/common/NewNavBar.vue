@@ -36,18 +36,23 @@
               <v-icon>mdi-dots-vertical</v-icon>
             </v-btn>
           </v-app-bar>
-          <v-navigation-drawer
-            v-model="drawer"
-            :location="$vuetify.display.mobile ? 'bottom' : undefined"
-            temporary
-          >
-            <v-list :items="menu"></v-list>
-          </v-navigation-drawer>
-          <v-main>
-            <RouterView />
-          </v-main>
         </v-row>
       </v-card>
+      <v-navigation-drawer
+        v-model="drawer"
+        :location="$vuetify.display.mobile ? 'bottom' : undefined"
+        temporary
+      >
+        <v-list>
+          <router-link v-for="item in menu" :key="item.icon" :to="item.link" class="text-black">
+            <v-list-item :title="item.title" :prepend-icon="item.icon">
+            </v-list-item>
+          </router-link>
+        </v-list>
+      </v-navigation-drawer>
+      <v-main>
+        <RouterView />
+      </v-main>
     </v-app>
   </div>
 </template>

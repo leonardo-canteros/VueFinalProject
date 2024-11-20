@@ -1,0 +1,85 @@
+<template>
+  <div id="app">
+    <v-app>
+      <v-card class="mx-auto" scroll-behavior="collapse" color="grey-lighten-3">
+        <v-row>
+          <v-app-bar
+            color="teal-darken-4"
+            image="https://picsum.photos/1920/1080?random"
+          >
+            <template v-slot:image>
+              <v-img
+                gradient="to top right, rgba(19,84,122,.8), rgba(128,208,199,.8)"
+              ></v-img>
+            </template>
+
+            <template v-slot:prepend>
+              <v-app-bar-nav-icon
+                variant="text"
+                @click.stop="drawer = !drawer"
+              ></v-app-bar-nav-icon>
+            </template>
+
+            <v-app-bar-title>More Than Sound</v-app-bar-title>
+
+            <v-spacer></v-spacer>
+
+            <v-btn icon>
+              <v-icon>mdi-magnify</v-icon>
+            </v-btn>
+
+            <v-btn icon>
+              <v-icon>mdi-heart</v-icon>
+            </v-btn>
+
+            <v-btn icon>
+              <v-icon>mdi-dots-vertical</v-icon>
+            </v-btn>
+          </v-app-bar>
+          <v-navigation-drawer
+            v-model="drawer"
+            :location="$vuetify.display.mobile ? 'bottom' : undefined"
+            temporary
+          >
+            <v-list :items="menu"></v-list>
+          </v-navigation-drawer>
+          <v-main>
+            <RouterView />
+          </v-main>
+        </v-row>
+      </v-card>
+    </v-app>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { useAuthStore } from "@/stores/auth";
+import { ref, watch } from "vue";
+import { RouterView } from "vue-router";
+
+const drawer = ref(false);
+const group = ref(null);
+
+const authStore = useAuthStore();
+
+const menu = ref([
+  { title: "Home", link: "/", icon: "mdi-home" },
+  { title: "About", link: "/about", icon: "mdi-information" },
+  { title: "Products", link: "/products", icon: "mdi-cart" },
+  { title: "Contact", link: "/contact", icon: "mdi-email" },
+]);
+
+watch(authStore, (newValue) => {
+  if (newValue.role === "admin") {
+    menu.value.push({
+      title: "Users",
+      link: "/users",
+      icon: "mdi-account-supervisor",
+    });
+  } else {
+    menu.value = menu.value.filter((item) => item.title !== "Users");
+  }
+});
+</script>
+
+<style scoped></style>

@@ -1,73 +1,72 @@
 <template>
-  <div id="app">
-    <v-app>
-      <v-card class="mx-auto" scroll-behavior="collapse" color="grey-lighten-3">
-        <v-row>
-          <v-app-bar
-            color="teal-darken-4"
-            image="https://picsum.photos/1920/1080?random"
-          >
-            <template v-slot:image>
-              <v-img
-                gradient="to top right, rgba(19,84,122,.8), rgba(128,208,199,.8)"
-              ></v-img>
-            </template>
+  <v-layout>
+    <v-app-bar
+      color="teal-darken-4"
+      image="https://picsum.photos/1920/1080?random"
+    >
+      <template v-slot:image>
+        <v-img
+          gradient="to top right, rgba(19,84,122,.8), rgba(128,208,199,.8)"
+        ></v-img>
+      </template>
+      <template v-slot:prepend>
+        <v-app-bar-nav-icon
+          variant="text"
+          @click.stop="drawer = !drawer"
+        ></v-app-bar-nav-icon>
+      </template>
+      <!-- Title -->
+      <v-app-bar-title>More Than Sound</v-app-bar-title>
 
-            <template v-slot:prepend>
-              <v-app-bar-nav-icon
-                variant="text"
-                @click.stop="drawer = !drawer"
-              ></v-app-bar-nav-icon>
-            </template>
-
-            <v-app-bar-title>More Than Sound</v-app-bar-title>
-
-            <v-spacer></v-spacer>
-
-            <v-btn icon>
-              <v-icon>mdi-heart-outline</v-icon>
-            </v-btn>
-            <RouterLink to="/cart" class="text-white">
-              <v-btn icon>
-                <v-icon >mdi-cart-outline</v-icon>
-              </v-btn>
-            </RouterLink>
-            
-            <RouterLink to="/login" class="text-white">
-              <v-btn v-if="!authStore.isLoggedIn" icon>
-                <v-icon left class="px-3">mdi-account-key-outline</v-icon>
-              </v-btn>
-            </RouterLink>
-
-            <RouterLink to="/" class="text-white">
-              <v-btn v-if="authStore.isLoggedIn" icon @click="authStore.logout">
-                <v-icon left class="px-3">mdi-account-off-outline</v-icon>
-              </v-btn>
-            </RouterLink>
-
-            <!-- <v-btn icon>
+      <v-spacer></v-spacer>
+      <!-- 
+      <v-btn icon>
+        <v-icon>mdi-heart-outline</v-icon>
+      </v-btn> -->
+      <RouterLink to="/cart" class="text-white">
+        <v-btn icon>
+          <v-icon>mdi-cart-outline</v-icon>
+        </v-btn>
+      </RouterLink>
+      <RouterLink to="/login" class="text-white">
+        <v-btn v-if="!authStore.isLoggedIn" icon>
+          <v-icon left class="px-3">mdi-account-key-outline</v-icon>
+        </v-btn>
+      </RouterLink>
+      <RouterLink to="/" class="text-white">
+        <v-btn v-if="authStore.isLoggedIn" icon @click="authStore.logout">
+          <v-icon left class="px-3">mdi-account-off-outline</v-icon>
+        </v-btn>
+      </RouterLink>
+      <!--       <v-btn icon>
               <v-icon>mdi-dots-vertical</v-icon>
-            </v-btn> -->
-          </v-app-bar>
-        </v-row>
-      </v-card>
-      <v-navigation-drawer
-        v-model="drawer"
-        :location="$vuetify.display.mobile ? 'bottom' : undefined"
-        temporary
-      >
-        <v-list>
-          <router-link v-for="item in menu" :key="item.icon" :to="item.link" class="text-black">
-            <v-list-item :title="item.title" :prepend-icon="item.icon">
-            </v-list-item>
-          </router-link>
-        </v-list>
-      </v-navigation-drawer>
-      <v-main>
+            </v-btn>  -->
+    </v-app-bar>
+    <!-- MENU -->
+    <v-navigation-drawer
+      v-model="drawer"
+      :location="$vuetify.display.mobile ? 'bottom' : undefined"
+      temporary
+    >
+      <v-list>
+        <router-link
+          v-for="item in menu"
+          :key="item.icon"
+          :to="item.link"
+          class="text-black"
+        >
+          <v-list-item :title="item.title" :prepend-icon="item.icon">
+          </v-list-item>
+        </router-link>
+      </v-list>
+    </v-navigation-drawer>
+
+    <v-main style="min-height: 400px">
+      <v-container fluid>
         <RouterView />
-      </v-main>
-    </v-app>
-  </div>
+      </v-container>
+    </v-main>
+  </v-layout>
 </template>
 
 <script setup lang="ts">

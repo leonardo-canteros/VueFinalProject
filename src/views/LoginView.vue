@@ -1,8 +1,6 @@
 <template>
-  <div>
-
+  <div class="pageView">
     <Login></Login>
-
   </div>
 </template>
 

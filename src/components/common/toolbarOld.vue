@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div id="app">
     <v-app>
       <v-toolbar flat color="#4e59d8">
@@ -46,12 +46,12 @@
 
         <RouterView />
 
-        <!--         <v-container fluid fill-height>
+                <v-container fluid fill-height>
           <v-layout>
 
           </v-layout>
 
-        </v-container> -->
+        </v-container> 
     </v-app>
   </div>
 </template>
@@ -85,3 +85,4 @@ watch(authStore, (newValue) => {
 </script>
 
 <style scoped></style>
+ -->

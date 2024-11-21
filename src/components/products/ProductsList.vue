@@ -3,7 +3,7 @@
     <div class="d-flex flex-wrap justify-center ga-5">
       <v-card
         style="width: 320px"
-        v-for="product in listProduct"
+        v-for="product in paginatedProducts"
         :key="product.id"
         hover
       >
@@ -30,20 +30,32 @@
             </div>
           </v-card-text>
           <v-card-actions class="justify-center">
-
             <ButtonComponent>BUY NOW</ButtonComponent>
-            
           </v-card-actions>
         </RouterLink>
       </v-card>
     </div>
+    <div>
+      <v-pagination
+        @input="updatePagProducts"
+
+        v-model="page"
+        :length="14"
+        :total-visible="4"
+
+      ></v-pagination>
+    </div>
   </v-container>
 </template>
 
+
 <script setup lang="ts">
+
 import { RouterLink } from "vue-router";
 import ButtonComponent from "@/components/common/ButtonComponent.vue";
 import type { Product } from "@/helpers/products.model";
+import { ref } from "vue";
+import { watch } from "vue";
 
 const props = defineProps({
   listProduct: {
@@ -51,6 +63,20 @@ const props = defineProps({
     default: () => [],
   },
 });
+
+const itemsPage = 9;
+const page = ref(1);
+const paginatedProducts = ref([]);
+
+const updatePagProducts = () => {
+  const startIndex = (page.value - 1) * itemsPage;
+  const endIndex = startIndex + itemsPage;
+  paginatedProducts.value = 
+  props.listProduct.slice(startIndex, endIndex);
+};
+
+watch([page, () => props.listProduct], updatePagProducts, { immediate: true });
+
 </script>
 
 <style scoped>

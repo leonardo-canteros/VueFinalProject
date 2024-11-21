@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container class="pageView">
       <contact-form />
     </v-container>
   </template>

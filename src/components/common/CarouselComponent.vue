@@ -49,8 +49,14 @@ import imgUrl3 from "@/assets/images/ImageStore03.jpg";
 <style scoped>
 .carousel-title {
     background: transparent;
-    color: #ffffff;
+    color: #FFFFFF;
     text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 600px) {
+    .carousel-title {
+        font-size: 2.40rem !important;
+    }
 }
 
 </style>

@@ -1,11 +1,11 @@
 <template>
-  <div>
-    <CarouselComponent></CarouselComponent>
+  <CarouselComponent>
 
-    <v-container class="my-2">
+  </CarouselComponent>
 
-    </v-container>
-  </div>
+  <v-container class="pageView">
+
+  </v-container>
 </template>
 
 <script setup lang="ts">

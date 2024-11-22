@@ -15,14 +15,8 @@
           @click.stop="drawer = !drawer"
         ></v-app-bar-nav-icon>
       </template>
-      <!-- Title -->
       <v-app-bar-title>More Than Sound</v-app-bar-title>
-
       <v-spacer></v-spacer>
-      <!-- 
-      <v-btn icon>
-        <v-icon>mdi-heart-outline</v-icon>
-      </v-btn> -->
       <RouterLink to="/cart" class="text-white">
         <v-btn icon>
           <v-icon>mdi-cart-outline</v-icon>
@@ -38,11 +32,7 @@
           <v-icon left class="px-3">mdi-account-off-outline</v-icon>
         </v-btn>
       </RouterLink>
-      <!--       <v-btn icon>
-              <v-icon>mdi-dots-vertical</v-icon>
-            </v-btn>  -->
     </v-app-bar>
-    <!-- MENU -->
     <v-navigation-drawer
       v-model="drawer"
       :location="$vuetify.display.mobile ? 'bottom' : undefined"

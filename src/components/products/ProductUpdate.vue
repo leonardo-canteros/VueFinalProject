@@ -2,29 +2,20 @@
   <div>
     <v-container>
       <v-row no-gutters class="mb-6">
-        
         <v-col cols="12" md="6">
-          <v-sheet class="main-title pa-2">
-            Manage Your Products
-          </v-sheet>
+          <v-sheet class="main-title pa-2">Manage Your Products</v-sheet>
         </v-col>
-
         <v-col cols="12" md="6">
           <v-sheet class="pa-2">
-            <v-btn
-              class="mx-auto py-6 text-white mr-6"
-              color="#3949ab"
-              min-width="230"
-              type="submit"
+            <ButtonComponent
               @click="goToBack"
-              block
-            >
-              <v-icon icon="mdi-arrow-left" start></v-icon>Back</v-btn
-            >
+              color="indigo"
+              class="text-uppercase mx-auto text-white"
+              ><v-icon icon="mdi-arrow-left" start></v-icon>
+              Back</ButtonComponent>
           </v-sheet>
         </v-col>
       </v-row>
-
       <v-card
         flat
         v-for="product in listProduct"
@@ -68,7 +59,9 @@
   </div>
 </template>
 
+
 <script setup lang="ts">
+import ButtonComponent from "@/components/common/ButtonComponent.vue";
 import { useRouter } from "vue-router";
 import type { Product } from "@/helpers/products.model";
 

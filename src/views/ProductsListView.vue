@@ -1,6 +1,10 @@
 <template>
   <v-container class="d-flex flex-column justify-center">
-    <v-sheet class="rounded bg-grey-lighten-4 ma-0">
+    <v-sheet class="rounded bg-grey-lighten-4 ma-0"
+    
+    v-if="authStore.isLoggedIn && (authStore.role === 'admin' || authStore.role === 'seller')"
+
+    >
       <v-sheet class="rounded bg-grey-lighten-2 py-2">
         <p class="text-h mb-2 ml-8">All Products</p>
       </v-sheet>
@@ -8,7 +12,8 @@
         <v-col cols="auto">
           <RouterLink :to="`/ProductCreate`">
             <v-btn
-              v-if="authStore.isLoggedIn && authStore.role === 'admin'"
+              v-if="authStore.isLoggedIn && (authStore.role === 'admin' || authStore.role === 'seller')"
+
               class="mt-1 py-6"
               min-width="230"
               style="background-color: #f46568; color: #ffffff"
@@ -22,7 +27,8 @@
         <v-col cols="auto">
           <RouterLink :to="`/ProductUpdate`">
             <v-btn
-              v-if="authStore.isLoggedIn && authStore.role === 'admin'"
+              v-if="authStore.isLoggedIn && (authStore.role === 'admin' || authStore.role === 'seller')"
+
               class="mt-1 py-6"
               min-width="230"
               color="#3949ab"
@@ -35,7 +41,8 @@
         <v-col cols="auto">
           <RouterLink :to="`/ProductUpdate`">
             <v-btn
-              v-if="authStore.isLoggedIn && authStore.role === 'admin'"
+              v-if="authStore.isLoggedIn && (authStore.role === 'admin' || authStore.role === 'seller')"
+
               class="mt-1 py-6"
               min-width="230"
               color="red"

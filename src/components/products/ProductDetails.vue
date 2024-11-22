@@ -1,17 +1,16 @@
 <template>
   <div>
-    <div v-if="productRetrieve">
+    <div v-if="productRetrieve" :key="productId.id">
       <v-container>
         <v-row>
           <v-col cols="12" md="6">
             <v-carousel>
-              <v-carousel-item :key="0" :src="productRetrieve.image"></v-carousel-item>
+              <v-carousel-item :key="0" :src="productRetrieve.image">
+              </v-carousel-item>
             </v-carousel>
           </v-col>
-
           <v-col cols="12" md="6">
             <v-card>
-              <v-card-text>Product ID: {{ route.params.id }}</v-card-text>
               <v-card-title>{{ productRetrieve.name }}</v-card-title>
               <v-card-subtitle class="text-h6">{{
                 productRetrieve.price
@@ -25,8 +24,10 @@
                   <v-icon>mdi-plus</v-icon>
                 </v-btn>
                 <v-spacer></v-spacer>
-                <v-btn class="mx-auto mt-2 py-6 add-to-cart-btn" min-width="230"
-                  style="background-color: #f46568; color: #ffffff" type="submit" block>Add to cart</v-btn>
+                <ButtonComponent
+                class="mx-auto text-uppercase add-to-cart-btn"
+                type="submit"
+                >Add to cart</ButtonComponent>
               </v-card-actions>
             </v-card>
             <v-card class="mt-4">
@@ -54,17 +55,18 @@
 import { useRoute } from "vue-router";
 import { ref, onMounted } from "vue";
 import { useProductsListStore } from "@/stores/ProductsStore";
+import ButtonComponent from "@/components/common/ButtonComponent.vue";
 
 const route = useRoute();
 const productRetrieve = ref();
 const store = useProductsListStore();
+const productId = route.params.id;
 
 onMounted(async () => {
   const productId = route.params.id;
   productRetrieve.value = await store.getProductId(productId);
  
 });
-
 </script>
 
 <style scoped></style>

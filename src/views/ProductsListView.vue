@@ -10,7 +10,7 @@
       </v-sheet>
       <v-row no-gutters class="d-flex justify-space-around">
         <v-col cols="auto">
-          <RouterLink :to="`/ProductCreate`">
+          <RouterLink :to="`/product-create`">
             <v-btn
               v-if="authStore.isLoggedIn && (authStore.role === 'admin' || authStore.role === 'seller')"
 
@@ -25,7 +25,7 @@
           </RouterLink>
         </v-col>
         <v-col cols="auto">
-          <RouterLink :to="`/ProductUpdate`">
+          <RouterLink :to="`/product-update`">
             <v-btn
               v-if="authStore.isLoggedIn && (authStore.role === 'admin' || authStore.role === 'seller')"
 
@@ -39,7 +39,7 @@
           </RouterLink>
         </v-col>
         <v-col cols="auto">
-          <RouterLink :to="`/ProductUpdate`">
+          <RouterLink :to="`/product-update`">
             <v-btn
               v-if="authStore.isLoggedIn && (authStore.role === 'admin' || authStore.role === 'seller')"
 

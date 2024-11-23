@@ -1,6 +1,8 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 import TutorialDataService from "@/helpers/products.model";
+
 
 interface Product {
   id: string;
@@ -22,6 +24,7 @@ export const useProductsListStore = defineStore("productsStore", () => {
 
 
   async function fetchAllProducts() {
+    const router = useRouter();
     loading.value = true;
     try {
       const result = await TutorialDataService.getAll();
@@ -31,6 +34,7 @@ export const useProductsListStore = defineStore("productsStore", () => {
       });
     } catch (err) {
         error.value = "Error fetching products";
+        router.push("/error-404"); 
     } finally {
       loading.value = false;
     }

@@ -61,7 +61,7 @@ const deleteItemList = async (id: any) => {
   try {
     await store.deleteProduct(id);
 
-    router.push("/ProductUpdate");
+    router.push("/product-update");
   } catch (error) {
     console.error("Error deleting post: ", error);
   }
@@ -69,7 +69,7 @@ const deleteItemList = async (id: any) => {
 
 //button
 const goToUpdate = () => {
-  router.push("/ProductUpdate");
+  router.push("/¡roduct-update");
 };
 </script>
 

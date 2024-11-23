@@ -72,7 +72,9 @@ const updatePagProducts = () => {
   props.listProduct.slice(startIndex, endIndex);
 };
 
-watch([page, () => props.listProduct], updatePagProducts, { immediate: true });
+watch([page, () => props.listProduct], 
+       updatePagProducts,
+       { immediate: true });
 
 </script>
 

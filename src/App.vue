@@ -4,10 +4,7 @@ import NavBar from "@/components/common/NewNavBar.vue";
 </script>
 
 <template>
-  <header>
     <NavBar></NavBar>
-  </header>
-  <main></main>
   <footer>
     <FooterComponent></FooterComponent>
   </footer>

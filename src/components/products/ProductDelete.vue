@@ -14,26 +14,6 @@
               ><v-icon icon="mdi-arrow-left" start></v-icon
               >Back</ButtonComponent
             >
-            <!--                 <v-btn
-                  @click="goToUpdate"
-                  class="mx-auto py-6"
-                  min-width="230"
-                  style="background-color: #3949ab; color: #ffffff"
-                  type="submit"
-                  block
-                >
-                  <v-icon icon="mdi-arrow-left" start></v-icon> Back
-                </v-btn> -->
-            <!--                 <v-btn
-                  @click="deleteItemList(productId)"
-                  class="mx-auto py-6"
-                  min-width="230"
-                  style="background-color: red; color: #ffffff"
-                  type="submit"
-                  block
-                >
-                  Delete
-                </v-btn> -->
             <ButtonComponent
               @click="deleteItemList(productId)"
               class="mx-auto text-uppercase"
@@ -67,9 +47,9 @@ const deleteItemList = async (id: any) => {
   }
 };
 
-//button
+
 const goToUpdate = () => {
-  router.push("/¡roduct-update");
+  router.push("/product-update");
 };
 </script>
 

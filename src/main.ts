@@ -5,6 +5,7 @@ import { createApp } from 'vue'
 
 import App from './App.vue'
 import router from './router'
+import VueCookies from 'vue-cookies'
 
 // Vuetify
 import { createVuetify } from 'vuetify'
@@ -20,7 +21,11 @@ const vuetify = createVuetify({
 
 
 const app = createApp(App)
-
+app.use(VueCookies, { 
+  expires: '7d', 
+  path: '/', 
+  domain: '.morethansound.com'
+})
 app.use(createPinia())
 app.use(vuetify)
 app.use(router)

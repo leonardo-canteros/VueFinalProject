@@ -52,7 +52,7 @@ const router = createRouter({
     {
       path: "/error-404",
       name: "error404",
-      component: () => import("../components/products/ProductDelete.vue"),
+      component: () => import("../components/common/Error404.vue"),
     },
     {
       path: "/login",

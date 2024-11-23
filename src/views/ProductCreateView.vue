@@ -8,52 +8,49 @@
         <v-sheet class="mx-auto" max-width="400px">
           <v-form fast-fail @submit.prevent="saveData">
             <v-text-field
+              :rules="inputRules('name')"
               label="Name"
               v-model="formData.name"
               required
             ></v-text-field>
             <v-text-field
+              :rules="inputRules('price')"
               label="Price"
               v-model="formData.price"
               type="number"
               required
             ></v-text-field>
             <v-text-field
+              :rules="inputRules('quantity')"
               label="Quantity"
               v-model="formData.quantity"
               type="number"
               required
             ></v-text-field>
             <v-textarea
+              :rules="inputRules('description')"
               label="Description"
               v-model="formData.description"
               required
             ></v-textarea>
             <v-text-field
+              :rules="inputRules('image')"
               label="Image URL"
               v-model="formData.image"
               required
             ></v-text-field>
             <v-select
+              :rules="inputRules('category')"
               label="Category"
               :items="categories"
               v-model="formData.category"
               required
             ></v-select>
-            <ButtonComponent       
-            type="submit"
-            class="mx-auto text-white text-uppercase"
-
+            <ButtonComponent
+              type="submit"
+              class="mx-auto text-white text-uppercase"
               >Enter</ButtonComponent
             >
-            <!--             <v-btn
-              class="mx-auto mt-2 py-6"
-              min-width="230"
-              style="background-color: #f46568; color: #ffffff"
-              type="submit"
-              block
-              >Enter product</v-btn
-            > -->
             <ButtonComponent
               @click="goToProductsList"
               class="mx-auto mt-2 text-white text-uppercase"
@@ -61,16 +58,6 @@
             >
               <v-icon icon="mdi-arrow-left" start></v-icon>Back
             </ButtonComponent>
-            <!--  <v-btn
-                class="mx-auto mt-2 py-6 text-white"
-                color="#3949ab"
-                min-width="230"
-                type="submit"
-                @click="goToProductsList"
-                block
-              >
-                <v-icon icon="mdi-arrow-left" start></v-icon>Back</v-btn
-              > -->
           </v-form>
         </v-sheet>
       </v-col>
@@ -108,12 +95,6 @@ const categories = ref([
   "Brass",
 ]);
 
-//button
-const goToBack = () => {
-  router.back();
-};
-
-//button
 const goToProductsList = () => {
   router.push("/products");
 };
@@ -126,6 +107,34 @@ const saveData = async () => {
     console.error("Failed to add product:", error);
   }
 };
+
+function inputRules(field: string) {
+  const rules = {
+    name: [
+      (v) => !!v || "Name is required",
+      (v) => (v && v.length >= 3) || "Minimum 4 characters",
+    ],
+    price: [
+      (v) => !!v || "Price is required",
+      (v) => v > 0 || "Price must be greater than 0",
+    ],
+    quantity: [
+      (v) => !!v || "Quantity is required",
+      (v) => v > 0 || "Quantity must be greater than 0",
+    ],
+    description: [
+      (v) => !!v || "Description is required",
+      (v) =>
+        (v && v.length >= 10) || "Description must be at least 10 characters",
+    ],
+    image: [
+      (v) => !!v || "Image URL is required",
+      (v) => !!v || "This field is required",
+    ],
+    category: [(v) => !!v || "Category is required"],
+  };
+  return rules[field] || [];
+}
 </script>
 
 <style scoped>

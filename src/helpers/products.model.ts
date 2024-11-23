@@ -15,11 +15,14 @@ export interface FormData {
 }
 
 export interface Product {
-  id: string;      
+  id: string;
   name: string;
   price: number;
   quantity: number;
+  description: string;
   image: string;
+  category: string;
+  deactivated_at: string | null;
 }
 
 

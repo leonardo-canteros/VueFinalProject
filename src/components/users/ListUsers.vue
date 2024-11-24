@@ -2,6 +2,7 @@
   <v-skeleton-loader />
   <v-data-table
     :headers="headers"
+    :mobile="smAndDown"
     :items-per-page="5"
     :items="usersList"
     :search="search"
@@ -161,6 +162,9 @@ import {
 import { useField, useForm } from "vee-validate";
 import { nextTick, onMounted, reactive, ref, watch } from "vue";
 import * as yup from "yup";
+import { useDisplay } from "vuetify";
+
+const { smAndDown } = useDisplay();
 
 const editUserSchema = yup.object({
   username: yup

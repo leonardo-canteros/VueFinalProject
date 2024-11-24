@@ -33,9 +33,15 @@
         </v-btn>
       </RouterLink>
     </v-app-bar>
+    <!--
     <v-navigation-drawer
       v-model="drawer"
       :location="$vuetify.display.mobile ? 'bottom' : undefined"
+      temporary
+    >   
+    -->
+    <v-navigation-drawer
+      v-model="drawer"
       temporary
     >
       <v-list>

@@ -63,7 +63,7 @@ const props = defineProps({
 
 const itemsPage = 9;
 const page = ref(1);
-const paginatedProducts = ref([]);
+const paginatedProducts = ref<Product[]>([]);
 
 const updatePagProducts = () => {
   const startIndex = (page.value - 1) * itemsPage;

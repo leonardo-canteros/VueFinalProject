@@ -10,6 +10,7 @@ import UpdateProduct from "@/components/products/ProductUpdate.vue";
 import { onMounted } from "vue";
 import { useProductsListStore } from "@/stores/ProductsStore";
 import { storeToRefs } from "pinia";
+import type { Product } from "@/helpers/products.model";
 
 const store = useProductsListStore();
 const { listProducts } = storeToRefs(store);

@@ -107,7 +107,7 @@
 
               <v-col cols="12" sm="6">
                 <v-select
-                  v-model="(role as string | null | undefined)"
+                  v-model="role"
                   :items="['admin', 'seller', 'customer']"
                   label="Role*"
                   :error-messages="errors.role"

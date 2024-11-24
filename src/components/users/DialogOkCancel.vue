@@ -1,21 +1,37 @@
 <template>
   <v-dialog v-model="showDialog" max-width="500px">
-    <form @submit.prevent>
-      <v-card>
-        <v-card-title class="text-h5">{{ title }}</v-card-title>
-        <slot></slot>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <ButtonComponent @click="emit('cancel')">
-            {{ cancelBtnLegend }}
-          </ButtonComponent>
-          <ButtonComponent type="submit" @click="emit('ok')">
-            {{ okBtnLegend }}
-          </ButtonComponent>
-          <v-spacer></v-spacer>
-        </v-card-actions>
-      </v-card>
-    </form>
+    <v-container class="pa-2">
+      <form @submit.prevent>
+        <v-card>
+          <v-card-title class="text-h5">{{ title }}</v-card-title>
+          <slot></slot>
+          <v-card-actions>
+            <v-row justify="center">
+              <v-col
+                cols="12"
+                md="6"
+                align-self="center"
+                class="d-flex justify-center"
+              >
+                <ButtonComponent @click="emit('cancel')">
+                  {{ cancelBtnLegend }}
+                </ButtonComponent>
+              </v-col>
+              <v-col
+                cols="12"
+                md="6"
+                align-self="center"
+                class="d-flex justify-center"
+              >
+                <ButtonComponent type="submit" @click="emit('ok')">
+                  {{ okBtnLegend }}
+                </ButtonComponent>
+              </v-col>
+            </v-row>
+          </v-card-actions>
+        </v-card>
+      </form>
+    </v-container>
   </v-dialog>
 </template>
 

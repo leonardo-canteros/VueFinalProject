@@ -1,10 +1,12 @@
 <template>
   <div>
-    <div v-if="productRetrieve" :key="productId.id">
+    <div v-if="productRetrieve" :key="productId">
       <v-container>
         <v-row>
           <v-col cols="12" md="6">
             <v-carousel>
+              <v-carousel-item :key="0" :src="productRetrieve.image">
+              </v-carousel-item>
               <v-carousel-item :key="0" :src="productRetrieve.image">
               </v-carousel-item>
             </v-carousel>
@@ -17,13 +19,17 @@
               }}</v-card-subtitle>
               <v-card-actions>
                 <v-btn icon>
+                  <v-btn icon @click="decreaseQuantity">
                   <v-icon>mdi-minus</v-icon>
-                </v-btn>
-<!--                 <span>{{ quantity }}</span>
- -->                <v-btn icon>
+                  </v-btn><span>{{ quantity }}</span><v-btn icon @click="increaseQuantity">
                   <v-icon>mdi-plus</v-icon>
+                  </v-btn>
                 </v-btn>
                 <v-spacer></v-spacer>
+                <ButtonComponent
+                class="mx-auto text-uppercase add-to-cart-btn"
+                type="submit"
+                >Add to cart</ButtonComponent>
                 <ButtonComponent
                 class="mx-auto text-uppercase add-to-cart-btn"
                 type="submit"
@@ -57,10 +63,26 @@ import { ref, onMounted } from "vue";
 import { useProductsListStore } from "@/stores/ProductsStore";
 import ButtonComponent from "@/components/common/ButtonComponent.vue";
 
+
 const route = useRoute();
 const productRetrieve = ref();
 const store = useProductsListStore();
-const productId = route.params.id;
+const productId = Array.isArray(route.params.id) ? route.params.id[0] : route.params.id;
+
+
+
+const quantity = ref(1); // Cantidad inicial
+
+const increaseQuantity = () => {
+  quantity.value++;
+};
+
+const decreaseQuantity = () => {
+  if (quantity.value > 1) {
+    quantity.value--;
+  }
+};
+
 
 onMounted(async () => {
   const productId = route.params.id;

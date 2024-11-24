@@ -1,7 +1,26 @@
-<template>
+<template>      
+  <v-container class="bg-grey-lighten-2 rounded" fluid>
+    <v-row>
+      <v-col cols="12" md="4">
+        <v-toolbar-title class="text-center mt-2 main-title">Users List
+        </v-toolbar-title>
+      </v-col>
+      <v-col cols="12" md="4">
+        <v-text-field v-model="search" density="compact" label="Search" prepend-inner-icon="mdi-magnify"
+          variant="solo-filled" flat hide-details single-line></v-text-field>
+      </v-col>
+      <v-col cols="12" md="4">
+        <ButtonComponent @click="addUserInit" class="text-uppercase mx-auto">
+          Add User
+        </ButtonComponent>
+      </v-col>
+    </v-row>
+  </v-container>
+
   <v-skeleton-loader />
   <v-data-table
     :headers="headers"
+    :mobile="smAndDown"
     :items-per-page="5"
     :items="usersList"
     :search="search"
@@ -21,8 +40,8 @@
     </template>
 
     <template v-slot:top>
-      <v-toolbar flat>
-        <v-row justify="center">
+       <!-- <v-toolbar flat>
+         <v-row justify="center">
           <v-col align="center">
             <v-toolbar-title>Users List</v-toolbar-title>
           </v-col>
@@ -43,7 +62,7 @@
           <v-col align="center">
             <ButtonComponent @click="addUserInit"> Add User </ButtonComponent>
           </v-col>
-        </v-row>
+        </v-row> -->
 
         <DialogOkCancel
           v-model="dialog.show"
@@ -136,7 +155,7 @@
         >
           <v-card-text> {{ dialogDelete.msg }}</v-card-text>
         </DialogOkCancel>
-      </v-toolbar>
+          <!-- </v-toolbar> -->
     </template>
     <template v-slot:item.actions="{ item }">
       <v-icon class="me-2" size="small" @click="editUserInit(item)">
@@ -161,6 +180,9 @@ import {
 import { useField, useForm } from "vee-validate";
 import { nextTick, onMounted, reactive, ref, watch } from "vue";
 import * as yup from "yup";
+import { useDisplay } from "vuetify";
+
+const { smAndDown } = useDisplay();
 
 const editUserSchema = yup.object({
   username: yup
@@ -319,3 +341,11 @@ const updateTable = async () => {
   }, 700);
 };
 </script>
+
+
+<style scoped>
+
+.main-title {
+    font-size: 1.8rem;
+}
+</style>

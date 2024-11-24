@@ -2,13 +2,17 @@ import { urlApiServer } from "@/constApi";
 // import { getProfile } from "@/helpers/usersServices";
 import axios from "axios";
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import VueCookies from 'vue-cookies'
+import { ref, inject } from "vue";
+
+
 
 export const useAuthStore = defineStore("auth", () => {
-    const token = ref<string | null>(null);
-    const isLoggedIn = ref(false);
+    
+    
     const role = ref('');
     const userId = ref('');
+    const $cookies = inject<VueCookies>('$cookies');
 
     const fetchToken = async (username: string = '', password: string = '') => {
         try {
@@ -23,6 +27,7 @@ export const useAuthStore = defineStore("auth", () => {
                 },}
             );
             token.value = res.data.access_token
+            $cookies.set("user_token", res.data.access_token)
             isLoggedIn.value = true;
             await getProfile();
         } catch (reason: any) {
@@ -37,10 +42,18 @@ export const useAuthStore = defineStore("auth", () => {
     }
 
     const getToken = () => {
-        return token.value;
+        return $cookies.get("user_token");
     }
 
+    const initAuth = () => {
+        const authToken = getToken()
 
+        if (!Boolean(userId.value)) {
+            getProfile()
+        }
+
+        return authToken
+    }        
 
     const getUserId = () => {
         return userId.value;
@@ -57,8 +70,12 @@ export const useAuthStore = defineStore("auth", () => {
         userId.value = data.id;
     }
 
+    const token = ref<string | null>(initAuth() || null);
+    const isLoggedIn = ref(Boolean(token.value) || false);
+
     const logout = () => {
         token.value = null;
+        $cookies.remove("user_token")
         role.value = '';
         userId.value = '';
         isLoggedIn.value = false;

@@ -17,11 +17,9 @@
           <v-card-title class="text-center font-weight-medium mt-3 text-black">
             {{ product.name }}
           </v-card-title>
-
           <v-card-subtitle class="text-center text-h4 text-grey mt-2">
             {{ product.price }}
           </v-card-subtitle>
-
           <v-card-text>
             <div>
               <p class="quantity text-center text-overline">
@@ -38,11 +36,9 @@
     <div>
       <v-pagination
         @input="updatePagProducts"
-
         v-model="page"
         :length="14"
         :total-visible="4"
-
       ></v-pagination>
     </div>
   </v-container>
@@ -56,6 +52,7 @@ import ButtonComponent from "@/components/common/ButtonComponent.vue";
 import type { Product } from "@/helpers/products.model";
 import { ref } from "vue";
 import { watch } from "vue";
+
 
 const props = defineProps({
   listProduct: {
@@ -75,7 +72,9 @@ const updatePagProducts = () => {
   props.listProduct.slice(startIndex, endIndex);
 };
 
-watch([page, () => props.listProduct], updatePagProducts, { immediate: true });
+watch([page, () => props.listProduct], 
+       updatePagProducts,
+       { immediate: true });
 
 </script>
 

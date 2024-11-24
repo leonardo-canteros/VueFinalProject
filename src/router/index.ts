@@ -30,7 +30,7 @@ const router = createRouter({
       component: () => import("../components/products/ProductDetails.vue"),
     },
     {
-      path: "/ProductCreate",
+      path: "/product-create",
       name: "ProductCreate",
       component: () => import("../views/ProductCreateView.vue"),
     },
@@ -40,14 +40,19 @@ const router = createRouter({
       component: () => import("../components/products/ProductUpdateForm.vue"),
     },
     {
-      path: "/ProductUpdate",
+      path: "/product-update",
       name: "ProductUpdate",
       component: () => import("../views/ProductUpdateView.vue"),
     },
     {
-      path: "/ProductDelete/:id(\\d+)",
+      path: "/product-delete/:id(\\d+)",
       name: "ProductDelete",
       component: () => import("../components/products/ProductDelete.vue"),
+    },
+    {
+      path: "/error-404",
+      name: "error404",
+      component: () => import("../components/common/Error404.vue"),
     },
     {
       path: "/login",

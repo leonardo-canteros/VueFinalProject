@@ -25,6 +25,11 @@ const vuetify = createVuetify({
  * cookie domain for local environment: .morethansound.com
  */
 
+// no ignorar errores de typescript
+// npm run build 
+// npm run type-check
+
+
 const app = createApp(App)
 app.use(VueCookies, { 
   expires: '7d', 

@@ -16,24 +16,20 @@
     </v-sheet>
   </template>
   
-  <script setup lang="ts">
+<script setup lang="ts">
 
 import { defineProps } from 'vue';
 
 import { computed,  } from 'vue';
-import { useCartStore } from "@/stores/cart";
 import type { Orders02 } from "@/stores/cart";
-
 
 // Cambiar el tipo para que sea un array de productos
 const props = defineProps({
   product: {
-    type: Array as () => Orders02["order_products"], // Cambiado para aceptar un array completo de productos
+    type: Array as () => Orders02["order_products"], 
     required: true,
   }
 });
-
-const authStore = { isLoggedIn: true };  // Establecer como true para simular que el usuario está autenticado
 
 // Calcular el precio total usando el estado global del carrito (en este caso, pasando los productos como props)
 const totalPrice = computed(() => {

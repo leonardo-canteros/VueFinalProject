@@ -23,7 +23,9 @@
                         <v-icon>mdi-plus</v-icon>
                         </v-btn>
                       </v-btn>
+                      
                       <v-spacer></v-spacer>
+                      
                       <ButtonComponent
                         class="mx-auto text-uppercase add-to-cart-btn"
                         type="submit"
@@ -65,9 +67,7 @@ const productRetrieve = ref();
 const store = useProductsListStore();
 const productId = Array.isArray(route.params.id) ? route.params.id[0] : route.params.id;
 
-
-
-const quantity = ref(1); // Cantidad inicial
+const quantity = ref(1); 
 
 const increaseQuantity = () => {
   quantity.value++;

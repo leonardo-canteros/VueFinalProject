@@ -45,25 +45,47 @@ const http = axios.create({
 });
 
 export const useCartStore = defineStore("cart", () => {
-  const cartProducts = ref <Orders02["order_products"]> ([]);
+  // Estado reactivo
+  const cartProducts = ref<Orders02>({
+    customer_id: "",
+    order_products: [],
+    status: "",
+    id: "",
+  });
 
-  // Función para obtener el carrito del usuario
+
+  // Función para obtener los productos del carrito
   const fetchCartProducts = async (customer_id: string) => {
     try {
-      const objects = await http.get(`/orders/shopping_cart/${customer_id}`); 
-      const orders = objects.data.response;
-
-      const shoppingOrder = orders.find((order: Orders02) => order.status === "shopping");
-
-      if (shoppingOrder) {
-        cartProducts.value = shoppingOrder.order_products;
-      } else {
-        cartProducts.value = [];
+      // Realiza la solicitud a la API
+      const response = await http.get(`/orders/shopping_cart/${customer_id}`);
+      const cart = response.data.response;  // Suponemos que la API siempre devuelve un objeto Orders02
+      
+      // Asigna el carrito recibido directamente
+      cartProducts.value = cart; 
+  
+      // Si el carrito está vacío, asigna un estado vacío
+      if (cart.order_products.length === 0) {
+        cartProducts.value = {
+          customer_id: customer_id,
+          order_products: [],
+          status: "empty",
+          id: "",
+        };
       }
+  
     } catch (error) {
       console.error("Error obteniendo productos del carrito:", error);
+      // Manejo de error, asignando carrito vacío si falla la llamada
+      cartProducts.value = {
+        customer_id: customer_id,
+        order_products: [],
+        status: "empty",
+        id: "",
+      };
     }
   };
+
 
   // Función para añadir un producto al carrito
   const addProductToCart = async (product:  Orders["order_products"][0], customer_id: string) => {

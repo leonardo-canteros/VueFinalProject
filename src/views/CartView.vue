@@ -2,38 +2,41 @@
   <v-container class="d-flex flex-column justify-center">
     <h1 class="my-2">Mi Carrito</h1>
 
+    <!-- Solo muestra los productos si cartProducts tiene productos -->
     <v-list v-if="cartProducts.order_products.length > 0" dense>
       <CartItem
-        v-for="products in cartProducts.order_products"
-        :key="products.product_id"
-        :product="products"
+        v-for="product in cartProducts.order_products"
+        :key="product.product_id"
+        :product="product"
       />
     </v-list>
-
+    
+    <!-- Si no hay productos en el carrito, muestra un mensaje -->
     <v-alert v-else type="info">Tu carrito está vacío</v-alert>
 
-    <!-- Muestra la suma de los productos -->
-    <CartSuma :product ="cartProducts.order_products" />
+    <!-- Aquí pasamos solo el arreglo de productos -->
+    <CartSuma :product="cartProducts.order_products" />
   </v-container>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import CartSuma from "@/components/products/CartSuma.vue";
 import CartItem from "@/components/products/cartItem.vue";
+import { useCartStore } from "@/stores/cart";
+import { onMounted } from "vue";
+import { useAuthStore } from "@/stores/auth";
 
+const authStore = useAuthStore();
+const store = useCartStore();
+const customer_id = authStore.getUserId();
 
-// Simula productos estáticos para el carrito
-const cartProducts = ref({
-  customer_id: "12345",  // ID del cliente
-  order_products: [
-    { product_id: "1", price: 100, quantity: 2, name: "Producto 1", image: "https://via.placeholder.com/80" },
-    { product_id: "2", price: 200, quantity: 1, name: "Producto 2", image: "https://via.placeholder.com/80" },
-    { product_id: "3", price: 150, quantity: 3, name: "Producto 3", image: "https://via.placeholder.com/80" }
-  ],
-  status: "shopping", // Estado del carrito
-  id: "order-12345"  // ID del carrito o pedido
+// Ahora cartProducts se extrae del store directamente
+const cartProducts = store.cartProducts;
+
+// Obtén los productos del carrito cuando la view se monta
+onMounted(() => {
+  store.fetchCartProducts(customer_id);
 });
 
-const authStore = { isLoggedIn: true };  // Establecer como true para simular que el usuario está autenticado
+
 </script>

@@ -158,10 +158,10 @@
           <!-- </v-toolbar> -->
     </template>
     <template v-slot:item.actions="{ item }">
-      <v-icon class="me-2" size="small" @click="editUserInit(item)">
+      <v-icon class="mr-2 bg-primary pa-5 rounded-circle" size="small" color="white" @click="editUserInit(item)">
         mdi-pencil
       </v-icon>
-      <v-icon size="small" @click="deleteUserInit(item)"> mdi-delete </v-icon>
+      <v-icon class="bg-red pa-5 rounded-circle" size="small" @click="deleteUserInit(item)"> mdi-delete </v-icon>
     </template>
   </v-data-table>
 </template>

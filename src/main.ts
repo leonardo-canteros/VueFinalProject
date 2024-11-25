@@ -19,12 +19,22 @@ const vuetify = createVuetify({
   directives,
 })
 
+/**
+ * cookie domain for vercel environment: .morethansound.vercel.app
+ * 
+ * cookie domain for local environment: .morethansound.com
+ */
+
+// no ignorar errores de typescript
+// npm run build 
+// npm run type-check
+
 
 const app = createApp(App)
 app.use(VueCookies, { 
   expires: '7d', 
   path: '/', 
-  domain: '.morethansound.com'
+  domain: '.morethansound.vercel.app'
 })
 app.use(createPinia())
 app.use(vuetify)

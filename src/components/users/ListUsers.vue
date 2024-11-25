@@ -107,7 +107,7 @@
 
               <v-col cols="12" sm="6">
                 <v-select
-                  v-model="(role as string | null | undefined)"
+                  v-model="role"
                   :items="['admin', 'seller', 'customer']"
                   label="Role*"
                   :error-messages="errors.role"
@@ -217,7 +217,7 @@ const { handleSubmit, errors } = useForm({
 const { value: id } = useField("id");
 const { value: username } = useField("username");
 const { value: email } = useField("email");
-const { value: role } = useField("role");
+const { value: role } = useField<any>("role");
 const { value: password } = useField("password");
 const { value: deactivated_at } = useField("deactivated_at");
 const { value: image } = useField("image");

@@ -71,19 +71,32 @@ import { useRouter } from "vue-router";
 import { useProductsListStore } from "@/stores/ProductsStore";
 import { storeToRefs } from "pinia";
 import ButtonComponent from "@/components/common/ButtonComponent.vue";
+import type { FormData } from "@/helpers/products.model";
 
 const router = useRouter();
 const store = useProductsListStore();
 const { listProducts } = storeToRefs(store);
 
-const formData = reactive({
+interface Product {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  quantity: number;
+  category: string;
+  image: string;
+  deactivated_at: string | null;
+}
+
+const formData = reactive<Product>({
+  id: "",
   name: "",
   price: 0,
   quantity: 0,
   description: "",
   image: "",
   category: "",
-  seller_id: "",
+  deactivated_at: null
 });
 
 const categories = ref([
@@ -108,30 +121,35 @@ const saveData = async () => {
   }
 };
 
-function inputRules(field: string) {
-  const rules = {
+type ValidationRule = (value: any) => boolean | string;
+
+type FieldName = "name" | "price" | "quantity" | "description" | "image" | "category";
+
+
+function inputRules(field: FieldName) {
+  const rules: Record<FieldName, ValidationRule[]> = {
     name: [
-      (v) => !!v || "Name is required",
-      (v) => (v && v.length >= 3) || "Minimum 4 characters",
+      (v: string) => !!v || "Name is required",
+      (v: string) => (v && v.length >= 3) || "Minimum 4 characters",
     ],
     price: [
-      (v) => !!v || "Price is required",
-      (v) => v > 0 || "Price must be greater than 0",
+      (v: number) => !!v || "Price is required",
+      (v: number) => v > 0 || "Price must be greater than 0",
     ],
     quantity: [
-      (v) => !!v || "Quantity is required",
-      (v) => v > 0 || "Quantity must be greater than 0",
+      (v: number) => !!v || "Quantity is required",
+      (v: number) => v > 0 || "Quantity must be greater than 0",
     ],
     description: [
-      (v) => !!v || "Description is required",
-      (v) =>
+      (v: string) => !!v || "Description is required",
+      (v: string) =>
         (v && v.length >= 10) || "Description must be at least 10 characters",
     ],
     image: [
-      (v) => !!v || "Image URL is required",
-      (v) => !!v || "This field is required",
+      (v: string) => !!v || "Image URL is required",
+      (v: string) => !!v || "This field is required",
     ],
-    category: [(v) => !!v || "Category is required"],
+    category: [(v: string) => !!v || "Category is required"],
   };
   return rules[field] || [];
 }

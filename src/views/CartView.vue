@@ -27,9 +27,9 @@ import CartItem from "@/components/products/cartItem.vue";
 const cartProducts = ref({
   customer_id: "12345",  // ID del cliente
   order_products: [
-    { product_id: "1", price: 100, quantity: 2, name: "Producto 1", image: "https://via.placeholder.com/80" },
-    { product_id: "2", price: 200, quantity: 1, name: "Producto 2", image: "https://via.placeholder.com/80" },
-    { product_id: "3", price: 150, quantity: 3, name: "Producto 3", image: "https://via.placeholder.com/80" }
+    { product_id: "1", price: 100, quantity: 2, name: "Producto 1", image: "https://via.placeholder.com/80", description: "", seller_id: "", category: "" },
+    { product_id: "2", price: 200, quantity: 1, name: "Producto 2", image: "https://via.placeholder.com/80", description: "", seller_id: "", category: "" },
+    { product_id: "3", price: 150, quantity: 3, name: "Producto 3", image: "https://via.placeholder.com/80", description: "", seller_id: "", category: "" }
   ],
   status: "shopping", // Estado del carrito
   id: "order-12345"  // ID del carrito o pedido

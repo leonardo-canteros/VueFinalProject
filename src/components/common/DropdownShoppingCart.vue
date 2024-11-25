@@ -8,7 +8,7 @@
     <v-card min-width="300">
       <v-list>
         <v-list-item
-          prepend-avatar="https://cdn.vuetifyjs.com/images/john.jpg"
+          prepend-avatar="products.image"
           subtitle="Founder of Vuetify"
           title="John Leider"
         >
@@ -51,13 +51,31 @@
 <script setup lang="ts">
 import ButtonComponent from "@/components/common/ButtonComponent.vue";
 import { useAuthStore } from "@/stores/auth";
+import { useCartStore } from "@/stores/cart";
 import { ref, watch } from "vue";
 
+interface OrderProducts {
+  name: string;
+  price: number;
+  quantity: number;
+  description: string;
+  image: string;
+  category: String;
+  seller_id: string;
+  product_id: string;
+}
+
 const authStore = useAuthStore();
+const cartStore = useCartStore();
 const role = ref("");
+const orderProducts = ref<OrderProducts[]>([]);
 
 watch(authStore, (newValue) => {
   role.value = newValue.role;
+});
+
+watch(cartStore, (newValue) => {
+  orderProducts.value = newValue.cartProducts.order_products;
 });
 </script>
 

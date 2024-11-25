@@ -20,7 +20,11 @@
       :type="visible ? 'text' : 'password'"
       @click:append-inner="visible = !visible"
     >
-      <FormLink label="Forgot login password?" class="text-caption" @click="passwordHelp"></FormLink>
+      <FormLink
+        label="Forgot login password?"
+        class="text-caption"
+        @click="passwordHelp"
+      ></FormLink>
     </FormTextField>
 
     <FormButton :loading="loading" label="Log In" type="submit"></FormButton>
@@ -32,7 +36,7 @@
       density="compact"
       :text="msgAlert.text"
       :title="msgAlert.title"
-      :type="(msgAlert.isError ? 'error' : 'warning')"
+      :type="msgAlert.isError ? 'error' : 'warning'"
     ></v-alert>
 
     <v-card-text class="text-center">
@@ -48,8 +52,9 @@ import FormButton from "@/components/auth/FormButton.vue";
 import FormContainer from "@/components/auth/FormContainer.vue";
 import FormLink from "@/components/auth/FormLink.vue";
 import FormTextField from "@/components/auth/FormTextField.vue";
-import router from "@/router";
+import { useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
+import { useCartStore } from "@/stores/cart";
 import { useField, useForm } from "vee-validate";
 import { reactive, ref } from "vue";
 import * as yup from "yup";
@@ -72,17 +77,19 @@ const { handleSubmit, errors } = useForm({
 const { value: username } = useField<string>("username");
 const { value: password } = useField<string>("password");
 
+const router = useRouter();
 const authStore = useAuthStore();
+const cartStore = useCartStore();
 
 const loading = ref(false);
 const visible = ref(false);
 
 const passwordHelp = () => {
-    msgAlert.show = true;
-    msgAlert.title = "Password Forgotten";
-    msgAlert.text = "We can't help you. Maybe in future release";
-    msgAlert.isError = false;
-}
+  msgAlert.show = true;
+  msgAlert.title = "Password Forgotten";
+  msgAlert.text = "We can't help you. Maybe in future release";
+  msgAlert.isError = false;
+};
 
 const msgAlert = reactive({
   show: false,
@@ -97,6 +104,8 @@ const submitForm = handleSubmit(async (values) => {
     setTimeout(() => (loading.value = false), 2000);
     await authStore.fetchToken(username.value, password.value);
     if (authStore.isLoggedIn) {
+      console.log(authStore.getUserId());
+      cartStore.fetchCartProducts(authStore.getUserId());
       router.push("/");
     }
   } catch (error: any) {

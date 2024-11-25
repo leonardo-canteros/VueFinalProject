@@ -21,7 +21,7 @@
 
       <v-col cols="12" md="6" :order="2" :order-md="2">
         <v-img
-          src="src/assets/images/ImageAbout01.jpg"
+          :src="imgAboutUs1"
           cover
           alt="IMG"
           width="100%"
@@ -43,7 +43,7 @@
         :order-md="3"
       >
         <v-img
-          src="src/assets/images/ImageAbout05.jpg"
+          :src="imgAboutUs5"
           cover
           alt="IMG"
           width="100%"
@@ -63,7 +63,13 @@
   </v-container>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+
+import imgAboutUs1 from "@/assets/images/ImageAbout01.jpg";
+import imgAboutUs5 from "@/assets/images/ImageAbout05.jpg";
+
+
+</script>
 
 <style scoped>
 .section-separator {

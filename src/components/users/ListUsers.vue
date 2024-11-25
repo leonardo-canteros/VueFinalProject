@@ -1,13 +1,22 @@
-<template>      
+<template>
   <v-container class="bg-grey-lighten-2 rounded" fluid>
     <v-row>
       <v-col cols="12" md="4">
-        <v-toolbar-title class="text-center mt-2 main-title">Users List
+        <v-toolbar-title class="text-center mt-2 main-title"
+          >Users List
         </v-toolbar-title>
       </v-col>
       <v-col cols="12" md="4">
-        <v-text-field v-model="search" density="compact" label="Search" prepend-inner-icon="mdi-magnify"
-          variant="solo-filled" flat hide-details single-line></v-text-field>
+        <v-text-field
+          v-model="search"
+          density="compact"
+          label="Search"
+          prepend-inner-icon="mdi-magnify"
+          variant="solo-filled"
+          flat
+          hide-details
+          single-line
+        ></v-text-field>
       </v-col>
       <v-col cols="12" md="4">
         <ButtonComponent @click="addUserInit" class="text-uppercase mx-auto">
@@ -40,7 +49,7 @@
     </template>
 
     <template v-slot:top>
-       <!-- <v-toolbar flat>
+      <!-- <v-toolbar flat>
          <v-row justify="center">
           <v-col align="center">
             <v-toolbar-title>Users List</v-toolbar-title>
@@ -64,111 +73,119 @@
           </v-col>
         </v-row> -->
 
-        <DialogOkCancel
-          v-model="dialog.show"
-          :title="dialog.title"
-          @ok="submitForm"
-          @cancel="clearDialog"
-          cancel-btn-legend="Cancel"
-          ok-btn-legend="Save"
-          max-width="600"
-        >
-          <v-card-text>
-            <v-row dense>
-              <v-col v-if="dialog.editMode" cols="12" sm="6">
-                <BaseTextField v-model="id" label="ID" readonly></BaseTextField>
-              </v-col>
+      <DialogOkCancel
+        v-model="dialog.show"
+        :title="dialog.title"
+        @ok="submitForm"
+        @cancel="clearDialog"
+        cancel-btn-legend="Cancel"
+        ok-btn-legend="Save"
+        max-width="600"
+      >
+        <v-card-text>
+          <v-row dense>
+            <v-col v-if="dialog.editMode" cols="12" sm="6">
+              <BaseTextField v-model="id" label="ID" readonly></BaseTextField>
+            </v-col>
 
-              <v-col v-if="dialog.editMode" cols="12" sm="6">
-                <BaseTextField
-                  :v-model="deactivated_at"
-                  label="Deactivated At"
-                  readonly
-                ></BaseTextField>
-              </v-col>
+            <v-col v-if="dialog.editMode" cols="12" sm="6">
+              <BaseTextField
+                :v-model="deactivated_at"
+                label="Deactivated At"
+                readonly
+              ></BaseTextField>
+            </v-col>
 
-              <v-col cols="12" sm="6">
-                <BaseTextField
-                  v-model="username"
-                  :error-messages="errors.username"
-                  label="Username*"
-                  required
-                ></BaseTextField>
-              </v-col>
+            <v-col cols="12" sm="6">
+              <BaseTextField
+                v-model="username"
+                :error-messages="errors.username"
+                label="Username*"
+                required
+              ></BaseTextField>
+            </v-col>
 
-              <v-col cols="12" sm="6">
-                <BaseTextField
-                  v-model="email"
-                  :error-messages="errors.email"
-                  label="Email*"
-                  required
-                ></BaseTextField>
-              </v-col>
+            <v-col cols="12" sm="6">
+              <BaseTextField
+                v-model="email"
+                :error-messages="errors.email"
+                label="Email*"
+                required
+              ></BaseTextField>
+            </v-col>
 
-              <v-col cols="12" sm="6">
-                <v-select
-                  v-model="role"
-                  :items="['admin', 'seller', 'customer']"
-                  label="Role*"
-                  :error-messages="errors.role"
-                  color="primary"
-                  outlined
-                  required
-                ></v-select>
-              </v-col>
+            <v-col cols="12" sm="6">
+              <v-select
+                v-model="role"
+                :items="['admin', 'seller', 'customer']"
+                label="Role*"
+                :error-messages="errors.role"
+                color="primary"
+                outlined
+                required
+              ></v-select>
+            </v-col>
 
-              <v-col v-if="!dialog.editMode" cols="12" sm="6">
-                <BaseTextField
-                  v-model="password"
-                  :error-messages="errors.password"
-                  label="Password*"
-                  required
-                  :append-inner-icon="
-                    passwordIsVisible ? 'mdi-eye-off' : 'mdi-eye'
-                  "
-                  :type="passwordIsVisible ? 'text' : 'password'"
-                  @click:append-inner="passwordIsVisible = !passwordIsVisible"
-                ></BaseTextField>
-              </v-col>
+            <v-col v-if="!dialog.editMode" cols="12" sm="6">
+              <BaseTextField
+                v-model="password"
+                :error-messages="errors.password"
+                label="Password*"
+                required
+                :append-inner-icon="
+                  passwordIsVisible ? 'mdi-eye-off' : 'mdi-eye'
+                "
+                :type="passwordIsVisible ? 'text' : 'password'"
+                @click:append-inner="passwordIsVisible = !passwordIsVisible"
+              ></BaseTextField>
+            </v-col>
 
-              <v-col cols="12" sm="12">
-                <BaseTextField
-                  v-model="image"
-                  label="Image URL"
-                ></BaseTextField>
-              </v-col>
-            </v-row>
+            <v-col cols="12" sm="12">
+              <BaseTextField v-model="image" label="Image URL"></BaseTextField>
+            </v-col>
+          </v-row>
 
-            <small class="text-caption text-medium-emphasis"
-              >*indicates required field</small
-            >
-          </v-card-text>
-        </DialogOkCancel>
+          <small class="text-caption text-medium-emphasis"
+            >*indicates required field</small
+          >
+        </v-card-text>
+      </DialogOkCancel>
 
-        <DialogOkCancel
-          v-model="dialogDelete.show"
-          title="Confirm delete user?"
-          @cancel="clearDialogDelete"
-          @ok="deleteUserConfirm"
-          cancel-btn-legend="Cancel"
-          ok-btn-legend="Delete"
-        >
-          <v-card-text> {{ dialogDelete.msg }}</v-card-text>
-        </DialogOkCancel>
-          <!-- </v-toolbar> -->
+      <DialogOkCancel
+        v-model="dialogDelete.show"
+        title="Confirm delete user?"
+        @cancel="clearDialogDelete"
+        @ok="deleteUserConfirm"
+        cancel-btn-legend="Cancel"
+        ok-btn-legend="Delete"
+      >
+        <v-card-text> {{ dialogDelete.msg }}</v-card-text>
+      </DialogOkCancel>
+      <!-- </v-toolbar> -->
     </template>
     <template v-slot:item.actions="{ item }">
-      <v-icon class="mr-2 bg-primary pa-5 rounded-circle" size="small" color="white" @click="editUserInit(item)">
+      <v-icon
+        class="mr-2 bg-primary pa-5 rounded-circle"
+        size="small"
+        color="white"
+        @click="editUserInit(item)"
+      >
         mdi-pencil
       </v-icon>
-      <v-icon class="bg-red pa-5 rounded-circle" size="small" @click="deleteUserInit(item)"> mdi-delete </v-icon>
+      <v-icon
+        class="bg-red pa-5 rounded-circle"
+        size="small"
+        @click="deleteUserInit(item)"
+      >
+        mdi-delete
+      </v-icon>
     </template>
   </v-data-table>
 </template>
 
 <script setup lang="ts">
-import ButtonComponent from "@/components/common/ButtonComponent.vue";
 import BaseTextField from "@/components/common/BaseTextField.vue";
+import ButtonComponent from "@/components/common/ButtonComponent.vue";
 import DialogOkCancel from "@/components/users/DialogOkCancel.vue";
 import { formatDate } from "@/helpers/format";
 import {
@@ -179,8 +196,8 @@ import {
 } from "@/helpers/usersServices";
 import { useField, useForm } from "vee-validate";
 import { nextTick, onMounted, reactive, ref, watch } from "vue";
-import * as yup from "yup";
 import { useDisplay } from "vuetify";
+import * as yup from "yup";
 
 const { smAndDown } = useDisplay();
 
@@ -277,9 +294,13 @@ function addUserInit(): void {
 async function addUserConfirm(values: {}): Promise<void> {
   // let user = JSON.parse(JSON.stringify(values));
   // user.password = passwordInput.value;
-  await createUser(values);
-  clearDialog();
-  updateTable();
+  try {
+    await createUser(values);
+    clearDialog();
+    updateTable();
+  } catch (error: any) {
+    console.log(error.message);
+  }
 }
 
 function editUserInit(item: {}): void {
@@ -342,10 +363,8 @@ const updateTable = async () => {
 };
 </script>
 
-
 <style scoped>
-
 .main-title {
-    font-size: 1.8rem;
+  font-size: 1.8rem;
 }
 </style>

@@ -4,6 +4,16 @@ import axios from "axios";
 
 const authStore = useAuthStore();
 
+interface User {
+  id: string;
+  username: string;
+  email: string;
+  password: string;
+  role: string;
+  image: string | null;
+  desactivated_at?: string | null;
+}
+
 export const getProfile = async () => {
   try {
     const params = {
@@ -28,7 +38,10 @@ export const getUsersList = async () => {
       }
     }
     const res = await axios.get(`${urlApiServer}/api/users/include_deleted`, params);
-    return res.data.response;
+    const excludedUserId = authStore.getUserId();
+    const filteredResponse = res.data.response.filter((user: User) => user.id !== excludedUserId);
+    return filteredResponse;
+    // return res.data.response;
   } catch (reason: any) {
     console.log(reason.response.data.detail)
     // throw new Error(reason.response.data.detail);
@@ -45,8 +58,8 @@ export const createUser = async (user: any) => {
     const res = await axios.post(`${urlApiServer}/api/users/`, user, headers);
     return res.data;
   } catch (reason: any) {
-    console.log(reason.response.data.detail)
-    // throw new Error(reason.response.data.detail);
+    // console.log(reason.response.data.detail.message)
+    throw new Error(reason.response.data.detail);
   }  
 }
 

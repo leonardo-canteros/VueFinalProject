@@ -13,7 +13,11 @@
                 align-self="center"
                 class="d-flex justify-center"
               >
-                <ButtonComponent @click="emit('cancel')">
+                <ButtonComponent
+                  hover
+                  class="text-uppercase mx-auto text-white bg-indigo round"
+                  @click="emit('cancel')"
+                >
                   {{ cancelBtnLegend }}
                 </ButtonComponent>
               </v-col>
@@ -23,7 +27,12 @@
                 align-self="center"
                 class="d-flex justify-center"
               >
-                <ButtonComponent type="submit" @click="emit('ok')">
+                <ButtonComponent
+                  hover
+                  class="text-uppercase mx-auto text-white round"
+                  type="submit"
+                  @click="emit('ok')"
+                >
                   {{ okBtnLegend }}
                 </ButtonComponent>
               </v-col>

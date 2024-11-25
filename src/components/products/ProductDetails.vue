@@ -80,6 +80,8 @@ const decreaseQuantity = () => {
 };
 
 
+
+
 onMounted(async () => {
   const productId = route.params.id;
   productRetrieve.value = await store.getProductId(productId);

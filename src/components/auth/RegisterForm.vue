@@ -25,7 +25,7 @@
 
       <v-col cols="12" md="6">
         <FormSelect
-          v-model="(role as string | null | undefined)"
+          v-model="role"
           :items="['seller', 'customer']"
           label="Role*"
           :error-messages="errors.role"
@@ -103,11 +103,7 @@ const validationSchema = yup.object({
   email: yup
     .string()
     .required("Email is required")
-    .email("Must be a valid email address"),
-  role: yup
-    .mixed()
-    .oneOf(["seller", "customer"] as const)
-    .required("Role is required"),
+    .email("Must be a valid email address")
 });
 
 const { handleSubmit, errors } = useForm({
@@ -117,7 +113,7 @@ const { handleSubmit, errors } = useForm({
 const { value: username } = useField<string>("username");
 const { value: password } = useField<string>("password");
 const { value: email } = useField<string>("email");
-const { value: role } = useField<string>("role");
+const { value: role } = useField<any>("role");
 const { value: image } = useField<string>("image");
 
 const loading = ref(false);

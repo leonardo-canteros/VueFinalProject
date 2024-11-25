@@ -20,7 +20,7 @@
       :type="visible ? 'text' : 'password'"
       @click:append-inner="visible = !visible"
     >
-      <FormLink label="Forgot login password?" class="text-caption" @click="passwordHelp" </FormLink>
+      <FormLink label="Forgot login password?" class="text-caption" @click="passwordHelp"></FormLink>
     </FormTextField>
 
     <FormButton :loading="loading" label="Log In" type="submit"></FormButton>

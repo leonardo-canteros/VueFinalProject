@@ -41,10 +41,7 @@
       temporary
     >   
     -->
-    <v-navigation-drawer
-      v-model="drawer"
-      temporary
-    >
+    <v-navigation-drawer v-model="drawer" temporary>
       <v-list>
         <router-link
           v-for="item in menu"

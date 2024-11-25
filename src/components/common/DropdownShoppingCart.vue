@@ -1,5 +1,5 @@
 <template>
-  <v-menu>
+  <v-menu v-if="role === 'customer'">
     <template v-slot:activator="{ props }">
       <v-btn icon v-bind="props">
         <v-icon>mdi-cart-outline</v-icon>
@@ -40,10 +40,25 @@
       </v-card-actions>
     </v-card>
   </v-menu>
+
+  <RouterLink to="/products" class="text-white">
+    <v-btn v-if="role !== 'customer'" icon>
+      <v-icon>mdi-cart-outline</v-icon>
+    </v-btn>
+  </RouterLink>
 </template>
 
 <script setup lang="ts">
 import ButtonComponent from "@/components/common/ButtonComponent.vue";
+import { useAuthStore } from "@/stores/auth";
+import { ref, watch } from "vue";
+
+const authStore = useAuthStore();
+const role = ref("");
+
+watch(authStore, (newValue) => {
+  role.value = newValue.role;
+});
 </script>
 
 <style scoped></style>

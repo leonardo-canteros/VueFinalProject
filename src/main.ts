@@ -31,8 +31,7 @@ const vuetify = createVuetify({
 
 const app = createApp(App);
 app.use(VueCookies, {
-  secure: true,
-  sameSite: "None",
+  sameSite: "Lax",
   expires: "7d",
   path: "/",
   domain: ".morethansound.vercel.app",

@@ -31,10 +31,7 @@ const vuetify = createVuetify({
 
 const app = createApp(App);
 app.use(VueCookies, {
-  httpOnly: true,
-
   secure: true,
-
   sameSite: "None",
   expires: "7d",
   path: "/",

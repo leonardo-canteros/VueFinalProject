@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="productRetrieve" >
+    <div v-if="productRetrieve">
       <v-container>
         <v-row>
             
@@ -57,26 +57,24 @@
 </template>
 
 <script setup lang="ts">
-
 import { useRoute } from "vue-router";
 import { ref, onMounted } from "vue";
 import { useProductsListStore } from "@/stores/ProductsStore";
-import { useCartStore } from "@/stores/cart"; 
+import { useCartStore } from "@/stores/cart";
 import { useAuthStore } from "@/stores/auth";
 import ButtonComponent from "@/components/common/ButtonComponent.vue";
-
 
 const route = useRoute();
 const productRetrieve = ref();
 const store = useProductsListStore();
-const cartStore = useCartStore(); 
+const cartStore = useCartStore();
 const authStore = useAuthStore();
 const userId = authStore.getUserId();
 const cart = cartStore;
 
 console.log("ID del usuario:", userId);
 
-const quantity = ref(1); 
+const quantity = ref(1);
 const increaseQuantity = () => {
   quantity.value++;
 };

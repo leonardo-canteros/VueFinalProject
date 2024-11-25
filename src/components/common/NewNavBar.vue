@@ -42,6 +42,7 @@
     -->
     <v-navigation-drawer
       v-model="drawer"
+      :location="smAndDown ? 'bottom' : undefined"
       temporary
     >
       <v-list>
@@ -69,6 +70,9 @@
 import { useAuthStore } from "@/stores/auth";
 import { ref, watch } from "vue";
 import { RouterView } from "vue-router";
+import { useDisplay } from "vuetify";
+
+const { smAndDown } = useDisplay();
 
 const drawer = ref(false);
 const group = ref(null);
@@ -77,7 +81,7 @@ const authStore = useAuthStore();
 
 const menu = ref([
   { title: "Home", link: "/", icon: "mdi-home" },
-  { title: "About", link: "/about", icon: "mdi-information" },
+  { title: "About Us", link: "/about", icon: "mdi-information" },
   { title: "Products", link: "/products", icon: "mdi-cart" },
   { title: "Contact", link: "/contact", icon: "mdi-email" },
 ]);

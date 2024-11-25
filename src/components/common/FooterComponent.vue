@@ -39,7 +39,7 @@ const urls = ref([
   'https://www.facebook.com/',
   'https://twitter.com/',
   'https://www.linkedin.com/',
-  'https://github.com/',       
+  'https://github.com/TGerzenstein/VueFinalProject/tree/develop',       
 ]);
 
 const currentYear = computed(() => new Date().getFullYear())

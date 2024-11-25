@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="productRetrieve" :key="productId">
+    <div v-if="productRetrieve" >
       <v-container>
         <v-row>
             
@@ -26,10 +26,12 @@
                       
                       <v-spacer></v-spacer>
                       
+                       <!-- Botón para agregar al carrito -->
                       <ButtonComponent
                         class="mx-auto text-uppercase add-to-cart-btn"
-                        type="submit"
-                        >Add to cart
+                        type="button"
+                        @click="addToCart">
+                        Add to cart
                       </ButtonComponent>
                    </v-card-actions>
                 </v-card>
@@ -59,16 +61,18 @@
 import { useRoute } from "vue-router";
 import { ref, onMounted } from "vue";
 import { useProductsListStore } from "@/stores/ProductsStore";
+import { useCartStore } from "@/stores/cart"; 
+import { useAuthStore } from "@/stores/auth";
 import ButtonComponent from "@/components/common/ButtonComponent.vue";
 
 
 const route = useRoute();
 const productRetrieve = ref();
 const store = useProductsListStore();
-const productId = Array.isArray(route.params.id) ? route.params.id[0] : route.params.id;
+const cartStore = useCartStore(); 
+const authStore = useAuthStore();
 
 const quantity = ref(1); 
-
 const increaseQuantity = () => {
   quantity.value++;
 };
@@ -79,13 +83,25 @@ const decreaseQuantity = () => {
   }
 };
 
+const customer_id = authStore.getUserId();
 
-
+const addToCart = async () => {
+  try {
+    await cartStore.addProductToCart(
+      productRetrieve.value, 
+      customer_id,           
+      quantity.value        
+    );
+    alert("Producto añadido al carrito exitosamente");
+  } catch (error) {
+    console.error("Error al añadir producto al carrito:", error);
+    alert("No se pudo añadir el producto al carrito.");
+  }
+};
 
 onMounted(async () => {
   const productId = route.params.id;
   productRetrieve.value = await store.getProductId(productId);
- 
 });
 </script>
 

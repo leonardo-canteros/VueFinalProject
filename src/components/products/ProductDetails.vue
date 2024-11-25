@@ -3,61 +3,51 @@
     <div v-if="productRetrieve">
       <v-container>
         <v-row>
-          <v-col cols="12" md="6">
-            <v-carousel>
-              <v-carousel-item
-                :key="0"
-                :src="productRetrieve.image"
-              ></v-carousel-item>
-            </v-carousel>
-          </v-col>
-
-          <v-col cols="12" md="6" class="mx-auto">
-            <v-card>
-              <v-card-title>{{ productRetrieve.name }}</v-card-title>
-              <v-card-subtitle class="text-h6">{{
-                productRetrieve.price
-              }}</v-card-subtitle>
-
-              <v-card-actions class="mx-4">
-                <v-btn icon>
-                  <v-btn icon @click="decreaseQuantity">
-                    <v-icon>mdi-minus</v-icon> 
-                </v-btn
-                  ><span>{{ quantity }}</span
-                  ><v-btn icon @click="increaseQuantity">
-                    <v-icon>mdi-plus</v-icon>
-                  </v-btn>
-                </v-btn>
-
-                <v-spacer></v-spacer>
-
-                <!-- Botón para agregar al carrito -->
-                <ButtonComponent
-                  class="mx-auto text-uppercase add-to-cart-btn"
-                  type="button"
-                  @click="addToCart"
-                >
-                  Add to cart
-                </ButtonComponent>
-              </v-card-actions>
-            </v-card>
-
-            <v-card class="mt-4">
-              <v-card-title>More information:</v-card-title>
-              <v-card-text>
-                <p>{{ productRetrieve.description }}</p>
-                <v-list>
-                  <v-list-item
-                    v-for="(feature, index) in productRetrieve.features"
-                    :key="index"
-                  >
-                    <v-list-item-title>{{ feature }}</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-card-text>
-            </v-card>
-          </v-col>
+            
+            <v-col cols="12" md="6">
+                <v-carousel>
+                  <v-carousel-item :key="0" :src="productRetrieve.image"></v-carousel-item>
+                </v-carousel>
+            </v-col>
+            
+            <v-col cols="12" md="6">
+                <v-card>
+                  <v-card-title>{{ productRetrieve.name }}</v-card-title>
+                  <v-card-subtitle class="text-h6">{{productRetrieve.price}}</v-card-subtitle>
+                
+                    <v-card-actions>
+                      <div icon>
+                        <v-btn icon @click="decreaseQuantity">
+                        <v-icon>mdi-minus</v-icon>
+                        </v-btn><span>{{ quantity }}</span><v-btn icon @click="increaseQuantity">
+                        <v-icon>mdi-plus</v-icon>
+                        </v-btn>
+                      </div>
+                      
+                      <v-spacer></v-spacer>
+                      
+                       <!-- Botón para agregar al carrito -->
+                      <ButtonComponent
+                        class="mx-auto text-uppercase add-to-cart-btn"
+                        type="button"
+                        @click="addToCart">
+                        Add to cart
+                      </ButtonComponent>
+                   </v-card-actions>
+                </v-card>
+              
+              <v-card class="mt-4">
+                <v-card-title>More information:</v-card-title>
+                  <v-card-text>
+                    <p>{{ productRetrieve.description }}</p>
+                    <v-list>
+                        <v-list-item v-for="(feature, index) in productRetrieve.features" :key="index">
+                          <v-list-item-title>{{ feature }}</v-list-item-title>
+                        </v-list-item>
+                    </v-list>
+                  </v-card-text>
+              </v-card>
+            </v-col>
         </v-row>
       </v-container>
     </div>
@@ -79,6 +69,10 @@ const productRetrieve = ref();
 const store = useProductsListStore();
 const cartStore = useCartStore();
 const authStore = useAuthStore();
+const userId = authStore.getUserId();
+const cart = cartStore;
+
+console.log("ID del usuario:", userId);
 
 const quantity = ref(1);
 const increaseQuantity = () => {
@@ -91,14 +85,13 @@ const decreaseQuantity = () => {
   }
 };
 
-const customer_id = authStore.getUserId();
 
 const addToCart = async () => {
   try {
-    await cartStore.addProductToCart(
-      productRetrieve.value,
-      customer_id,
-      quantity.value
+    await cart.addProductToCart(
+      productRetrieve.value, 
+      userId,           
+      quantity.value,     
     );
     alert("Producto añadido al carrito exitosamente");
   } catch (error) {
@@ -107,9 +100,13 @@ const addToCart = async () => {
   }
 };
 
+
 onMounted(async () => {
   const productId = route.params.id;
+  console.log("ID del producto:", productId);
+
   productRetrieve.value = await store.getProductId(productId);
+  console.log("productRetrieve:", productRetrieve.value);
 });
 </script>
 

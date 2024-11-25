@@ -42,6 +42,7 @@
     -->
     <v-navigation-drawer
       v-model="drawer"
+      :location="smAndDown ? 'bottom' : undefined"
       temporary
     >
       <v-list>
@@ -69,6 +70,9 @@
 import { useAuthStore } from "@/stores/auth";
 import { ref, watch } from "vue";
 import { RouterView } from "vue-router";
+import { useDisplay } from "vuetify";
+
+const { smAndDown } = useDisplay();
 
 const drawer = ref(false);
 const group = ref(null);

@@ -1,10 +1,10 @@
 <template>
     <v-container fluid>
-        <v-carousel show-arrows="hover" cycle interval="4000">
-            <v-carousel-item :src="imgUrl" cover>
+        <v-carousel show-arrows="hover" cycle interval="4000" height="700px">
+            <v-carousel-item :src="imgUrl" cover class="pa-0">
                 <v-container class="d-flex justify-center align-center fill-height">
-                    <v-row>
-                        <v-col class="text-center">
+                    <v-row no-gutters>
+                        <v-col class="text-center pa-0">
                             <h2 class="text-white text-h3 font-weight-bold carousel-title">
                                 Find the Soundtrack to Your Life
                             </h2>
@@ -12,10 +12,10 @@
                     </v-row>
                 </v-container>
             </v-carousel-item>
-            <v-carousel-item :src="imgUrl2" cover>
+            <v-carousel-item :src="imgUrl2" cover class="pa-0">
                 <v-container class="d-flex justify-center align-center fill-height">
-                    <v-row>
-                        <v-col class="text-center">
+                    <v-row no-gutters>
+                        <v-col class="text-center pa-0">
                             <h2 class="text-white text-h3 font-weight-bold carousel-title">
                                 Feel the Vibes: Shop String Instruments
                             </h2>
@@ -23,10 +23,10 @@
                     </v-row>
                 </v-container>
             </v-carousel-item>
-            <v-carousel-item :src="imgUrl3" cover>
+            <v-carousel-item :src="imgUrl3" cover class="pa-0">
                 <v-container class="d-flex justify-center align-center fill-height">
-                    <v-row>
-                        <v-col class="text-center">
+                    <v-row no-gutters>
+                        <v-col class="text-center pa-0">
                             <h2 class="text-white text-h3 font-weight-bold carousel-title">
                                 Top Deals on Instruments </h2>
                         </v-col>
@@ -47,6 +47,9 @@ import imgUrl3 from "@/assets/images/ImageStore03.jpg";
 
 
 <style scoped>
+.v-container {
+    padding: 0px;
+}
 .carousel-title {
     background: transparent;
     color: #FFFFFF;

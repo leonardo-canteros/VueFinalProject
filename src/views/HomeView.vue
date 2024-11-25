@@ -2,10 +2,6 @@
   <CarouselComponent>
 
   </CarouselComponent>
-
-  <v-container class="pageView">
-
-  </v-container>
 </template>
 
 <script setup lang="ts">

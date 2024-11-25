@@ -32,10 +32,13 @@ const vuetify = createVuetify({
 
 const app = createApp(App)
 app.use(VueCookies, { 
+  sameSite: 'None',
   expires: '7d', 
   path: '/', 
   domain: '.morethansound.vercel.app'
 })
+
+
 app.use(createPinia())
 app.use(vuetify)
 app.use(router)

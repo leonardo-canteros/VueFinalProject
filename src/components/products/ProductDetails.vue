@@ -16,13 +16,13 @@
                   <v-card-subtitle class="text-h6">{{productRetrieve.price}}</v-card-subtitle>
                 
                     <v-card-actions>
-                      <v-btn icon>
+                      <div icon>
                         <v-btn icon @click="decreaseQuantity">
                         <v-icon>mdi-minus</v-icon>
                         </v-btn><span>{{ quantity }}</span><v-btn icon @click="increaseQuantity">
                         <v-icon>mdi-plus</v-icon>
                         </v-btn>
-                      </v-btn>
+                      </div>
                       
                       <v-spacer></v-spacer>
                       
@@ -71,6 +71,10 @@ const productRetrieve = ref();
 const store = useProductsListStore();
 const cartStore = useCartStore(); 
 const authStore = useAuthStore();
+const userId = authStore.getUserId();
+const cart = cartStore;
+
+console.log("ID del usuario:", userId);
 
 const quantity = ref(1); 
 const increaseQuantity = () => {
@@ -83,14 +87,13 @@ const decreaseQuantity = () => {
   }
 };
 
-const customer_id = authStore.getUserId();
 
 const addToCart = async () => {
   try {
-    await cartStore.addProductToCart(
+    await cart.addProductToCart(
       productRetrieve.value, 
-      customer_id,           
-      quantity.value        
+      userId,           
+      quantity.value,     
     );
     alert("Producto añadido al carrito exitosamente");
   } catch (error) {
@@ -99,9 +102,13 @@ const addToCart = async () => {
   }
 };
 
+
 onMounted(async () => {
   const productId = route.params.id;
+  console.log("ID del producto:", productId);
+
   productRetrieve.value = await store.getProductId(productId);
+  console.log("productRetrieve:", productRetrieve.value);
 });
 </script>
 

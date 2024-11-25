@@ -34,7 +34,7 @@ const app = createApp(App)
 app.use(VueCookies, { 
   expires: '7d', 
   path: '/', 
-  domain: '.morethansound.vercel.app'
+  domain: 'localhost'
 })
 app.use(createPinia())
 app.use(vuetify)

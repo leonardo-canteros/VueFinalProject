@@ -37,20 +37,7 @@ app.use(VueCookies, {
   domain: ".morethansound.vercel.app",
 });
 
-<<<<<<< HEAD
-const app = createApp(App)
-app.use(VueCookies, { 
-  expires: '7d', 
-  path: '/', 
-  domain: 'localhost'
-})
-app.use(createPinia())
-app.use(vuetify)
-app.use(router)
-app.mount('#app')
-=======
 app.use(createPinia());
 app.use(vuetify);
 app.use(router);
 app.mount("#app");
->>>>>>> 4033982b4a137a2019f89624fc9508bfe6f1111f

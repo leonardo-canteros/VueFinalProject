@@ -100,10 +100,10 @@ const fetchCartProducts = async (customer_id: string) => {
     }
   };
 
-  const updateProductInCart = async (product: Orders["order_products"][0], customer_id: string) => {
+  const updateProductInCart = async (product: Orders02["order_products"][0], customer_id: string) => {
     try {
       await http.put(`/orders/shopping_cart/update/${customer_id}`, { data: {
-          productId: product.product_id,
+          productId: product.id,
           quantity: product.quantity
         }
       });

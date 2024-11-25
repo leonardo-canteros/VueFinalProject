@@ -34,7 +34,7 @@
       <!-- Acciones del producto -->
       <v-col cols="12" md="4" class="d-flex justify-end">
         <v-list-item-action>
-          <RouterLink :to="{ name: 'productId', params: { id: product.product_id } }">
+          <RouterLink :to="{ name: 'productId', params: { id: product.id } }">
             <v-btn color="primary">Ver Detalles</v-btn>
           </RouterLink>
           <v-btn @click="removeFromCart" color="red">Eliminar</v-btn>
@@ -68,7 +68,7 @@ const isHovered = ref(false);
 // Función para eliminar el producto del carrito
 const removeFromCart = async () => {
   if (authStore.isLoggedIn) {
-    await cartStore.removeProductFromCart(props.product.product_id, customer_id);
+    await cartStore.removeProductFromCart(props.product.id, customer_id);
   }
 };
 

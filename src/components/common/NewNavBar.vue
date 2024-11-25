@@ -81,7 +81,7 @@ const authStore = useAuthStore();
 
 const menu = ref([
   { title: "Home", link: "/", icon: "mdi-home" },
-  { title: "About", link: "/about", icon: "mdi-information" },
+  { title: "About Us", link: "/about", icon: "mdi-information" },
   { title: "Products", link: "/products", icon: "mdi-cart" },
   { title: "Contact", link: "/contact", icon: "mdi-email" },
 ]);

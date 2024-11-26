@@ -115,7 +115,6 @@ const goToProductsList = () => {
 const saveData = async () => {
   try {
     await store.addProduct(formData);
-    console.log("¡Product added!");
     router.push("/products");
 
   } catch (error) {

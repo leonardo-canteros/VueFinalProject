@@ -6,7 +6,7 @@
     <v-list v-if="cartProducts.order_products.length > 0" dense>
       <CartItem
         v-for="product in cartProducts.order_products"
-        :key="product.product_id"
+        :key="product.id"
         :product="product"
       />
     </v-list>
@@ -28,14 +28,13 @@ import { useAuthStore } from "@/stores/auth";
 
 const authStore = useAuthStore();
 const store = useCartStore();
-const customer_id = authStore.getUserId();
+const cartProducts = store.cartProducts;    
+const userId = authStore.getUserId();
 
-// Ahora cartProducts se extrae del store directamente
-const cartProducts = store.cartProducts;
+console.log("ID del usuario:", userId);
 
-// Obtén los productos del carrito cuando la view se monta
 onMounted(() => {
-  store.fetchCartProducts(customer_id);
+  store.fetchCartProducts(userId);
 });
 
 

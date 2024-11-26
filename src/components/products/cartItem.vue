@@ -56,7 +56,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, ref } from "vue";
+import { defineProps, defineEmits, ref } from "vue";
 import { useCartStore } from "@/stores/cart";
 import { useAuthStore } from "@/stores/auth";
 import type { Orders01 } from "@/stores/cart";
@@ -72,6 +72,9 @@ const props = defineProps({
     required: true,
   },
 });
+
+// Define los eventos que el componente puede emitir
+const emit = defineEmits(["cartUpdated"]);
 
 const isHovered = ref(false);
 const dialogVisible = ref(false);  // Estado para controlar la visibilidad del diálogo
@@ -90,8 +93,8 @@ const removeFromCart = async () => {
       props.product.quantity
     );
     dialogVisible.value = false; // Cierra el diálogo después de eliminar el producto
-    // Llama a la función que actualiza el carrito o el estado global
-    cartStore.fetchCartProducts(customer_id);  // Asegúrate de que la vista se actualice
+    // Emitir el evento para notificar a la vista
+    emit("cartUpdated");
   }
 };
 
@@ -101,8 +104,11 @@ const increaseQuantity = async () => {
     props.product.quantity += 1; // Actualiza localmente
     await cartStore.updateProductInCart(
       props.product,
-      customer_id
+      customer_id,
+      props.product.quantity
     );
+    // Emitir el evento para notificar a la vista
+    emit("cartUpdated");
   }
 };
 
@@ -112,8 +118,11 @@ const decreaseQuantity = async () => {
     props.product.quantity -= 1; // Actualiza localmente
     await cartStore.updateProductInCart(
       props.product,
-      customer_id
+      customer_id,
+      props.product.quantity
     );
+    // Emitir el evento para notificar a la vista
+    emit("cartUpdated");
   }
 };
 </script>

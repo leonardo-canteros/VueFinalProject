@@ -5,7 +5,10 @@
     <!-- Solo muestra los productos si cartProducts tiene productos -->
     <v-list v-if="cartProducts.order_products.length > 0" dense>
       <CartItem v-for="product in cartProducts.order_products"
-       :key="product.product_id" :product="product" />
+       :key="product.product_id" 
+       :product="product"
+       @cartUpdated="reloadCart" 
+        />
     </v-list>
 
     <!-- Si no hay productos en el carrito, muestra un mensaje -->
@@ -36,21 +39,17 @@ const cartProducts = ref<Orders01>({
 
 console.log("cartProducts:", cartProducts.value);
 console.log("cartProducts.order_products.length", cartProducts.value.order_products.length);
+// Función para cargar el carrito
+const loadCart = async () => {
+  const customer_id = authStore.getUserId();
+  const response = await useCartStore().fetchCartProducts(customer_id);
+  cartProducts.value = response;
+};
 
+// Función para recargar el carrito después de un cambio
+const reloadCart = async () => {
+  await loadCart();
+};
 
-// onMounted para inicializar el carrito
-try {
-    onMounted(async () => {
-        const userId = authStore.getUserId();
-        console.log("userId", userId);
-        const response = await store.fetchCartProducts(userId);
-        console.log("Respuesta del carrito:", response);
-        cartProducts.value = response;
-        console.log("cartProducts.value", cartProducts.value);
-        return response;
-    })
-  } catch (error) {
-      console.error("Error al cargar los productos del carrito:", error);
-    }
-  
+onMounted(loadCart);
 </script>

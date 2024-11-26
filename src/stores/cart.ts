@@ -106,12 +106,13 @@ export const useCartStore = defineStore("cart", () => {
       }
     };
 
-    const updateProductInCart = async (product: Orders01["order_products"][0], customer_id: string) => {
+    const updateProductInCart = async (product: Orders01["order_products"][0], customer_id: string, quantity: number) => {
       try {
-        await http.put(`/orders/shopping_cart/update/${customer_id}`, { data: {
-            productId: product.product_id,
-            quantity: product.quantity
-          }
+        await http.put(`/orders/shopping_cart/update/${customer_id}`, {
+            product_id: product.product_id,
+            price: product.price,
+            quantity: quantity
+          
         });
         await fetchCartProducts(customer_id);
       } catch (error) {
@@ -122,7 +123,7 @@ export const useCartStore = defineStore("cart", () => {
     const removeProductFromCart = async (product: Orders01["order_products"][0], customer_id: string, quantity: number) => {
       try {
         console.log("product id",product.product_id, "product price", product.price, "quatity",quantity,"id usuario", customer_id,  );
-        const response = await http.delete(`/orders/shopping_cart/remove/${customer_id}`, {
+          await http.delete(`/orders/shopping_cart/remove/${customer_id}`, {
           data: { // Debes envolver los datos en 'data' en una solicitud DELETE
             product_id: product.product_id,
             price: product.price,

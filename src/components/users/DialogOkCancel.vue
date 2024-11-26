@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="showDialog" max-width="500px">
+  <v-dialog v-model="showDialog" max-width="500px" persistent>
     <v-container class="pa-2">
       <form @submit.prevent>
         <v-card>
@@ -36,6 +36,17 @@
                   {{ okBtnLegend }}
                 </ButtonComponent>
               </v-col>
+              <v-col cols="12" md="12" align-self="center" class="d-flex">
+                <v-alert
+                  v-if="msgAlert.show"
+                  v-model="msgAlert.show"
+                  closable
+                  density="compact"
+                  :text="msgAlert.text"
+                  :title="msgAlert.title"
+                  type="error"
+                ></v-alert>
+              </v-col>
             </v-row>
           </v-card-actions>
         </v-card>
@@ -63,6 +74,16 @@ defineProps({
   okBtnLegend: {
     type: String,
     default: "OK",
+  },
+  msgAlert: {
+    type: Object,
+    default: () => {
+      return {
+        show: false,
+        title: "",
+        text: "",
+      };
+    },
   },
 });
 const emit = defineEmits(["cancel", "ok", "submit"]);

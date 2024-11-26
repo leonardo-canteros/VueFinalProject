@@ -81,6 +81,7 @@
         cancel-btn-legend="Cancel"
         ok-btn-legend="Save"
         max-width="600"
+        :msg-alert="dialog.msgAlert"
       >
         <v-card-text>
           <v-row dense>
@@ -275,6 +276,7 @@ const dialog = reactive({
   show: false,
   editMode: false,
   title: "",
+  msgAlert: reactive({ show: false, title: "", text: "" }),
 });
 
 watch(dialog, (newVal) => {
@@ -304,13 +306,9 @@ const addUserConfirm = async (values: {}) => {
     clearDialog();
     updateTable();
   } catch (error: any) {
-    if (error.response && error.response.status === 409) {
-      console.log("User with this email or username already exists");
-      console.log(error.response.data.message); // Specific error message
-    } else {
-      console.log("An error occurred while creating the user.");
-      console.log(error); // Generic error message
-    }
+    dialog.msgAlert.show = true;
+    dialog.msgAlert.title = "Creation User Error";
+    dialog.msgAlert.text = error.message;
   }
 };
 
@@ -321,7 +319,6 @@ function editUserInit(item: {}): void {
   email.value = itemJson.email;
   role.value = itemJson.role;
   deactivated_at.value = itemJson.deactivated_at;
-  console.log(deactivated_at.value);
   image.value = itemJson.image;
   dialog.title = "Edit User";
   dialog.show = true;
@@ -330,9 +327,15 @@ function editUserInit(item: {}): void {
 
 async function editUserConfirm(values: {}): Promise<void> {
   // const user = JSON.parse(JSON.stringify(dialog.user));
-  await updateUser(values);
-  clearDialog();
-  updateTable();
+  try {
+    await updateUser(values);
+    clearDialog();
+    updateTable();
+  } catch (error: any) {
+    dialog.msgAlert.show = true;
+    dialog.msgAlert.title = "Editing User Error";
+    dialog.msgAlert.text = error.message;
+  }
 }
 
 function deleteUserInit(item: {}): void {
@@ -352,6 +355,9 @@ function clearDialog(): void {
   dialog.title = "";
   dialog.show = false;
   dialog.editMode = false;
+  dialog.msgAlert.show = false;
+  dialog.msgAlert.title = "";
+  dialog.msgAlert.text = "";
   id.value = "";
   username.value = "";
   email.value = "";

@@ -87,8 +87,8 @@ export const updateUser = async (user: any) => {
     const res = await axios.put(`${urlApiServer}/api/users/${user.id}`, user, headers);
     return res.data;
   } catch (reason: any) {
-    console.log(reason.response.data.detail)
-    // throw new Error(reason.response.data.detail);
+    console.log(reason)
+    throw new Error(reason);
   }  
 }
 
@@ -103,7 +103,6 @@ export const deleteUser = async (id: string) => {
     return res.data;
     
   } catch (reason: any) {
-    console.log(reason)
-    // throw new Error(reason.response.data.detail);
+    throw new Error(reason);
   }  
 }

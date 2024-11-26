@@ -80,14 +80,12 @@
 
 <script setup lang="ts">
 import { RouterLink } from "vue-router";
+
 import ButtonComponent from "@/components/common/ButtonComponent.vue";
 import type { Product } from "@/helpers/products.model";
 import { ref } from "vue";
 import { watch } from "vue";
-
 import { useAuthStore } from "@/stores/auth";
-import { useProductsListStore } from "@/stores/ProductsStore";
-import { storeToRefs } from "pinia";
 
 const authStore = useAuthStore();
 
@@ -110,6 +108,7 @@ const updatePagProducts = () => {
 };
 
 watch([page, () => props.listProduct], updatePagProducts, { immediate: true });
+
 </script>
 
 <style scoped>

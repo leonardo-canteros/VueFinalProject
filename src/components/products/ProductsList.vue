@@ -1,12 +1,19 @@
 <template>
   <v-container>
     <div class="d-flex flex-wrap justify-center ga-5">
-
-      <v-card style="width: 320px" v-for="product in paginatedProducts" :key="product.id" hover>
-
+      <v-card
+        style="width: 320px"
+        v-for="product in paginatedProducts"
+        :key="product.id"
+        hover
+      >
         <RouterLink :to="{ name: 'productId', params: { id: product.id } }">
-
-          <v-img class="align-end text-white" height="300px" :src="product.image" cover></v-img>
+          <v-img
+            class="align-end text-white"
+            height="300px"
+            :src="product.image"
+            cover
+          ></v-img>
           <v-card-title class="text-center font-weight-medium mt-3 text-black">
             {{ product.name }}
           </v-card-title>
@@ -22,23 +29,38 @@
           </v-card-text>
           <v-card-actions>
             <div class="d-flex flex-column mx-auto">
-              <ButtonComponent>BUY NOW</ButtonComponent>
+              <ButtonComponent class="text-uppercase mx-auto"
+                >BUY NOW</ButtonComponent
+              >
 
               <RouterLink
                 :to="{ name: 'ProductUpdateForm', params: { id: product.id } }"
               >
-                <v-btn color="primary" icon="mdi-update" size="small"></v-btn>
-              </RouterLink> 
-             
+                <ButtonComponent
+                  v-if="
+                    authStore.isLoggedIn &&
+                    (authStore.role === 'admin' || authStore.role === 'seller')
+                  "
+                  class="mx-auto text-uppercase bg-indigo rounded mt-1"
+                  type="submit"
+                  >EDIT</ButtonComponent
+                >
+              </RouterLink>
+
               <RouterLink
                 :to="{ name: 'ProductDelete', params: { id: product.id } }"
               >
-              <ButtonComponent class="mx-auto text-uppercase bg-red rounded mt-1" type="submit">DELETE</ButtonComponent>
-
+                <ButtonComponent
+                  v-if="
+                    authStore.isLoggedIn &&
+                    (authStore.role === 'admin' || authStore.role === 'seller')
+                  "
+                  class="mx-auto text-uppercase bg-red rounded"
+                  type="submit"
+                  >DELETE</ButtonComponent
+                >
               </RouterLink>
-
             </div>
-
           </v-card-actions>
         </RouterLink>
       </v-card>
@@ -46,7 +68,12 @@
 
     <!-- Pagination -->
     <div>
-      <v-pagination @input="updatePagProducts" v-model="page" :length="14" :total-visible="4"></v-pagination>
+      <v-pagination
+        @input="updatePagProducts"
+        v-model="page"
+        :length="14"
+        :total-visible="4"
+      ></v-pagination>
     </div>
   </v-container>
 </template>
@@ -58,15 +85,19 @@ import type { Product } from "@/helpers/products.model";
 import { ref } from "vue";
 import { watch } from "vue";
 
+import { useAuthStore } from "@/stores/auth";
+import { useProductsListStore } from "@/stores/ProductsStore";
+import { storeToRefs } from "pinia";
+
+const authStore = useAuthStore();
+
+
 const props = defineProps({
   listProduct: {
     type: Array as () => Product[],
     default: () => [],
   },
 });
-
-
-
 
 const itemsPage = 9;
 const page = ref(1);

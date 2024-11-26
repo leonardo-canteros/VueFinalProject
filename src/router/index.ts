@@ -40,11 +40,6 @@ const router = createRouter({
       component: () => import("../components/products/ProductUpdateForm.vue"),
     },
     {
-      path: "/product-update",
-      name: "ProductUpdate",
-      component: () => import("../views/ProductUpdateView.vue"),
-    },
-    {
       path: "/product-delete/:id(\\d+)",
       name: "ProductDelete",
       component: () => import("../components/products/ProductDelete.vue"),

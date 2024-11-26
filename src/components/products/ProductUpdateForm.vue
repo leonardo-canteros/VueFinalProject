@@ -35,24 +35,6 @@
           v-model="formData.category"
           required
         ></v-select>
-        <!--               <v-btn
-          class="mx-auto mt-2 py-6"
-          min-width="230"
-          style="background-color: #f46568; color: #ffffff"
-          type="submit"
-          block
-          >Update product <v-icon icon="mdi-checkbox-marked-circle" end></v-icon
-        ></v-btn>
-        <v-btn
-          class="mx-auto mt-2 py-6 text-white"
-          color="#3949ab"
-          min-width="230"
-          type="submit"
-          @click="goToBack"
-          block
-        >
-          <v-icon icon="mdi-arrow-left" start></v-icon>Back</v-btn
-        >  -->
         <ButtonComponent
           class="mx-auto mt-2 text-white text-uppercase"
           type="submit"
@@ -118,7 +100,7 @@ const updateData = async () => {
   try {
     await store.updateProduct(productId, formData);
     console.log("Product added.");
-    router.back();
+    router.push("/products");
   } catch (error) {
     console.error("Failed to add product:", error);
   }

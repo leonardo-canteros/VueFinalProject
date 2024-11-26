@@ -49,7 +49,7 @@ const deleteItemList = async (id: any) => {
 
 
 const goToUpdate = () => {
-  router.push("/product-update");
+  router.push("/products");
 };
 </script>
 

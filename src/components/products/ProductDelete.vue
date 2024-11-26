@@ -41,7 +41,7 @@ const deleteItemList = async (id: any) => {
   try {
     await store.deleteProduct(id);
 
-    router.push("/product-update");
+    router.push("/products");
   } catch (error) {
     console.error("Error deleting post: ", error);
   }

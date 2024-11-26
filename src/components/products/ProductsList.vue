@@ -1,19 +1,12 @@
 <template>
   <v-container>
     <div class="d-flex flex-wrap justify-center ga-5">
-      <v-card
-        style="width: 320px"
-        v-for="product in paginatedProducts"
-        :key="product.id"
-        hover
-      >
+
+      <v-card style="width: 320px" v-for="product in paginatedProducts" :key="product.id" hover>
+
         <RouterLink :to="{ name: 'productId', params: { id: product.id } }">
-          <v-img
-            class="align-end text-white"
-            height="300px"
-            :src="product.image"
-            cover
-          ></v-img>
+
+          <v-img class="align-end text-white" height="300px" :src="product.image" cover></v-img>
           <v-card-title class="text-center font-weight-medium mt-3 text-black">
             {{ product.name }}
           </v-card-title>
@@ -27,32 +20,43 @@
               </p>
             </div>
           </v-card-text>
-          <v-card-actions class="justify-center">
-            <ButtonComponent>BUY NOW</ButtonComponent>
+          <v-card-actions>
+            <div class="d-flex flex-column mx-auto">
+              <ButtonComponent>BUY NOW</ButtonComponent>
+
+              <RouterLink
+                :to="{ name: 'ProductUpdateForm', params: { id: product.id } }"
+              >
+                <v-btn color="primary" icon="mdi-update" size="small"></v-btn>
+              </RouterLink> 
+             
+              <RouterLink
+                :to="{ name: 'ProductDelete', params: { id: product.id } }"
+              >
+              <ButtonComponent class="mx-auto text-uppercase bg-red rounded mt-1" type="submit">DELETE</ButtonComponent>
+
+              </RouterLink>
+
+            </div>
+
           </v-card-actions>
         </RouterLink>
       </v-card>
     </div>
+
+    <!-- Pagination -->
     <div>
-      <v-pagination
-        @input="updatePagProducts"
-        v-model="page"
-        :length="14"
-        :total-visible="4"
-      ></v-pagination>
+      <v-pagination @input="updatePagProducts" v-model="page" :length="14" :total-visible="4"></v-pagination>
     </div>
   </v-container>
 </template>
 
-
 <script setup lang="ts">
-
 import { RouterLink } from "vue-router";
 import ButtonComponent from "@/components/common/ButtonComponent.vue";
 import type { Product } from "@/helpers/products.model";
 import { ref } from "vue";
 import { watch } from "vue";
-
 
 const props = defineProps({
   listProduct: {
@@ -61,6 +65,9 @@ const props = defineProps({
   },
 });
 
+
+
+
 const itemsPage = 9;
 const page = ref(1);
 const paginatedProducts = ref<Product[]>([]);
@@ -68,14 +75,10 @@ const paginatedProducts = ref<Product[]>([]);
 const updatePagProducts = () => {
   const startIndex = (page.value - 1) * itemsPage;
   const endIndex = startIndex + itemsPage;
-  paginatedProducts.value = 
-  props.listProduct.slice(startIndex, endIndex);
+  paginatedProducts.value = props.listProduct.slice(startIndex, endIndex);
 };
 
-watch([page, () => props.listProduct], 
-       updatePagProducts,
-       { immediate: true });
-
+watch([page, () => props.listProduct], updatePagProducts, { immediate: true });
 </script>
 
 <style scoped>

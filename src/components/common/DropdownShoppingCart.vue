@@ -51,7 +51,6 @@
 <script setup lang="ts">
 import ButtonComponent from "@/components/common/ButtonComponent.vue";
 import { useAuthStore } from "@/stores/auth";
-import { useCartStore } from "@/stores/cart";
 import { ref, watch } from "vue";
 
 interface OrderProducts {
@@ -66,16 +65,12 @@ interface OrderProducts {
 }
 
 const authStore = useAuthStore();
-const cartStore = useCartStore();
+// const cartStore = useCartStore();
 const role = ref("");
-const orderProducts = ref<OrderProducts[]>([]);
+// const orderProducts = ref<OrderProducts[]>([]);
 
 watch(authStore, (newValue) => {
   role.value = newValue.role;
-});
-
-watch(cartStore, (newValue) => {
-  orderProducts.value = newValue.cartProducts.order_products;
 });
 </script>
 

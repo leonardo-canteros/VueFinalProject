@@ -43,7 +43,7 @@ export const getUsersList = async () => {
     return filteredResponse;
     // return res.data.response;
   } catch (reason: any) {
-    console.log(reason.response.data.detail)
+    console.log(reason)
     // throw new Error(reason.response.data.detail);
   }  
 }
@@ -59,7 +59,7 @@ export const createUser = async (user: any) => {
     return res.data;
   } catch (reason: any) {
     // console.log(reason.response.data.detail.message)
-    throw new Error(reason.response.data.detail);
+    throw new Error(reason);
   }  
 }
 
@@ -103,7 +103,7 @@ export const deleteUser = async (id: string) => {
     return res.data;
     
   } catch (reason: any) {
-    console.log(reason.response.data.detail)
+    console.log(reason)
     // throw new Error(reason.response.data.detail);
   }  
 }

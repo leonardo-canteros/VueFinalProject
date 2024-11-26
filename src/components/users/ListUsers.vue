@@ -90,7 +90,7 @@
 
             <v-col v-if="dialog.editMode" cols="12" sm="6">
               <BaseTextField
-                :v-model="deactivated_at"
+                v-model="deactivated_at"
                 label="Deactivated At"
                 readonly
               ></BaseTextField>
@@ -141,7 +141,11 @@
             </v-col>
 
             <v-col cols="12" sm="12">
-              <BaseTextField v-model="image" label="Image URL"></BaseTextField>
+              <BaseTextField
+                v-model="image"
+                :error-messages="errors.image"
+                label="Image URL"
+              ></BaseTextField>
             </v-col>
           </v-row>
 
@@ -214,6 +218,7 @@ const editUserSchema = yup.object({
     .mixed()
     .oneOf(["admin", "seller", "customer"] as const)
     .required("Role is required"),
+  image: yup.string().url("Must be a valid URL"),
 });
 
 const addUserSchema = editUserSchema.concat(
@@ -284,14 +289,14 @@ const dialogDelete = reactive({
   msg: "",
 });
 
-function addUserInit(): void {
+const addUserInit = () => {
   clearDialog();
   dialog.title = "Add User";
   dialog.show = true;
   dialog.editMode = false;
-}
+};
 
-async function addUserConfirm(values: {}): Promise<void> {
+const addUserConfirm = async (values: {}) => {
   // let user = JSON.parse(JSON.stringify(values));
   // user.password = passwordInput.value;
   try {
@@ -299,9 +304,15 @@ async function addUserConfirm(values: {}): Promise<void> {
     clearDialog();
     updateTable();
   } catch (error: any) {
-    console.log(error.message);
+    if (error.response && error.response.status === 409) {
+      console.log("User with this email or username already exists");
+      console.log(error.response.data.message); // Specific error message
+    } else {
+      console.log("An error occurred while creating the user.");
+      console.log(error); // Generic error message
+    }
   }
-}
+};
 
 function editUserInit(item: {}): void {
   const itemJson = JSON.parse(JSON.stringify(item));
@@ -309,6 +320,9 @@ function editUserInit(item: {}): void {
   username.value = itemJson.username;
   email.value = itemJson.email;
   role.value = itemJson.role;
+  deactivated_at.value = itemJson.deactivated_at;
+  console.log(deactivated_at.value);
+  image.value = itemJson.image;
   dialog.title = "Edit User";
   dialog.show = true;
   dialog.editMode = true;

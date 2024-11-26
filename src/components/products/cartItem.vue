@@ -91,6 +91,7 @@ const removeFromCart = async () => {
       props.product,
       customer_id,
       props.product.quantity
+      
     );
     dialogVisible.value = false; // Cierra el diálogo después de eliminar el producto
     // Emitir el evento para notificar a la vista

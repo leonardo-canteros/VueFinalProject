@@ -11,6 +11,16 @@
             </v-col>
             
             <v-col cols="12" md="6">
+              <div class="d-flex justify-end my-3 mr-2">
+                
+                <ButtonComponent
+              @click="goToBack"
+              color="indigo"
+              class="text-uppercase text-white"
+              ><v-icon icon="mdi-arrow-left" start></v-icon>
+              Back</ButtonComponent>
+
+              </div>
                 <v-card>
                   <v-card-title>{{ productRetrieve.name }}</v-card-title>
                   <v-card-subtitle class="text-h6">{{productRetrieve.price}}</v-card-subtitle>
@@ -63,7 +73,9 @@ import { useProductsListStore } from "@/stores/ProductsStore";
 import { useCartStore } from "@/stores/cart";
 import { useAuthStore } from "@/stores/auth";
 import ButtonComponent from "@/components/common/ButtonComponent.vue";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const route = useRoute();
 const productRetrieve = ref();
 const store = useProductsListStore();
@@ -100,6 +112,9 @@ const addToCart = async () => {
   }
 };
 
+const goToBack = () => {
+  router.push("/products");
+};
 
 onMounted(async () => {
   const productId = route.params.id;

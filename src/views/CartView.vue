@@ -1,6 +1,6 @@
 <template >
   <v-container class="d-flex flex-column justify-center">
-    <h1 class="my-2">Mi Carrito</h1>
+    <h1 class="my-2">My Cart</h1>
     
     <!-- Solo muestra los productos si cartProducts tiene productos -->
     <v-list v-if="cartProducts.order_products.length > 0" dense>
@@ -12,7 +12,7 @@
     </v-list>
 
     <!-- Si no hay productos en el carrito, muestra un mensaje -->
-    <v-alert v-else="cartProducts.order_products.length === 0" type="info">Tu carrito está vacío</v-alert>
+    <v-alert v-else="cartProducts.order_products.length === 0" type="info"> Your cart is empty</v-alert>
 
     <!-- Aquí pasamos solo el arreglo de productos -->
     <CartSuma :product="cartProducts.order_products" />

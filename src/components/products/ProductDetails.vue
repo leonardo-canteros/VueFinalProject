@@ -105,7 +105,7 @@ const addToCart = async () => {
       userId,           
       quantity.value,     
     );
-    alert("Producto añadido al carrito exitosamente");
+    alert("Product added to cart successfully");
   } catch (error) {
     console.error("Error al añadir producto al carrito:", error);
     alert("No se pudo añadir el producto al carrito.");

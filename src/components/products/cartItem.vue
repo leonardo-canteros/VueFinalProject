@@ -35,9 +35,9 @@
       <v-col cols="12" md="4" class="d-flex justify-end">
         <div>
           <RouterLink :to="{ name: 'productId', params: { id: product.product_id } }">
-            <v-btn color="primary">See Details</v-btn>
+            <v-btn color="primary">Ver Detalles</v-btn>
           </RouterLink>
-          <v-btn @click="showRemoveDialog" color="red">Remove</v-btn>
+          <v-btn @click="showRemoveDialog" color="red">Eliminar</v-btn>
         </div>
       </v-col>
     </v-row>
@@ -46,10 +46,10 @@
   <!-- Diálogo de confirmación para eliminar producto -->
   <v-dialog v-model="dialogVisible" max-width="400px">
     <v-card>
-      <v-card-title class="headline">¿Remove product from cart?</v-card-title>
+      <v-card-title class="headline">¿Eliminar producto del carrito?</v-card-title>
       <v-card-actions>
         <v-btn  @click="dialogVisible = false">No</v-btn>
-        <v-btn color="red" @click="removeFromCart">yes</v-btn>
+        <v-btn color="red" @click="removeFromCart">Sí</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -91,6 +91,7 @@ const removeFromCart = async () => {
       props.product,
       customer_id,
       props.product.quantity
+      
     );
     dialogVisible.value = false; // Cierra el diálogo después de eliminar el producto
     // Emitir el evento para notificar a la vista
@@ -129,8 +130,6 @@ const decreaseQuantity = async () => {
 
 <style scoped>
 .product-item {
-  display: grid;
-  grid-template-rows: auto 1fr auto; /* Ajusta el contenido a la altura disponible */
   border: 1px solid #ccc;
   border-radius: 20px;
   transition: all 0.3s ease;
@@ -140,11 +139,5 @@ const decreaseQuantity = async () => {
   border-color: #f46568;
   border-radius: 20px;
   background-color: #f9f9f9;
-}
-
-.v-img {
-  object-fit: cover;
-  height: 80px;
-  width: 80px;
 }
 </style>

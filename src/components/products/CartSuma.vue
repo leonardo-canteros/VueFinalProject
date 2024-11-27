@@ -2,7 +2,7 @@
     <v-sheet class="pa-4 mt-4" elevation="2">
       <v-row>
         <v-col>
-          <v-subheader>Total:</v-subheader>
+          <h2>Total:</h2>
           <v-row justify="space-between">
             <v-col>
               <span>${{ totalPrice }} </span>
@@ -21,12 +21,12 @@
 import { defineProps } from 'vue';
 
 import { computed,  } from 'vue';
-import type { Orders02 } from "@/stores/cart";
+import type { Orders01 } from "@/stores/cart";
 
 // Cambiar el tipo para que sea un array de productos
 const props = defineProps({
   product: {
-    type: Array as () => Orders02["order_products"], 
+    type: Array as () => Orders01["order_products"], 
     required: true,
   }
 });

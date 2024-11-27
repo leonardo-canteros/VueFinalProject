@@ -90,18 +90,23 @@ const closeModal = () => {
 };
 
 const submitForm = async () => {
+  console.log('Submit form triggered'); // Depuración
+
   const isFormValid = await validate();
+  console.log('Form validation result:', isFormValid);
+
   if (isFormValid) {
+    console.log('Form is valid');
+
     // Mostrar notificación
     showModal.value = true;
 
     // Resetear el formulario
     resetForm();
   } else {
-    console.log('Form is not valid');
+    console.log('Form is not valid', errors);
   }
 };
-
 const { value: name } = useField('name');
 const { value: email } = useField('email');
 const { value: subject } = useField('subject');

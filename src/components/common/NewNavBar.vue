@@ -17,11 +17,12 @@
       </template>
       <v-app-bar-title>More Than Sound</v-app-bar-title>
       <v-spacer></v-spacer>
-      <RouterLink to="/cart" class="text-white">
+      <DropdownShoppingCart />
+      <!-- <RouterLink to="/cart" class="text-white">
         <v-btn icon>
           <v-icon>mdi-cart-outline</v-icon>
         </v-btn>
-      </RouterLink>
+      </RouterLink> -->
       <RouterLink to="/login" class="text-white">
         <v-btn v-if="!authStore.isLoggedIn" icon>
           <v-icon left class="px-3">mdi-account-key-outline</v-icon>
@@ -67,6 +68,7 @@
 </template>
 
 <script setup lang="ts">
+import DropdownShoppingCart from "@/components/common/DropdownShoppingCart.vue";
 import { useAuthStore } from "@/stores/auth";
 import { ref, watch } from "vue";
 import { RouterView } from "vue-router";

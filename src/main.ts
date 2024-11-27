@@ -17,6 +17,7 @@ import "vuetify/styles";
 const vuetify = createVuetify({
   components,
   directives,
+  
 });
 
 /**

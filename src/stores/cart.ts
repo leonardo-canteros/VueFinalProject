@@ -5,8 +5,6 @@ import axios from "axios";
 import { useAuthStore } from "@/stores/auth";
 import { string } from "yup";
 
-const authStore = useAuthStore();
-
 export interface Orders {
   customer_id: String;
   order_products: Array<{
@@ -51,6 +49,8 @@ export interface Orders02 {
 }
 
 export const useCartStore = defineStore("cart", () => {
+  const authStore = useAuthStore();
+  
   const cartProducts = ref<Orders02>({
     customer_id: "",
     order_products: [],

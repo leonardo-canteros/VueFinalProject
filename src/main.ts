@@ -34,7 +34,7 @@ app.use(VueCookies, {
   sameSite: "Lax",
   expires: "7d",
   path: "/",
-  domain: ".morethansound.com",
+  domain: ".morethansound.vercel.app",
 });
 
 app.use(createPinia());

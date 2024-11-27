@@ -8,7 +8,7 @@
               <span>${{ totalPrice }} </span>
             </v-col>
             <v-col>
-              <v-btn style="background-color: #f46568; color: #ffffff" type="submit">Proceed to Payment</v-btn>
+              <v-btn style="background-color: #f46568; color: #ffffff" type="submit">Proceder al Pago</v-btn>
             </v-col>
           </v-row>
         </v-col>

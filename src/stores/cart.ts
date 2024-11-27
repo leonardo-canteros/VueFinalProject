@@ -4,6 +4,8 @@ import { ref } from "vue";
 import axios from "axios";
 import { useAuthStore } from "@/stores/auth";
 
+const authStore = useAuthStore();
+
 export interface Orders {
   customer_id: String;
   order_products: Array<{
@@ -59,18 +61,16 @@ const http = axios.create({
   baseURL: "https://upper-serena-fastapi-ecommerce-6026090d.koyeb.app/api",
 });
 
-export const useCartStore = defineStore("cart", () => {
-
-  const authStore = useAuthStore();
-
-  // Agrega un interceptor para incluir el token en las solicitudes
-  http.interceptors.request.use((config) => {
+// Agrega un interceptor para incluir el token en las solicitudes
+http.interceptors.request.use((config) => {
   const token = authStore.getToken();
   if (token) {
     config.headers["Authorization"] = `Bearer ${token}`;
   }
   return config;
-  });
+});
+
+export const useCartStore = defineStore("cart", () => {
   
   const cartProducts = ref<Orders01>({
     customer_id: "",

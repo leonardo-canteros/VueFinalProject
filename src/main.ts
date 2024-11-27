@@ -17,7 +17,6 @@ import "vuetify/styles";
 const vuetify = createVuetify({
   components,
   directives,
-  
 });
 
 /**
@@ -35,7 +34,7 @@ app.use(VueCookies, {
   sameSite: "Lax",
   expires: "7d",
   path: "/",
-  domain: ".morethansound.vercel.app",
+  domain: "localhost",
 });
 
 app.use(createPinia());

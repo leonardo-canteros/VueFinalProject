@@ -1,5 +1,7 @@
-<template>
+<template >
   <v-list-item class="product-item" :class="{'hovered': isHovered}" @mouseover="isHovered = true" @mouseleave="isHovered = false">
+    <!-- Si no hay productos en el carrito, muestra un mensaje -->
+
     <v-row style="align-items: center; justify-content: space-between">
       <!-- Imagen del producto -->
       <v-col>
@@ -12,13 +14,13 @@
       <v-col cols="12" sm="8" md="6">
         <div>
           <v-row justify="start" style="align-items: center">
-            <v-col>
+            <v-col  cols="12"  md="4">
               <v-list-item-title>{{ product.name }}</v-list-item-title>
             </v-col>
-            <v-col>
+            <v-col cols="12"  md="4">
               <v-list-item-subtitle>Precio: ${{ product.price }}</v-list-item-subtitle>
             </v-col>
-            <v-col>
+            <v-col cols="12"  md="4">
               <v-list-item-subtitle>
                 <v-row class="d-flex align-center">
                   <v-btn small @click="decreaseQuantity" :disabled="product.quantity <= 1">-</v-btn>

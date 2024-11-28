@@ -1,6 +1,9 @@
 <template >
   <v-container class="d-flex flex-column justify-center">
-    <h1 class="my-2">Mi Carrito</h1>
+    <h1 class="my-2">My Cart</h1>
+
+    <!-- Si no hay productos en el carrito, muestra un mensaje -->
+    <v-alert v-if="cartProducts.order_products.length === 0" type="info"> Your cart is empty</v-alert>
     
     <!-- Solo muestra los productos si cartProducts tiene productos -->
     <v-list v-if="cartProducts.order_products.length > 0" dense>
@@ -29,6 +32,7 @@ import { useAuthStore } from "@/stores/auth";
 
 const authStore = useAuthStore();
 const store = useCartStore();  
+const userId = authStore.getUserId();
 
 const cartProducts = ref<Orders01>({
     customer_id: "",
@@ -36,20 +40,53 @@ const cartProducts = ref<Orders01>({
     status: "",
     id: "",
   });
-
-console.log("cartProducts:", cartProducts.value);
-console.log("cartProducts.order_products.length", cartProducts.value.order_products.length);
-// Función para cargar el carrito
-const loadCart = async () => {
+  
+  // Función para cargar el carrito
+  const loadCart = async () => {
   const customer_id = authStore.getUserId();
   const response = await useCartStore().fetchCartProducts(customer_id);
-  cartProducts.value = response;
-};
+  // Valida que response no sea undefined o null
+  if (!response) {
+        console.warn("Carrito no encontrado, asignando un carrito vacío");
+        cartProducts.value = {
+        customer_id: userId,
+        order_products: [],
+        status: "",
+        id: "",
+          };
+        } else {
+         cartProducts.value = response;
+         }
+      console.log("cartProducts.value", cartProducts.value);
+   };
 
 // Función para recargar el carrito después de un cambio
 const reloadCart = async () => {
   await loadCart();
 };
 
-onMounted(loadCart);
+console.log("cartProducts:", cartProducts.value);
+console.log("cartProducts.order_products.length", cartProducts.value.order_products.length);
+
+// onMounted para inicializar el carrito
+    onMounted(async () => {
+        const userId = authStore.getUserId();
+        console.log("userId", userId);
+        const response = await store.fetchCartProducts(userId);
+        console.log("Respuesta del carrito:", response);
+        // Valida que response no sea undefined o null
+        if (!response) {
+        console.warn("Carrito no encontrado, asignando un carrito vacío");
+        cartProducts.value = {
+        customer_id: userId,
+        order_products: [],
+        status: "",
+        id: "",
+          };
+        } else {
+         cartProducts.value = response;
+         }
+      console.log("cartProducts.value", cartProducts.value);
+    })
+
 </script>

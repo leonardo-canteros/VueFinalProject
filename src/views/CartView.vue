@@ -14,8 +14,6 @@
         />
     </v-list>
 
-    <!-- Si no hay productos en el carrito, muestra un mensaje -->
-    <v-alert v-else="cartProducts.order_products.length === 0" type="info">Tu carrito está vacío</v-alert>
 
     <!-- Aquí pasamos solo el arreglo de productos -->
     <CartSuma :product="cartProducts.order_products" />

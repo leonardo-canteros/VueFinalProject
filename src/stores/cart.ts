@@ -106,9 +106,7 @@ export const useCartStore = defineStore("cart", () => {
           price: product.price,
           quantity: quantity
         } );
-        const cart = response.data.response;
-        cartProducts.value = cart;
-        return cart;
+        fetchCartProducts(customer_id);
       } catch (error) {
         console.error("Error añadiendo producto al carrito:", error);
         

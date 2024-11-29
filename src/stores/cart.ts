@@ -89,18 +89,26 @@ export const useCartStore = defineStore("cart", () => {
       return cart;
     } catch (error) {
       console.error("Error obteniendo productos del carrito:", error);
+      cartProducts.value = {
+        customer_id: "",
+        order_products: [],
+        status: "",
+        id: "",
+      };
     }
   };
 
     const addProductToCart = async (product: Orders02["order_products"][0], customer_id: string, quantity: number) => {
       try {
         console.log("product id",product.id, "product price", product.price, "quatity",quantity,"id usuario", customer_id,  );
-        await http.post(`/orders/shopping_cart/add/${customer_id}`,{ 
+        const response = await http.post(`/orders/shopping_cart/add/${customer_id}`,{ 
           product_id: product.id,
           price: product.price,
           quantity: quantity
         } );
-      
+        const cart = response.data.response;
+        cartProducts.value = cart;
+        return cart;
       } catch (error) {
         console.error("Error añadiendo producto al carrito:", error);
         

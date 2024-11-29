@@ -1,10 +1,12 @@
-<template>
+<template >
   <v-list-item class="product-item" :class="{'hovered': isHovered}" @mouseover="isHovered = true" @mouseleave="isHovered = false">
+    <!-- Si no hay productos en el carrito, muestra un mensaje -->
+
     <v-row style="align-items: center; justify-content: space-between">
       <!-- Imagen del producto -->
       <v-col>
         <div>
-          <v-img :src="product.image" alt="Product Image" max-width="80" max-height="80" />
+          <v-img :src="product.image" alt="Product Image" width="70px" height="70px"  />
         </div>
       </v-col>
 
@@ -12,13 +14,13 @@
       <v-col cols="12" sm="8" md="6">
         <div>
           <v-row justify="start" style="align-items: center">
-            <v-col>
+            <v-col  cols="12"  md="4">
               <v-list-item-title>{{ product.name }}</v-list-item-title>
             </v-col>
-            <v-col>
+            <v-col cols="12"  md="4">
               <v-list-item-subtitle>Precio: ${{ product.price }}</v-list-item-subtitle>
             </v-col>
-            <v-col>
+            <v-col cols="12"  md="4">
               <v-list-item-subtitle>
                 <v-row class="d-flex align-center">
                   <v-btn small @click="decreaseQuantity" :disabled="product.quantity <= 1">-</v-btn>
@@ -35,9 +37,9 @@
       <v-col cols="12" md="4" class="d-flex justify-end">
         <div>
           <RouterLink :to="{ name: 'productId', params: { id: product.product_id } }">
-            <v-btn color="primary">Ver Detalles</v-btn>
+            <v-btn color="primary">See Details</v-btn>
           </RouterLink>
-          <v-btn @click="showRemoveDialog" color="red">Eliminar</v-btn>
+          <v-btn @click="showRemoveDialog" color="red">Remove</v-btn>
         </div>
       </v-col>
     </v-row>
@@ -46,10 +48,10 @@
   <!-- Diálogo de confirmación para eliminar producto -->
   <v-dialog v-model="dialogVisible" max-width="400px">
     <v-card>
-      <v-card-title class="headline">¿Eliminar producto del carrito?</v-card-title>
+      <v-card-title class="headline">¿Remove product from cart?</v-card-title>
       <v-card-actions>
         <v-btn  @click="dialogVisible = false">No</v-btn>
-        <v-btn color="red" @click="removeFromCart">Sí</v-btn>
+        <v-btn color="red" @click="removeFromCart">Yes</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

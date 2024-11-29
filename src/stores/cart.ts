@@ -1,8 +1,8 @@
 // src/stores/cart.ts
+import { useAuthStore } from "@/stores/auth";
+import axios from "axios";
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import axios from "axios";
-import { useAuthStore } from "@/stores/auth";
 
 export interface Orders {
   customer_id: String;

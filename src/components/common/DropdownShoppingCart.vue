@@ -97,11 +97,11 @@ const orderProductsCount = ref(0);
 
 watch(authStore, async (newValue) => {
   role.value = newValue.role;
-  if (newValue.isLoggedIn) {
-    orderProducts.value = await cartStore.fetchCartProducts(
-      newValue.getUserId()
-    );
-  }
+  // if (newValue.isLoggedIn) {
+  //   orderProducts.value = await cartStore.fetchCartProducts(
+  //     newValue.getUserId()
+  //   );
+  // }
 });
 
 watch(cartStore, (newValue) => {

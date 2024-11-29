@@ -1,11 +1,11 @@
 <template>
-  <template v-if="role === 'customer' && orderProducts.length > 0">
+  <template v-if="role === 'customer' && orderProductsCount > 0">
     <v-menu>
       <template v-slot:activator="{ props }">
         <v-btn icon v-bind="props">
           <v-badge
-            :content="orderProducts.length"
-            :value="orderProducts.length"
+            :content="orderProductsCount"
+            :value="orderProductsCount"
             color="red"
             overlap
           >
@@ -93,20 +93,23 @@ interface OrderProduct {
 }
 
 const orderProducts = ref<OrderProduct[]>([]);
-
-// console.log(cartStore);
+const orderProductsCount = ref(0);
 
 watch(authStore, async (newValue) => {
   role.value = newValue.role;
-  if (newValue.isLoggedIn) {
-    orderProducts.value = await cartStore.fetchCartProducts(
-      newValue.getUserId()
-    );
-  }
+  // if (newValue.isLoggedIn) {
+  //   orderProducts.value = await cartStore.fetchCartProducts(
+  //     newValue.getUserId()
+  //   );
+  // }
 });
 
 watch(cartStore, (newValue) => {
   orderProducts.value = newValue.cartProducts.order_products;
+  orderProductsCount.value = newValue.cartProducts.order_products.reduce(
+    (acc, product) => acc + product.quantity,
+    0
+  );
 });
 </script>
 
